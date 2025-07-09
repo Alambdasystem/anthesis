@@ -1,0 +1,2176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Alambda Systems | AI Development, Cloud DevOps & Cybersecurity in St. Louis, Missouri</title>
+<meta name="description" content="Alambda Systems is a top-rated, minority-owned AI and software development company based in downtown St. Louis, Missouri. We specialize in AI automation, machine learning models, custom app development, DevOps, cloud solutions, cybersecurity training, and agentic tools. Our platform includes AI FileTalk, enterprise file managers, and cutting-edge integrations with Azure, AWS, HuggingFace, and GPT frameworks." />
+<meta name="keywords" content="Alambda Systems, AI company St. Louis, AI companies in Missouri, Black-owned tech company St. Louis, minority-owned IT company Missouri, AI development company in St. Louis, AI startups Missouri, GPT developers in St. Louis, FileTalk platform, agentic AI tools, Azure DevOps company Missouri, AWS consultants St. Louis, software development company downtown St. Louis, custom app developers Missouri, IT companies in St. Louis, IT companies in 63101, software firms St. Louis, cybersecurity classes near me, cybersecurity training Missouri, CompTIA Security+ bootcamp, tech companies in St. Louis, software companies in Missouri, software development agencies 63164, application development agency St. Louis, STL tech startup, cloud service providers in St. Louis, DevOps consultants Missouri, construction software developers, healthcare software firms Missouri, embedded software engineers St. Louis, St. Louis MSP, IT support training programs, tech services firm STL, mobile app agency Missouri, AI healthcare software, AI automation for small business, digital transformation services Missouri, MBE certified software company, SBA certified tech firm Missouri, GPT-4 developers STL, LLaMA Claude Gemini AI tools, PyTorch developers St. Louis, Python engineers Missouri, AI music generation tools, RubikÃ¢â‚¬â„¢s Cube game with AI, enterprise AI orchestration, AI chatbot company Missouri, AI consulting firm St. Louis, cloud-native development agency Missouri, St. Louis AI hiring events, walk-in software developer opportunities St. Louis, smart automation company STL, AI CRM developers Missouri, government contract tech support, software expert witnesses Missouri, Alambda Inno Hub, SOHO VR platform, urban tech firm St. Louis, STEM job training programs STL, agent-based DevOps automation, Black-owned software innovation lab Missouri, AI-powered DevOps pipeline experts, ChatGPT-based development company Missouri" />
+
+
+
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/magnific-popup.css"/>
+  <link rel="stylesheet" href="css/jquery-ui.css"/>
+  <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+  <link rel="stylesheet" href="css/owl.theme.default.min.css"/>
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css"/>
+  <link rel="stylesheet" href="css/aos.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    /* Add to your existing <style> tag - modern professional color scheme */
+:root {
+  --primary: #2d3748;      /* Dark slate gray */
+  --secondary: #4a5568;    /* Medium slate */
+  --accent: #3182ce;       /* Professional blue */
+  --accent-contrast: #63b3ed; /* Lighter blue for hover states */
+  --light-bg: #f7fafc;     /* Very light background */
+  --dark-text: #1a202c;    /* Near-black for important text */
+  --muted-text: #718096;   /* Muted gray for secondary text */
+  --card-bg: #ffffff;      /* Card background */
+  --border-light: #e2e8f0; /* Light border */
+  --success: #38a169;      /* Green for success messages */
+  --gray-gradient: linear-gradient(to right, #f7fafc, #edf2f7);
+  --blue-gradient: linear-gradient(to right, #2d3748, #4a5568);
+}
+
+/* Body and main elements */
+body {
+  color: var(--dark-text);
+}
+
+header h1 { 
+  color: var(--primary);
+  font-weight: 700;
+}
+
+nav a {
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+.section-title {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Button updates */
+.btn-primary {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-primary:hover {
+  background-color: #2c5282;
+  border-color: #2c5282;
+}
+
+.btn-outline-primary {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Cards and containers */
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.07);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  background: var(--primary) !important;
+  color: white !important;
+  border-bottom: none;
+  font-weight: 600;
+  padding: 15px 20px;
+}
+
+.card.bg-dark, .card.bg-dark.text-white {
+  background: var(--card-bg) !important;
+  color: var(--dark-text) !important;
+  border: none;
+}
+
+.card-body {
+  padding: 20px;
+  color: var(--muted-text);
+}
+
+/* Ticker updates */
+.ticker {
+  background: var(--light-bg);
+  color: var(--muted-text);
+  border-bottom: 1px solid var(--border-light);
+  font-weight: 600;
+}
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #f7fafc;
+      color: #222;
+      margin: 0;
+      scroll-behavior: smooth;
+    }
+    header {
+      position: sticky; top: 0; background: #fff;
+      padding: 1rem; display: flex;
+      justify-content: space-between; align-items: center;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    header h1 { color: #ff4d4d; margin: 0; font-size: 2rem; letter-spacing: 1px;}
+    nav a {
+      color: #0a84ff; margin: 0 1rem;
+      text-decoration: none; font-weight: bold; transition: color 0.2s;
+    }
+    nav a:hover { color: #ff4d4d; }
+    .ticker {
+      padding: .5rem; background: #e3f2fd;
+      color: #0a84ff; font-weight: bold;
+      white-space: nowrap; overflow: hidden;
+    }
+    .section-title {
+      font-size: 2.2rem; margin-bottom: 1rem;
+      color: #0a84ff;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    /* Hero Section - Flex row for cube and welcome */
+    #hero {
+      position: relative;
+      background: linear-gradient(120deg, #fffbe7 0%, #ffe5e5 100%);
+      min-height: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+    }
+        /* Add to your existing <style> tag */
+    /* Typing indicator */
+    .typing-indicator .dots {
+      display: inline-block;
+      width: 20px;
+    }
+    #three-hero {
+      width: 260px;
+      height: 260px;
+      min-width: 180px;
+      min-height: 180px;
+      max-width: 30vw;
+      border-radius: 18px;
+      background: transparent;
+      box-shadow: 0 4px 24px rgba(10,132,255,0.10);
+      margin-right: 0;
+      margin-left: 0;
+      display: block;
+      z-index: 2;
+    }
+    .hero-content {
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 40px 32px 32px 32px;
+      max-width: 500px;
+      margin: 0;
+      text-align: left;
+      z-index: 2;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      color: #ff4d4d;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .hero-title .agentic {
+      color: #fff;
+      background: #ff4d4d;
+      padding: 0 12px;
+      border-radius: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px #ffe5e5;
+      font-size: 2.1rem;
+      margin-right: 8px;
+      border: 2px solid #ffb3b3;
+      display: inline-block;
+    }
+    .hero-title .ai-trainer {
+      color: #fff;
+      background: #0a84ff;
+      padding: 0 12px;
+      border-radius: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-left: 8px;
+      box-shadow: 0 2px 8px #e3f2fd;
+      font-size: 2.1rem;
+      border: 2px solid #b3d8ff;
+      display: inline-block;
+    }
+    .ai-trainer-highlight {
+      display: inline-block;
+      background: linear-gradient(90deg, #0a84ff 60%, #ff4d4d 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 8px 24px;
+      border-radius: 18px;
+      font-size: 1.3rem;
+      margin: 1.2rem 0;
+      box-shadow: 0 2px 8px #e3f2fd;
+      letter-spacing: 1px;
+    }
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+    .hero-welcome {
+      font-size: 1.5rem;
+      color: #0a84ff;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    /* Modern Chat Window - improved */
+    #chat-section-modern {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 0;
+      background: #f7fafc;
+    }
+    .modern-chat-container {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 4px 32px rgba(10,132,255,0.10), 0 1.5px 8px #ff4d4d22;
+      width: 100%;
+      max-width: 480px;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1.5px solid #e3f2fd;
+      transition: box-shadow 0.2s;
+    }
+    .modern-chat-container:focus-within {
+      box-shadow: 0 8px 32px #0a84ff33;
+    }
+    .modern-chat-header {
+      background: linear-gradient(90deg, #0a84ff 60%, #ff4d4d 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 18px 24px;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #e3f2fd;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modern-chat-messages {
+      flex: 1;
+      padding: 18px 18px 8px 18px;
+      overflow-y: auto;
+      background: #f7fafc;
+      font-size: 1.08rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .modern-bubble {
+      padding: 12px 18px;
+      margin: 0;
+      border-radius: 18px;
+      max-width: 80%;
+      word-break: break-word;
+      line-height: 1.6;
+      font-size: 1.08rem;
+      box-shadow: 0 1px 4px #e3f2fd;
+      display: inline-block;
+      clear: both;
+      transition: background 0.2s;
+    }
+    .modern-bubble.user {
+      background: #0a84ff;
+      color: #fff;
+      margin-left: auto;
+      text-align: right;
+      border-bottom-right-radius: 6px;
+    }
+    .modern-bubble.ai {
+      background: #fff0f0;
+      color: #ff4d4d;
+      margin-right: auto;
+      text-align: left;
+      border-bottom-left-radius: 6px;
+      border: 1px solid #ffb3b3;
+    }
+    .modern-chat-input-row {
+      display: flex;
+      padding: 18px;
+      background: #f7fafc;
+      border-top: 1px solid #e3f2fd;
+      gap: 10px;
+    }
+    .modern-chat-input-row input {
+      flex: 1;
+      border-radius: 16px;
+      border: 1px solid #e3f2fd;
+      padding: 12px 16px;
+      font-size: 1.08rem;
+      outline: none;
+      transition: border 0.2s;
+      background: #fff;
+    }
+    .modern-chat-input-row input:focus {
+      border: 1.5px solid #0a84ff;
+      background: #f0f8ff;
+    }
+    .modern-chat-input-row button {
+      border-radius: 16px;
+      background: linear-gradient(90deg, #0a84ff 60%, #ff4d4d 100%);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      padding: 0 26px;
+      font-size: 1.08rem;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px #e3f2fd;
+    }
+    .modern-chat-input-row button:hover {
+      background: linear-gradient(90deg, #ff4d4d 60%, #0a84ff 100%);
+    }
+    /* Remove all black backgrounds from sections */
+    section[style*="background:#111"], section[style*="background: #111"] {
+      background: #fff !important;
+    }
+    /* Cards */
+    .card.bg-dark, .card.bg-dark.text-white {
+      background: #fff !important;
+      color: #222 !important;
+      border: 1px solid #e0e0e0;
+    }
+    .card-header {
+      background: #ff4d4d !important;
+      color: #fff !important;
+      font-weight: 600;
+    }
+    /* Hide FileTalk and Game */
+    #filetalk, #game, a[href="#filetalk"], a[href="#game"] {
+      display: none !important;
+    }
+    /* Footer */
+    footer.bg-black {
+      background: #fff !important;
+      color: #0a84ff !important;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    /* Add inside the existing <style> tag */
+.service-card {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(10,132,255,0.15);
+  border-color: rgba(10,132,255,0.2);
+}
+
+.service-icon {
+  font-size: 2.5rem;
+  color: #0a84ff;
+  margin-bottom: 20px;
+  display: inline-block;
+  background: rgba(10,132,255,0.1);
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.service-description {
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.service-link {
+  color: #0a84ff;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.service-link:hover {
+  color: #ff4d4d;
+  text-decoration: none;
+  transform: translateX(5px);
+}
+
+/* Add inside the existing <style> tag */
+.client-logos {
+  margin: 20px 0;
+}
+
+.client-logo-box {
+  background-color: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  font-weight: 600;
+  color: #aaa;
+}
+
+.client-logo-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-color: #0a84ff;
+  color: #0a84ff;
+}
+
+/* Add inside the existing <style> tag */
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f4f8;
+  color: #0a84ff;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: #0a84ff;
+  color: white;
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+
+/* Add inside the existing <style> tag */
+.contact-form-container {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.contact-icon {
+  background-color: rgba(10,132,255,0.1);
+  color: #0a84ff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* Add to your existing <style> tag */
+/* Chat Overlay and Toggle Button */
+#chatToggleBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #3182ce;
+  color: white;
+  display: flex !important; /* Force display */
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  z-index: 9999; /* Higher z-index */
+  border: none;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+#chatToggleBtn:hover {
+  transform: scale(1.05);
+  background-color: #2c5282;
+}
+
+.chat-overlay {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 380px;
+  height: 500px;
+  background-color: var(--light-bg);
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+}
+
+.chat-overlay.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+  z-index: 9998; /* High z-index but below toggle */
+}
+
+.chat-header-bar {
+  background: var(--blue-gradient);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.chat-header-bar h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.btn-close-chat {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-close-chat:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px);
+  width: 100%;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: var(--light-bg);
+}
+
+.chat-message {
+  display: flex;
+  gap: 12px;
+  max-width: 90%;
+}
+
+.ai-message {
+  align-self: flex-start;
+}
+
+.user-message {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-message .message-avatar {
+  background-color: var(--secondary);
+}
+
+.message-content {
+  background-color: white;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-size: 0.95rem;
+}
+
+.ai-message .message-content {
+  border-top-left-radius: 0;
+}
+
+.user-message .message-content {
+  background-color: var(--accent);
+  color: white;
+  border-top-right-radius: 0;
+}
+
+.chat-input {
+  display: flex;
+  padding: 12px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  background: white;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.chat-input input:focus {
+  border-color: var(--accent);
+}
+
+.chat-input button {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.chat-input button:hover {
+  background-color: #2c5282;
+}
+
+.suggested-questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-suggested {
+  background-color: rgba(49, 130, 206, 0.1);
+  color: var(--accent);
+  font-size: 0.8rem;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-suggested:hover {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* Add to your existing <style> tag */
+/* Typing indicator */
+.typing-indicator .dots {
+  display: inline-block;
+  width: 20px;
+}
+
+/* Replace the two separate tickers with this unified ticker */
+.unified-ticker {
+  background: var(--light-bg);
+  border-bottom: 1px solid var(--border-light);
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+.ticker-wrapper {
+  display: flex;
+  align-items: center;
+  animation: ticker-scroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+.ticker-category {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--secondary);
+  padding: 0 15px;
+}
+
+.ticker-divider {
+  height: 20px;
+  width: 1px;
+  background-color: var(--border-light);
+  margin: 0 10px;
+}
+
+.ticker-value {
+  display: flex;
+  gap: 20px;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.value {
+  font-weight: 700;
+}
+
+.change {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+
+.change.positive {
+  background-color: rgba(56, 161, 105, 0.1);
+  color: var(--success);
+}
+
+.change.negative {
+  background-color: rgba(229, 62, 62, 0.1);
+  color: #e53e3e;
+}
+
+.ticker-news {
+  font-weight: 500;
+  color: var(--accent);
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .ticker-category.stocks, .ticker-category.news { display: none; }
+}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+  <!-- Replace text with logo image -->
+  <a href="#" class="logo-wrapper">
+    <img src="images/alambda-logo.svg" alt="Alambda Systems Logo" class="logo" width="180">
+  </a>
+  <nav>
+    <a href="#hero" class="px-3 nav-link active"><i class="fas fa-home mr-1"></i> Home</a>
+    <a href="#services" class="px-3 nav-link"><i class="fas fa-cogs mr-1"></i> Services</a>
+    <a href="#projects" class="px-3 nav-link"><i class="fas fa-project-diagram mr-1"></i> Solutions</a>
+    <a href="#healthcare" class="px-3 nav-link"><i class="fas fa-heartbeat mr-1"></i> Healthcare</a>
+    <a href="#clients" class="px-3 nav-link"><i class="fas fa-handshake mr-1"></i> Clients</a>
+    <div class="nav-item dropdown d-inline-block">
+      <a class="nav-link dropdown-toggle px-3" href="#" id="trainingDropdown" data-toggle="dropdown">
+        <i class="fas fa-graduation-cap mr-1"></i> Training
+      </a>
+      <div class="dropdown-menu" aria-labelledby="trainingDropdown">
+        <a class="dropdown-item" href="/school.html?filter=cybersecurity">Cybersecurity</a>
+        <a class="dropdown-item" href="/school.html?filter=web">Web Development</a>
+        <a class="dropdown-item" href="/school.html?filter=data">Data Science</a>
+        <a class="dropdown-item" href="/school.html?filter=cloud">Cloud DevOps</a>
+        <a class="dropdown-item" href="/school.html?filter=managers">AI for Managers</a>
+        <a class="dropdown-item" href="/school.html?filter=students">AO for Students</a>
+      </div>
+    </div>
+    <a href="javascript:void(0);" onclick="openChat()" class="px-3 chat-btn">
+      <i class="fas fa-comment-dots mr-1"></i> AI Chat <span class="pulse-dot"></span>
+    </a>
+    <a href="#contact" class="px-3 ml-2 btn btn-sm btn-outline-primary">Contact Us</a>
+  </nav>
+  <div class="d-md-none mobile-toggle">
+    <i class="fas fa-bars"></i>
+  </div>
+</header>
+
+  <!-- Tickers -->
+  <div class="unified-ticker">
+  <div class="ticker-wrapper">
+    <div class="ticker-category crypto">
+      <i class="fab fa-bitcoin mr-2"></i> Crypto:
+      <span id="crypto-ticker" class="ticker-value">
+        <span class="ticker-item">BTC: <span class="value">$42,105</span> <span class="change positive">+1.2%</span></span>
+        <span class="ticker-item">ETH: <span class="value">$2,305</span> <span class="change negative">-0.4%</span></span>
+      </span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-category stocks">
+      <i class="fas fa-chart-line mr-2"></i> Markets:
+      <span id="stock-ticker" class="ticker-value">
+        <span class="ticker-item">NASDAQ: <span class="value">16,042</span> <span class="change positive">+0.7%</span></span>
+        <span class="ticker-item">S&P 500: <span class="value">4,780</span> <span class="change positive">+0.3%</span></span>
+      </span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-category news">
+      <i class="fas fa-newspaper mr-2"></i> Latest:
+      <span class="ticker-news" id="news-ticker">Claude 3.7 Sonnet released with significant improvements in reasoning capabilities</span>
+    </div>
+  </div>
+</div>
+
+    <!-- Main Content Wrapper -->
+    <div id="mainContent">
+    <!-- Announcement Section -->
+<section id="announcement" style="background:var(--blue-gradient);padding:1.8rem 0;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-9">
+        <h2 style="font-size:1.5rem;color:white;font-weight:600;margin-bottom:0.5rem;">
+          Enterprise AI Leadership
+        </h2>
+        <p class="mb-0 d-none d-sm-block" style="color:rgba(255,255,255,0.85);font-size:1rem;">
+          Recently awarded a $25M state contract for AI transformation initiatives
+        </p>
+      </div>
+      <div class="col-lg-3 text-lg-right mt-3 mt-lg-0">
+        <a href="#contact" class="btn btn-sm btn-light">Connect With Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Hero Section -->
+    <section id="hero">
+  <div class="container hero-container">
+    <div class="row align-items-center" style="margin-top:2.5rem;gap:0;">
+      <!-- Cube -->
+      <div class="col-md-4 d-flex justify-content-center align-items-center mb-4 mb-md-0">
+        <canvas id="three-hero" style="width:200px;height:200px;max-width:200px;max-height:200px;min-width:180px;min-height:180px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.10);background:transparent;"></canvas>
+      </div>
+      <!-- Welcome -->
+      <div class="col-md-8">
+        <div class="hero-content" style="background:rgba(255,255,255,0.97);box-shadow:0 4px 24px rgba(0,0,0,0.07);border-radius:18px;padding:32px 28px;">
+          <div class="hero-welcome">Welcome to Alambda Systems</div>
+          <h2 class="section-title hero-title" style="font-size:2.3rem;margin-bottom:1.2rem;">
+            Enterprise AI Solutions & Professional Training
+          </h2>
+          <div class="ai-trainer-highlight" style="margin:1rem 0 1.5rem 0;background:var(--gradient);">
+            Empowering organizations with next-generation AI capabilities
+          </div>
+          <p class="hero-subtitle">
+            We deliver AI-driven automation with Azure, AWS, Python, PyTorch, leveraging GPT-4o, Claude 3, Gemini 1.5, and other advanced models for enterprise transformation.
+          </p>
+          <div class="mt-4">
+            <a href="#services" class="btn btn-primary px-4 py-2 mr-3">Our Services</a>
+            <a href="#contact" class="btn btn-outline-primary px-4 py-2">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Latest AI Articles -->
+    <section id="news" class="py-5">
+      <div class="container">
+        <h2 class="section-title">Latest AI Articles</h2>
+        <div id="newsList" class="list-group"></div>
+      </div>
+    </section>
+
+    <!-- Our Core Services -->
+    <section id="services" class="py-5" style="background-color: var(--light-bg);">
+  <div class="container">
+    <h2 class="section-title text-center mb-4">Enterprise Services</h2>
+    
+    <div class="row">
+      <!-- Service 1 -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card border-0 h-100">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <div style="width:8px;height:30px;background:var(--accent);margin-right:15px;border-radius:4px;"></div>
+              <h3 class="h5 font-weight-bold mb-0">AI Development</h3>
+            </div>
+            <p class="text-muted mb-3">Advanced AI solutions using GPT-4o, Claude 3, and Gemini 1.5 to transform business operations and decision-making processes.</p>
+            <a href="#" class="text-primary font-weight-medium">Learn more</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Service 2 -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card border-0 h-100">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <div style="width:8px;height:30px;background:var(--accent);margin-right:15px;border-radius:4px;"></div>
+              <h3 class="h5 font-weight-bold mb-0">Cloud DevOps</h3>
+            </div>
+            <p class="text-muted mb-3">Comprehensive cloud infrastructure and CI/CD pipeline management with Azure and AWS for optimal performance and scalability.</p>
+            <a href="#" class="text-primary font-weight-medium">Learn more</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Service 3 -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card border-0 h-100">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <div style="width:8px;height:30px;background:var(--accent);margin-right:15px;border-radius:4px;"></div>
+              <h3 class="h5 font-weight-bold mb-0">Cybersecurity</h3>
+            </div>
+            <p class="text-muted mb-3">Enterprise-grade security solutions with zero-trust frameworks, threat detection, compliance management and regular security audits.</p>
+            <a href="#" class="text-primary font-weight-medium">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Healthcare & Research AI Section -->
+    <section id="healthcare" class="py-5" style="background: linear-gradient(135deg, #f0f8ff 0%, #f5f5ff 100%);">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <span class="badge badge-pill badge-primary-soft mb-3">Specialized Solutions</span>
+        <h2 class="section-title">Healthcare & Research AI</h2>
+        <p class="lead text-muted">Advanced analytics and AI solutions for healthcare, clinical research, and scientific discovery</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Health Data Science -->
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="icon-box mr-3">
+                <i class="fas fa-heartbeat text-primary"></i>
+              </div>
+              <h3 class="h4 font-weight-bold mb-0">Health Data Science</h3>
+            </div>
+            <p class="text-muted">Transforming healthcare with predictive analytics, medical imaging AI, patient outcome forecasting, and personalized treatment recommendation systems.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Electronic health record (EHR) analysis</li>
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Disease prediction modeling</li>
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Population health management</li>
+            </ul>
+            <a href="javascript:void(0);" onclick="openHealthcareChat('health-data')" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Clinical Study Analytics -->
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="icon-box mr-3">
+                <i class="fas fa-microscope text-primary"></i>
+              </div>
+              <h3 class="h4 font-weight-bold mb-0">Clinical Study Analytics</h3>
+            </div>
+            <p class="text-muted">Accelerate clinical trials with advanced analytics for patient recruitment, real-time monitoring, protocol optimization, and regulatory compliance.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Trial patient matching</li>
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Real-time safety monitoring</li>
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Automated regulatory reporting</li>
+            </ul>
+            <a href="javascript:void(0);" onclick="openHealthcareChat('clinical')" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Research & Development -->
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="icon-box mr-3">
+                <i class="fas fa-flask text-primary"></i>
+              </div>
+              <h3 class="h4 font-weight-bold mb-0">Research & Development</h3>
+            </div>
+            <p class="text-muted">Accelerate scientific discovery with AI-powered literature analysis, hypothesis generation, experiment design, and collaborative research platforms.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle text-success mr-2"></i> AI-assisted hypothesis generation</li>
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Automated research summarization</li>
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Predictive molecular modeling</li>
+            </ul>
+            <a href="javascript:void(0);" onclick="openHealthcareChat('research')" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- AI Knowledge Graphs -->
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="icon-box mr-3">
+                <i class="fas fa-project-diagram text-primary"></i>
+              </div>
+              <h3 class="h4 font-weight-bold mb-0">AI Knowledge Graphs</h3>
+            </div>
+            <p class="text-muted">Connect complex biomedical data with intelligent knowledge graphs for drug discovery, disease pathway analysis, and personalized treatment plans.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Biomedical entity extraction</li>
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Semantic relationship mapping</li>
+              <li><i class="fas fa-check-circle text-success mr-2"></i> Drug repurposing analysis</li>
+            </ul>
+            <a href="javascript:void(0);" onclick="openHealthcareChat('knowledge-graphs')" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <div class="p-4 rounded bg-white shadow-sm">
+          <h4 class="mb-3">Healthcare Compliance & Security</h4>
+          <div class="d-flex flex-wrap justify-content-center">
+            <span class="badge badge-light m-2 p-2">HIPAA Compliant</span>
+            <span class="badge badge-light m-2 p-2">GDPR Ready</span>
+            <span class="badge badge-light m-2 p-2">HITRUST Certified</span>
+            <span class="badge badge-light m-2 p-2">FDA 21 CFR Part 11</span>
+            <span class="badge badge-light m-2 p-2">SOC 2 Type II</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Healthcare Case Studies Section -->
+    <section id="healthcare-case-studies" class="py-5" style="background-color: white;">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">Healthcare Success Stories</h2>
+    
+    <div class="row">
+      <!-- Case Study 1 -->
+      <div class="col-lg-4 mb-4">
+        <div class="case-study-card">
+          <div class="case-study-header">
+            <span class="case-study-tag">Clinical Analytics</span>
+          </div>
+          <div class="case-study-body">
+            <h4 class="case-study-title">30% Faster Patient Enrollment</h4>
+            <p class="case-study-client">Major Pharmaceutical Company</p>
+            <p class="case-study-text">Developed AI-powered patient matching algorithms that accelerated recruitment for a Phase III oncology trial by 30%, saving 4 months in the overall trial timeline.</p>
+            <div class="case-study-results">
+              <div class="result-item">
+                <span class="result-value">30%</span>
+                <span class="result-label">Faster Enrollment</span>
+              </div>
+              <div class="result-item">
+                <span class="result-value">4mo</span>
+                <span class="result-label">Time Saved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Case Study 2 -->
+      <div class="col-lg-4 mb-4">
+        <div class="case-study-card">
+          <div class="case-study-header">
+            <span class="case-study-tag">Health Data Science</span>
+          </div>
+          <div class="case-study-body">
+            <h4 class="case-study-title">Reduced Readmissions by 22%</h4>
+            <p class="case-study-client">Regional Hospital Network</p>
+            <p class="case-study-text">Implemented predictive analytics platform integrating EHR data, social determinants, and patient-reported outcomes to identify high-risk patients and deploy targeted interventions.</p>
+            <div class="case-study-results">
+              <div class="result-item">
+                <span class="result-value">22%</span>
+                <span class="result-label">Fewer Readmissions</span>
+              </div>
+              <div class="result-item">
+                <span class="result-value">$3.2M</span>
+                <span class="result-label">Annual Savings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Case Study 3 -->
+      <div class="col-lg-4 mb-4">
+        <div class="case-study-card">
+          <div class="case-study-header">
+            <span class="case-study-tag">Knowledge Graphs</span>
+          </div>
+          <div class="case-study-body">
+            <h4 class="case-study-title">5 Novel Drug Candidates</h4>
+            <p class="case-study-client">Biotech Research Institute</p>
+            <p class="case-study-text">Created a comprehensive biomedical knowledge graph connecting research papers, clinical trials, and molecular databases to identify new therapeutic targets for neurodegenerative diseases.</p>
+            <div class="case-study-results">
+              <div class="result-item">
+                <span class="result-value">5</span>
+                <span class="result-label">Novel Candidates</span>
+              </div>
+              <div class="result-item">
+                <span class="result-value">60%</span>
+                <span class="result-label">Faster Discovery</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-4">
+      <a href="#contact" class="btn btn-primary px-4 py-2">Request a Case Study</a>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Add to your existing style tag */
+.case-study-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  transition: transform 0.3s;
+}
+
+.case-study-card:hover {
+  transform: translateY(-5px);
+}
+
+.case-study-header {
+  background: linear-gradient(135deg, var(--accent), #2c5282);
+  padding: 15px 20px;
+  text-align: right;
+}
+
+.case-study-tag {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.case-study-body {
+  background: white;
+  padding: 25px;
+}
+
+.case-study-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--dark-text);
+}
+
+.case-study-client {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.case-study-text {
+  color: var(--muted-text);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.case-study-results {
+  display: flex;
+  border-top: 1px solid var(--border-light);
+  padding-top: 15px;
+}
+
+.result-item {
+  flex: 1;
+  text-align: center;
+}
+
+.result-value {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.result-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted-text);
+}
+</style>
+    <!-- Enterprise Projects -->
+    <section id="projects" class="py-5" style="background-color: var(--light-bg);">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="section-title mb-0">Enterprise Solutions</h2>
+      <button class="btn btn-sm btn-outline-primary px-3" id="projectsToggle">View Solutions</button>
+    </div>
+    
+    <div class="collapse" id="projectsCollapse">
+      <div class="row">
+        <!-- Project 1 -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="fas fa-shield-alt mr-2" style="font-size: 0.9rem;"></i>
+              <span>SandNet Security Framework</span>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Zero-trust security architecture with AI-driven anomaly detection and automated threat response.</p>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="badge badge-light px-3 py-2" style="background: #e6f0fd; color: var(--accent);">Security</span>
+                <a href="#" class="text-primary">Details →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 2 -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="fas fa-lightbulb mr-2" style="font-size: 0.9rem;"></i>
+              <span>Alambda Inno Hub</span>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Enterprise innovation platform enabling organizational knowledge management and collaborative ideation.</p>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="badge badge-light px-3 py-2" style="background: #e6f0fd; color: var(--accent);">Innovation</span>
+                <a href="#" class="text-primary">Details →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 3 -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="fas fa-vr-cardboard mr-2" style="font-size: 0.9rem;"></i>
+              <span>SOHO VR Platform</span>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Virtual reality workspace solution for remote teams with immersive collaborative environments.</p>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="badge badge-light px-3 py-2" style="background: #e6f0fd; color: var(--accent);">Virtual Reality</span>
+                <a href="#" class="text-primary">Details →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Resources & Downloads -->
+    <section id="resources" class="py-5">
+      <div class="container">
+        <h2 class="section-title">Resources & Downloads</h2>
+        <button class="btn btn-primary mb-3" id="resourcesToggle">Toggle Resources</button>
+        <div class="collapse show" id="resourcesCollapse">
+          <div class="list-group">
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <span>Innovation Beyond Services.pptx</span>
+              <a href="/Innovation Beyond Services.pptx" download class="btn btn-sm btn-light">Download</a>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <span>GenAI MultiCloud Roadmap.pptx</span>
+              <button class="btn btn-sm btn-light">Request Access</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients" class="py-5" style="background-color: #f0f4f8;">
+  <div class="container">
+    <h2 class="section-title text-center mb-4">Trusted By</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="client-logos">
+          <div class="row text-center">
+            <div class="col-4 col-md-2 mb-4">
+              <div class="client-logo-box">Company 1</div>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <div class="client-logo-box">Company 2</div>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <div class="client-logo-box">Company 3</div>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <div class="client-logo-box">Company 4</div>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <div class="client-logo-box">Company 5</div>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <div class="client-logo-box">Company 6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Call to Action Section -->
+    <section id="cta" class="py-5 text-center" style="background: linear-gradient(120deg, #0a84ff 0%, #ff4d4d 100%); color: white;">
+      <div class="container py-4">
+        <h2 class="section-title text-white mb-4">Ready to Transform Your Business with AI?</h2>
+        <p class="lead mb-4">Let us help you implement cutting-edge AI solutions that drive real business results.</p>
+        <a href="#contact" class="btn btn-light btn-lg px-5 py-3">Get Started Today</a>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+<section id="contact" class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h2 class="section-title mb-4">Get in Touch</h2>
+        <p class="mb-4">Have questions about our AI solutions or services? Contact us today and one of our experts will get back to you shortly.</p>
+        <div class="contact-info">
+          <div class="d-flex mb-3">
+            <div class="contact-icon mr-3">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <h5 class="m-0">Location</h5>
+              <p class="text-muted">Downtown St. Louis, Missouri</p>
+            </div>
+          </div>
+          <div class="d-flex mb-3">
+            <div class="contact-icon mr-3">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div>
+              <h5 class="m-0">Phone</h5>
+              <p class="text-muted">+1 (844) 252-6232</p>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="contact-icon mr-3">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <h5 class="m-0">Email</h5>
+              <p class="text-muted">info@alambda.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="contact-form-container">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" placeholder="Your Name" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="email" class="form-control" placeholder="Your Email" required>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <input type="text" class="form-control" placeholder="Subject">
+            </div>
+            <div class="form-group mb-4">
+              <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block py-2">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-white py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h4 class="mb-4">Alambda Systems</h4>
+          <p class="text-muted">Empowering businesses and educators with next-generation AI solutions.</p>
+          <p class="mb-0"><i class="fas fa-map-marker-alt mr-2"></i> St. Louis, Missouri</p>
+          <p class="mb-0"><i class="fas fa-phone mr-2"></i> +1 (844) 252-6232</p>
+          <p class="mb-0"><i class="fas fa-envelope mr-2"></i> info@alambda.com</p>
+        </div>
+        <div class="col-md-2 col-6 mb-4 mb-md-0">
+          <h5 class="mb-4">Services</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-muted">AI Development</a></li>
+            <li class="mb-2"><a href="#" class="text-muted">Cloud DevOps</a></li>
+            <li class="mb-2"><a href="#" class="text-muted">Cybersecurity</a></li>
+            <li class="mb-2"><a href="#" class="text-muted">Training</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 col-6 mb-4 mb-md-0">
+          <h5 class="mb-4">Resources</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-muted">Blog</a></li>
+            <li class="mb-2"><a href="#" class="text-muted">Case Studies</a></li>
+            <li class="mb-2"><a href="#" class="text-muted">Downloads</a></li>
+            <li class="mb-2"><a href="#" class="text-muted">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5 class="mb-4">Stay Connected</h5>
+          <div class="d-flex mb-4">
+            <a href="#" class="social-icon mr-3"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon mr-3"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon mr-3"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+          </div>
+          <form>
+            <div class="input-group">
+              <input type="email" class="form-control" placeholder="Your email">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">Subscribe</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <hr class="mt-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="mb-0 text-muted">&copy; <span id="year"></span> Alambda Systems. All rights reserved.</p>
+        <div>
+          <a href="privacy.html" class="text-muted mr-3">Privacy Policy</a>
+          <a href="#" class="text-muted">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- External JS Libraries -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Main Script -->
+  <script>
+  // Footer Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Smooth Scroll
+  $('nav a').on('click', function(e) {
+    const url = $(this).attr('href');
+    if (url.startsWith('#')) {
+      e.preventDefault();
+      $('html, body').animate({scrollTop: $(url).offset().top - 70}, 500);
+    } else if (url.endsWith('.html')) {
+      e.preventDefault();
+      $('#mainContent').load(url + ' #mainContent > *', function(response, status, xhr) {
+        if (status === "error") {
+          console.error("Failed to load page:", xhr.status, xhr.statusText);
+        }
+      });
+    }
+  });
+
+  // Tickers
+  async function updateCryptoTicker() {
+    try {
+      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
+      const data = await res.json();
+      $('#crypto-ticker').text(`BTC: $${data.bitcoin.usd} | ETH: $${data.ethereum.usd}`);
+    } catch {
+      $('#crypto-ticker').text('Crypto unavailable');
+    }
+  }
+  setInterval(updateCryptoTicker, 15000);
+  updateCryptoTicker();
+
+  // Three.js Hero Animation (cube aligned left of hero content)
+  function initThree() {
+    const canvas = document.getElementById('three-hero');
+    if (!canvas) return;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    camera.position.z = 2;
+    const renderer = new THREE.WebGLRenderer({canvas, alpha: true});
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    const materials = [0xff0000,0x00ff00,0x0000ff,0xffff00,0xff00ff,0x00ffff]
+      .map(c => new THREE.MeshBasicMaterial({color: c}));
+    const cube = new THREE.Mesh(new THREE.BoxGeometry(1,1,1), materials);
+    scene.add(cube);
+    (function animate() {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    })();
+  }
+  window.addEventListener('load', initThree);
+
+  // News Loader
+  async function loadNews() {
+    try {
+      const res = await fetch('https://api.alambda.com/predict', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          prompt: "List 3 trending AI and cloud DevOps articles with <h5> and <p> formatting.",
+          model: "llama3.2",
+          temperature: 0.6,
+          max_tokens: 300
+        })
+      });
+      const data = await res.json();
+      if (data.response) {
+        document.getElementById('newsList').innerHTML = data.response;
+      }
+    } catch(err) {
+      console.error('News load error:', err);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', loadNews);
+
+  // Modern Chat Logic
+  async function sendModernMessage() {
+    const input = document.getElementById('modernUserMessageInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    const cont = document.getElementById('modern-chat-messages');
+    cont.innerHTML += `<div class="modern-bubble user">${msg}</div>`;
+    input.value = '';
+    cont.scrollTop = cont.scrollHeight;
+    try {
+      const res = await fetch('https://api.alambda.com/predict', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({prompt: msg})
+      });
+      const d = await res.json();
+      cont.innerHTML += `<div class="modern-bubble ai">${d.response || 'No response'}</div>`;
+    } catch(err) {
+      cont.innerHTML += `<div class="modern-bubble ai">Chat error</div>`;
+    }
+    cont.scrollTop = cont.scrollHeight;
+  }
+  document.getElementById('modernSendBtn').addEventListener('click', sendModernMessage);
+  document.getElementById('modernUserMessageInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') sendModernMessage();
+  });
+
+  // Collapse Toggles
+  $('#projectsToggle').on('click', ()=> $('#projectsCollapse').collapse('toggle'));
+  $('#resourcesToggle').on('click', ()=> $('#resourcesCollapse').collapse('toggle'));
+
+  // Process user questions
+  function processUserQuestion() {
+    const userQuestion = document.getElementById('userQuestion');
+    const chatMessages = document.getElementById('chatMessages');
+    const question = userQuestion.value.trim();
+    
+    if (!question) return;
+    
+    console.log("Processing question:", question);
+    
+    // Add user message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'chat-message user-message';
+    userMsg.innerHTML = `
+      <div class="message-content">
+        ${question}
+      </div>
+      <div class="message-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+    `;
+    chatMessages.appendChild(userMsg);
+    
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Clear input
+    userQuestion.value = '';
+    
+    // Show typing indicator
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'chat-message ai-message typing-indicator';
+    typingIndicator.innerHTML = `
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <p>Typing<span class="dots">...</span></p>
+      </div>
+    `;
+    chatMessages.appendChild(typingIndicator);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Generate AI response
+    setTimeout(() => {
+      chatMessages.removeChild(typingIndicator);
+      generateSalesResponse(question, chatMessages);
+    }, 1200);
+  }
+
+  // Generate sales-focused AI response
+  function generateSalesResponse(question, chatMessages) {
+    // Normalize question for keyword matching
+    const q = question.toLowerCase();
+    let responseContent = "";
+    let suggestions = [];
+    
+    // AI/Sales focused responses based on keywords
+    if (q.includes('pricing') || q.includes('cost') || q.includes('price')) {
+      responseContent = "Our enterprise AI solutions are customized to your specific business needs. We offer flexible pricing models including subscription-based and project-based options. I'd be happy to connect you with our sales team for a personalized quote!";
+      suggestions = ["Tell me about AI consultation", "Enterprise pricing options", "Schedule a demo"];
+    } 
+    else if (q.includes('ai') || q.includes('artificial intelligence') || q.includes('machine learning')) {
+      responseContent = "Our AI development team specializes in enterprise-grade solutions using the latest models like GPT-4o, Claude 3, and Gemini 1.5. We've helped organizations achieve significant ROI through our custom AI implementations.";
+      suggestions = ["Healthcare AI applications", "Financial AI solutions", "Manufacturing automation"];
+    }
+    else if (q.includes('cloud') || q.includes('aws') || q.includes('azure')) {
+      responseContent = "Alambda Systems provides comprehensive cloud infrastructure and DevOps solutions on AWS, Azure, and Google Cloud. Our architects have helped enterprises reduce infrastructure costs by up to 40% while improving reliability.";
+      suggestions = ["Cloud migration services", "DevOps automation", "Hybrid cloud solutions"];
+    }
+    else if (q.includes('security') || q.includes('cyber') || q.includes('hack')) {
+      responseContent = "Our cybersecurity practice implements zero-trust architectures with AI-driven threat detection. We're trusted by government agencies and Fortune 500 companies to protect their most sensitive data and infrastructure.";
+      suggestions = ["Security assessment", "Compliance solutions", "Employee security training"];
+    }
+    else if (q.includes('contact') || q.includes('sales') || q.includes('representative')) {
+      responseContent = "I'd be happy to connect you with our sales team! Please provide your name, email, and a brief description of your needs, and a dedicated account representative will reach out within 24 hours.";
+      suggestions = ["Schedule a consultation", "Request a proposal", "Join our newsletter"];
+    }
+    else {
+      responseContent = "Thank you for your interest in Alambda Systems. We specialize in enterprise AI solutions, cloud DevOps, and cybersecurity services for organizations looking to accelerate their digital transformation.";
+      suggestions = ["Learn about our services", "Client success stories", "Book a consultation"];
+    }
+    
+    // Create AI response
+    const aiMsg = document.createElement('div');
+    aiMsg.className = 'chat-message ai-message';
+    
+    let suggestionsHTML = `
+      <div class="suggested-questions">
+        ${suggestions.map(s => `<button class="btn btn-sm btn-suggested">${s}</button>`).join('')}
+      </div>
+    `;
+    
+    aiMsg.innerHTML = `
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <p>${responseContent}</p>
+        ${suggestionsHTML}
+      </div>
+    `;
+    
+    chatMessages.appendChild(aiMsg);
+    
+    // Add click events to suggestion buttons
+    aiMsg.querySelectorAll('.btn-suggested').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('userQuestion').value = btn.textContent;
+        processUserQuestion();
+      });
+    });
+    
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Initialize chat on page load
+  window.addEventListener('load', function() {
+    console.log("Page loaded, initializing chat");
+    const chatToggleBtn = document.getElementById('chatToggleBtn');
+    const chatOverlay = document.getElementById('chatOverlay');
+    const closeChat = document.getElementById('closeChat');
+    
+    if(!chatToggleBtn || !chatOverlay || !closeChat) {
+      console.error("Chat elements not found on page load");
+      return;
+    }
+    
+    // Make sure toggle button is visible
+    chatToggleBtn.style.display = 'flex';
+    
+    // Add click handler directly
+    chatToggleBtn.onclick = function() {
+      console.log("Chat toggle clicked");
+      chatOverlay.classList.add('active');
+      chatToggleBtn.style.display = 'none';
+    };
+    
+    closeChat.onclick = function() {
+      console.log("Chat close clicked");
+      chatOverlay.classList.remove('active');
+      chatToggleBtn.style.display = 'flex';
+    };
+
+    // Connect send button and Enter key
+    const sendQuestion = document.getElementById('sendQuestion');
+    const userQuestionInput = document.getElementById('userQuestion');
+
+    if(sendQuestion) {
+      sendQuestion.addEventListener('click', processUserQuestion);
+      console.log("Send button connected");
+    }
+
+    if(userQuestionInput) {
+      userQuestionInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          processUserQuestion();
+        }
+      });
+      console.log("Input Enter key connected");
+    }
+
+    // Connect initial suggested question buttons
+    document.querySelectorAll('.btn-suggested').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.getElementById('userQuestion').value = btn.textContent;
+        processUserQuestion();
+      });
+      console.log("Suggestion buttons connected");
+    });
+
+    // Add animation to typing dots
+    setInterval(() => {
+      document.querySelectorAll('.typing-indicator .dots').forEach(dots => {
+        if (dots.textContent === '...') dots.textContent = '.';
+        else if (dots.textContent === '.') dots.textContent = '..';
+        else dots.textContent = '...';
+      });
+    }, 500);
+
+    // Make service links open chat with relevant questions
+    document.querySelectorAll('.card-body a[href="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const serviceHeading = this.closest('.card-body').querySelector('h3');
+        if(serviceHeading) {
+          openChat();
+          document.getElementById('userQuestion').value = 
+            `Tell me about your ${serviceHeading.textContent} services`;
+          setTimeout(processUserQuestion, 500);
+        }
+      });
+    });
+
+    console.log("Chat initialized");
+  });
+  </script>
+
+  <script>
+  // Suppress React errors from GammaSite iframes
+  (function() {
+    var origOnError = window.onerror;
+    window.onerror = function(message, source, lineno, colno, error) {
+      if (typeof message === 'string' && message.includes('Minified React error')) return true;
+      if (origOnError) return origOnError.apply(this, arguments);
+      return false;
+    };
+    window.addEventListener('error', function(event) {
+      if (event && event.message && event.message.includes('Minified React error')) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+      }
+    }, true);
+  })();
+  </script>
+
+  <!-- Chat Overlay -->
+<div id="chatOverlay" class="chat-overlay">
+  <div class="chat-header-bar">
+    <h2><i class="fas fa-robot mr-2"></i> Alambda AI Assistant</h2>
+    <button id="closeChat" class="btn-close-chat">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  
+  <div class="chat-interface">
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message ai-message">
+        <div class="message-avatar">
+          <i class="fas fa-robot"></i>
+        </div>
+        <div class="message-content">
+          <p>👋 Welcome to Alambda Systems! I'm your AI assistant and can help you learn about our services.</p>
+          <p>How can I assist you today?</p>
+          <div class="suggested-questions">
+            <button class="btn btn-sm btn-suggested">Tell me about your AI development services</button>
+            <button class="btn btn-sm btn-suggested">What cloud solutions do you offer?</button>
+            <button class="btn btn-sm btn-suggested">Explain your cybersecurity services</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chat-input">
+      <input type="text" id="userQuestion" placeholder="Ask me anything about our services..." />
+      <button id="sendQuestion"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- Chat Toggle Button -->
+<button id="chatToggleBtn">
+  <i class="fas fa-comments"></i>
+</button>
+
+<!-- Add this before the closing </body> tag, after existing scripts -->
+<script>
+// Global function to open chat from anywhere
+function openChat() {
+  console.log("Opening chat from navigation");
+  const chatOverlay = document.getElementById('chatOverlay');
+  const chatToggleBtn = document.getElementById('chatToggleBtn');
+  
+  if(chatOverlay && chatToggleBtn) {
+    chatOverlay.classList.add('active');
+       chatToggleBtn.style.display = 'none';
+  } else {
+    console.error("Chat elements not found");
+  }
+}
+
+// Initialize chat on page load
+window.addEventListener('load', function() {
+  console.log("Page loaded, initializing chat");
+  const chatToggleBtn = document.getElementById('chatToggleBtn');
+  const chatOverlay = document.getElementById('chatOverlay');
+  const closeChat = document.getElementById('closeChat');
+  
+  if(!chatToggleBtn || !chatOverlay || !closeChat) {
+    console.error("Chat elements not found on page load");
+    return;
+  }
+  
+  // Make sure toggle button is visible
+  chatToggleBtn.style.display = 'flex';
+  
+  // Add click handler directly
+  chatToggleBtn.onclick = function() {
+    console.log("Chat toggle clicked");
+    chatOverlay.classList.add('active');
+    chatToggleBtn.style.display = 'none';
+  };
+  
+  closeChat.onclick = function() {
+    console.log("Chat close clicked");
+    chatOverlay.classList.remove('active');
+    chatToggleBtn.style.display = 'flex';
+  };
+
+  // Connect send button and Enter key
+  const sendQuestion = document.getElementById('sendQuestion');
+  const userQuestionInput = document.getElementById('userQuestion');
+
+  if(sendQuestion) {
+    sendQuestion.addEventListener('click', processUserQuestion);
+    console.log("Send button connected");
+  }
+
+  if(userQuestionInput) {
+    userQuestionInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        processUserQuestion();
+      }
+    });
+    console.log("Input Enter key connected");
+  }
+
+  // Connect initial suggested question buttons
+  document.querySelectorAll('.btn-suggested').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.getElementById('userQuestion').value = btn.textContent;
+      processUserQuestion();
+    });
+    console.log("Suggestion buttons connected");
+  });
+
+  // Add animation to typing dots
+  setInterval(() => {
+    document.querySelectorAll('.typing-indicator .dots').forEach(dots => {
+      if (dots.textContent === '...') dots.textContent = '.';
+      else if (dots.textContent === '.') dots.textContent = '..';
+      else dots.textContent = '...';
+    });
+  }, 500);
+
+  // Make service links open chat with relevant questions
+  document.querySelectorAll('.card-body a[href="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const serviceHeading = this.closest('.card-body').querySelector('h3');
+      if(serviceHeading) {
+        openChat();
+        document.getElementById('userQuestion').value = 
+          `Tell me about your ${serviceHeading.textContent} services`;
+        setTimeout(processUserQuestion, 500);
+      }
+    });
+  });
+
+  console.log("Chat initialized");
+});
+</script>
+
+<script>
+// Chat functionality with sales responses
+document.addEventListener('DOMContentLoaded', function() {
+  // DOM elements
+  const chatToggleBtn = document.getElementById('chatToggleBtn');
+  const chatOverlay = document.getElementById('chatOverlay');
+  const closeChat = document.getElementById('closeChat');
+  const userQuestion = document.getElementById('userQuestion');
+  const sendQuestion = document.getElementById('sendQuestion');
+  const chatMessages = document.getElementById('chatMessages');
+  
+  console.log("Chat initialization started");
+  
+  // Process user questions
+  function processUserQuestion() {
+    const userQuestion = document.getElementById('userQuestion');
+    const chatMessages = document.getElementById('chatMessages');
+    const question = userQuestion.value.trim();
+    
+    if (!question) return;
+    
+    console.log("Processing question:", question);
+    
+    // Add user message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'chat-message user-message';
+    userMsg.innerHTML = `
+      <div class="message-content">
+        ${question}
+      </div>
+      <div class="message-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+    `;
+    chatMessages.appendChild(userMsg);
+    
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Clear input
+    userQuestion.value = '';
+    
+    // Show typing indicator
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'chat-message ai-message typing-indicator';
+    typingIndicator.innerHTML = `
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <p>Typing<span class="dots">...</span></p>
+      </div>
+    `;
+    chatMessages.appendChild(typingIndicator);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Generate AI response
+    setTimeout(() => {
+      chatMessages.removeChild(typingIndicator);
+      generateSalesResponse(question, chatMessages);
+    }, 1200);
+  }
+
+  // Generate sales-focused AI response
+  function generateSalesResponse(question, chatMessages) {
+    // Normalize question for keyword matching
+    const q = question.toLowerCase();
+    let responseContent = "";
+    let suggestions = [];
+    
+    // AI/Sales focused responses based on keywords
+    if (q.includes('pricing') || q.includes('cost') || q.includes('price')) {
+      responseContent = "Our enterprise AI solutions are customized to your specific business needs. We offer flexible pricing models including subscription-based and project-based options. I'd be happy to connect you with our sales team for a personalized quote!";
+      suggestions = ["Tell me about AI consultation", "Enterprise pricing options", "Schedule a demo"];
+    } 
+    else if (q.includes('ai') || q.includes('artificial intelligence') || q.includes('machine learning')) {
+      responseContent = "Our AI development team specializes in enterprise-grade solutions using the latest models like GPT-4o, Claude 3, and Gemini 1.5. We've helped organizations achieve significant ROI through our custom AI implementations.";
+      suggestions = ["Healthcare AI applications", "Financial AI solutions", "Manufacturing automation"];
+    }
+    else if (q.includes('cloud') || q.includes('aws') || q.includes('azure')) {
+      responseContent = "Alambda Systems provides comprehensive cloud infrastructure and DevOps solutions on AWS, Azure, and Google Cloud. Our architects have helped enterprises reduce infrastructure costs by up to 40% while improving reliability.";
+      suggestions = ["Cloud migration services", "DevOps automation", "Hybrid cloud solutions"];
+    }
+    else if (q.includes('security') || q.includes('cyber') || q.includes('hack')) {
+      responseContent = "Our cybersecurity practice implements zero-trust architectures with AI-driven threat detection. We're trusted by government agencies and Fortune 500 companies to protect their most sensitive data and infrastructure.";
+      suggestions = ["Security assessment", "Compliance solutions", "Employee security training"];
+    }
+    else if (q.includes('contact') || q.includes('sales') || q.includes('representative')) {
+      responseContent = "I'd be happy to connect you with our sales team! Please provide your name, email, and a brief description of your needs, and a dedicated account representative will reach out within 24 hours.";
+      suggestions = ["Schedule a consultation", "Request a proposal", "Join our newsletter"];
+    }
+    else {
+      responseContent = "Thank you for your interest in Alambda Systems. We specialize in enterprise AI solutions, cloud DevOps, and cybersecurity services for organizations looking to accelerate their digital transformation.";
+      suggestions = ["Learn about our services", "Client success stories", "Book a consultation"];
+    }
+    
+    // Create AI response
+    const aiMsg = document.createElement('div');
+    aiMsg.className = 'chat-message ai-message';
+    
+    let suggestionsHTML = `
+      <div class="suggested-questions">
+        ${suggestions.map(s => `<button class="btn btn-sm btn-suggested">${s}</button>`).join('')}
+      </div>
+    `;
+    
+    aiMsg.innerHTML = `
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <p>${responseContent}</p>
+        ${suggestionsHTML}
+      </div>
+    `;
+    
+    chatMessages.appendChild(aiMsg);
+    
+    // Add click events to suggestion buttons
+    aiMsg.querySelectorAll('.btn-suggested').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('userQuestion').value = btn.textContent;
+        processUserQuestion();
+      });
+    });
+    
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Send message on button click
+  if (sendQuestion) {
+    sendQuestion.addEventListener('click', processUserQuestion);
+  }
+  
+  // Send message on Enter key
+  if (userQuestion) {
+    userQuestion.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') processUserQuestion();
+    });
+  }
+  
+  // Add click events to initial suggestion buttons
+  document.querySelectorAll('.btn-suggested').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('userQuestion').value = btn.textContent;
+      processUserQuestion();
+      
+      // Make sure chat is visible
+      chatOverlay.classList.add('active');
+      chatToggleBtn.style.display = 'none';
+    });
+  });
+  
+  // Add animation to typing dots
+  setInterval(() => {
+    document.querySelectorAll('.typing-indicator .dots').forEach(dots => {
+      if (dots.textContent === '...') dots.textContent = '.';
+      else if (dots.textContent === '.') dots.textContent = '..';
+      else dots.textContent = '...';
+    });
+  }, 500);
+  
+  // Make service links open chat with relevant questions
+  document.querySelectorAll('.card-body a[href="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Get service name from nearby heading
+      const heading = this.closest('.card-body').querySelector('h3');
+      if (heading) {
+        // Open chat and pre-fill question
+        openChat();
+        document.getElementById('userQuestion').value = `Tell me more about your ${heading.textContent} services`;
+        processUserQuestion();
+      }
+    });
+  });
+  
+  console.log("Service links connected to chat");
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SuperPark - Airport Parking</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #eee;
+    }
+    header img {
+      height: 50px;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .banner {
+      background: #f79122;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      background: #000 url('https://superparkinglot.com/wp-content/uploads/2021/03/map-final-2021.jpg') center center no-repeat;
+      background-size: cover;
+      min-height: 600px;
+    }
+    .lot-box {
+      width: 180px;
+      margin: 10px;
+      padding: 15px;
+      background: #fff;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .lot-box h2 {
+      margin: 0 0 10px;
+    }
+    .available {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background: #222;
+      color: #fff;
+    }
+    #alambda-chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0a84ff;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    #alambda-chat-box {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      max-height: 400px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      flex-direction: column;
+      font-family: sans-serif;
+      overflow: hidden;
+      z-index: 9999;
+    }
+    #alambda-chat-header {
+      background: #0a84ff;
+      color: white;
+      padding: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+    #alambda-chat-messages {
+      padding: 10px;
+      flex: 1;
+      overflow-y: auto;
+      font-size: 0.9rem;
+    }
+    .alambda-msg {
+      margin: 8px 0;
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .alambda-user { background: #0a84ff; color: white; margin-left: auto; }
+    .alambda-ai { background: #f2f2f2; color: #333; margin-right: auto; }
+    #alambda-chat-input {
+      display: flex;
+      border-top: 1px solid #eee;
+    }
+    #alambda-chat-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+    #alambda-chat-input button {
+      background: #0a84ff;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<!-- 🚍 Tracky Shuttle Tracker Banner -->
+<div class="shuttle-banner" id="shuttleBanner">
+  <div class="shuttle-banner-icon" id="shuttleIcon">🚌</div>
+  <div class="shuttle-banner-text" id="shuttleText">
+    <div class="shuttle-banner-title">Tracky Shuttle Tracker</div>
+    <div class="shuttle-banner-subtitle" id="shuttleStatus">Loading nearest shuttle...</div>
+  </div>
+</div>
+
+<style>
+  .shuttle-banner {
+    display: flex;
+    align-items: center;
+    background: #0a84ff;
+    color: white;
+    padding: 12px 20px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    margin: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .shuttle-banner-icon {
+    font-size: 36px;
+    margin-right: 15px;
+    position: relative;
+    left: 0;
+    transition: left 1s linear;
+  }
+  .shuttle-banner-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .shuttle-banner-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  .shuttle-banner-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+</style>
+
+<script>
+  // Get current position
+  function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) return reject("Geolocation not supported.");
+      navigator.geolocation.getCurrentPosition(
+        pos => resolve({ lat: pos.coords.latitude, long: pos.coords.longitude }),
+        err => reject(err)
+      );
+    });
+  }
+
+  // Fetch shuttles
+  async function fetchShuttles() {
+    const res = await fetch('https://api.alambda.com/gps');
+    const data = await res.json();
+    return data.vehicles || [];
+  }
+
+  // Compute distance in miles
+  function getDistanceMiles(lat1, lon1, lat2, lon2) {
+    const R = 3958.8; // miles
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(lat1 * Math.PI / 180) *
+      Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) ** 2;
+    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+  }
+
+  async function updateBanner() {
+    try {
+      const user = await getCurrentLocation();
+      const shuttles = await fetchShuttles();
+
+      const valid = shuttles
+        .filter(v => v.lat && v.long && v.lat !== 0 && v.long !== 0)
+        .map(v => {
+          const dist = getDistanceMiles(user.lat, user.long, v.lat, v.long);
+          return { ...v, distance: dist };
+        })
+        .sort((a, b) => a.distance - b.distance);
+
+      if (!valid.length) {
+        document.getElementById('shuttleStatus').textContent = 'No active shuttles found nearby.';
+        return;
+      }
+
+      const nearest = valid[0];
+      const eta = nearest.speed > 0 ? Math.round(nearest.distance / nearest.speed * 60) : 'unknown';
+      document.getElementById('shuttleStatus').textContent =
+        `Nearest shuttle (${nearest.name || 'unknown'}) is ${nearest.distance.toFixed(1)} mi away` +
+        (eta !== 'unknown' ? ` — ETA ~${eta} min` : '');
+
+      animateShuttle(nearest.distance);
+    } catch (err) {
+      console.error('Banner error:', err);
+      document.getElementById('shuttleStatus').textContent = 'Error getting shuttle info.';
+    }
+  }
+
+  // Animate shuttle icon based on distance (slower if farther)
+  function animateShuttle(distance) {
+    const icon = document.getElementById('shuttleIcon');
+    let left = 0;
+    const max = 100; // max px to move
+    const speed = Math.max(0.5, 8 - distance); // pixels per second
+
+    function move() {
+      left += speed;
+      if (left > max) left = 0;
+      icon.style.left = `${left}px`;
+      requestAnimationFrame(move);
+    }
+
+    move();
+  }
+
+  document.addEventListener('DOMContentLoaded', updateBanner);
+</script>
+
+  <div class="banner">PARKING RATE INCREASE EFFECTIVE APRIL 1ST 2025.</div>
+  <header>
+    <img src="https://superparkinglot.com/wp-content/uploads/2015/09/color-logo.png" alt="SuperPark Logo"/>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Parking Options</a>
+      <a href="#">Careers</a>
+      <a href="#">FAQ</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="main">
+    <div class="lot-box" style="background:#e74c3c; color:#fff;"><h2>Terminal 1</h2><div class="available">30%</div><p>$28 Daily Rate</p></div>
+    <div class="lot-box" style="background:#000; color:#fff;"><h2>Terminal 2</h2><div class="available">FULL</div><p>Proceed to Lot A</p></div>
+    <div class="lot-box" style="background:#1abc9c; color:#fff;"><h2>Lot A</h2><div class="available">11%</div><p>$18 Daily Rate</p></div>
+    <div class="lot-box" style="background:#006400; color:#fff;"><h2>Lot B</h2><div class="available">10%</div><p>$13 Daily Rate</p></div>
+    <div class="lot-box" style="background:#1e3799; color:#fff;"><h2>Lot C</h2><div class="available">6%</div><p>$11 Daily Rate</p></div>
+    <div class="lot-box" style="background:#6e2c00; color:#fff;"><h2>Lot D</h2><div class="available">4%</div><p>$10 Daily Rate</p></div>
+    <div class="lot-box" style="background:#212121; color:#fff;"><h2>Lot E</h2><div class="available">12%</div><p>$25 Daily Rate</p></div>
+  </section>
+
+  <footer class="footer">&copy; 2025 Super Parking Lot. All rights reserved.</footer>
+
+  <!-- Chat UI -->
+  <div id="alambda-chat-box">
+    <div id="alambda-chat-header">💬 Chat with Alambda</div>
+    <div id="alambda-chat-messages"></div>
+    <div id="alambda-chat-input">
+      <input type="text" id="alambda-input" placeholder="Type your message..."/>
+      <button onclick="sendAlambdaMsg()">Send</button>
+    </div>
+  </div>
+  <button id="alambda-chat-button" onclick="toggleAlambdaChat()">Chat with us</button>
+
+  <!-- JavaScript -->
+  <script>
+    let userLat = null, userLon = null;
+    let latestGpsSummary = '';
+
+    function getUserLocation() {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            userLat = pos.coords.latitude;
+            userLon = pos.coords.longitude;
+          },
+          err => console.warn('Location access denied', err)
+        );
+      }
+    }
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const toRad = deg => deg * Math.PI / 180;
+      const R = 3958.8; // Miles
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    async function reverseGeocode(lat, lon) {
+      try {
+        // Update the URL to point to your backend's /geocode endpoint
+        const res = await fetch(`https://api.alambda.com/geocode?lat=${lat}&lon=${lon}`);
+        const data = await res.json();
+        return data.address || null;
+      } catch (error) {
+        console.error('Error in reverseGeocode:', error);
+        return null;
+      }
+    }
+
+    async function fetchGpsSummary() {
+      try {
+        const res = await fetch('https://api.alambda.com/gps');
+        const json = await res.json();
+        if (!json.success || !Array.isArray(json.vehicles)) return;
+
+        const summaries = await Promise.all(json.vehicles
+          .filter(v => v.lat && v.long && v.lat !== 0 && v.long !== 0)
+          .map(async v => {
+            const lat = parseFloat(v.lat), lon = parseFloat(v.long);
+            const name = v.name || 'Shuttle';
+            const address = await reverseGeocode(lat, lon);
+            const miles = (userLat && userLon) ? Math.round(calculateDistance(userLat, userLon, lat, lon)) : null;
+            return `• ${name} is near ${address}${miles ? ` — ${miles} miles away` : ''}`;
+          })
+        );
+
+        latestGpsSummary = summaries.filter(Boolean).join('\n');
+      } catch {
+        latestGpsSummary = '⚠️ Unable to fetch shuttle data.';
+      }
+    }
+
+    async function sendAlambdaMsg() {
+      const input = document.getElementById('alambda-input');
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      const messages = document.getElementById('alambda-chat-messages');
+      
+      // Display the user's message in the chat
+      const userMsg = document.createElement('div');
+      userMsg.className = 'alambda-msg alambda-user';
+      userMsg.textContent = msg;
+      messages.appendChild(userMsg);
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+
+      // Prepare the request payload
+      const payload = { question: msg };
+
+      try {
+        // Send the user's question to the backend
+        const res = await fetch('https://api.alambda.com/conversation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+
+        // Display the AI's response in the chat
+        const aiMsg = document.createElement('div');
+        aiMsg.className = 'alambda-msg alambda-ai';
+        aiMsg.textContent = json.response || 'No response.';
+        messages.appendChild(aiMsg);
+        messages.scrollTop = messages.scrollHeight;
+      } catch (error) {
+        console.error('Error contacting server:', error);
+
+        // Display an error message in the chat
+        const errMsg = document.createElement('div');
+        errMsg.className = 'alambda-msg alambda-ai';
+        errMsg.textContent = '⚠️ Failed to contact server.';
+        messages.appendChild(errMsg);
+      }
+    }
+
+    function toggleAlambdaChat() {
+      const box = document.getElementById('alambda-chat-box');
+      box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      getUserLocation();
+      fetchGpsSummary();
+    });
+  </script>
+</body>
+</html>

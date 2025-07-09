@@ -1,0 +1,7 @@
+{
+    "secret-key": "your_secret_key",
+    "host": "localhost",
+    "user": "root",
+    "password": "root",
+    "database": "teach_me"
+}

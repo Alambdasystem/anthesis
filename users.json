@@ -1,0 +1,575 @@
+{
+  "dad": {
+    "email": "dad@alambda.com",
+    "password": "dad"
+  },
+  "chris": {
+    "email": "jameshill@alambda.com",
+    "password": "james"
+  },
+  "mike": {
+    "email": "test@gmail.com",
+    "password": "test"
+  },
+  "chrishina123": {
+    "email": "chrishinahill@alambda.com",
+    "password": "chloe123"
+  },
+  "James": {
+    "email": "jameshill@alambda.com",
+    "password": "james"
+  },
+  "james": {
+    "email": "jameshill@alambda.com",
+    "password": "test"
+  },
+  "guest": {
+    "email": "jameshill@alambda.com",
+    "password": "qwqww"
+  },
+  "guestqwq": {
+    "email": "jameshill@alambda.com",
+    "password": "qwqww"
+  },
+  "jhill006": {
+    "email": "jameshill@alambda.com",
+    "password": "james"
+  },
+  "jhill006sas": {
+    "email": "jameshill@alambda.com",
+    "password": "james"
+  },
+  "jhill006sasws": {
+    "email": "jameshill@alambda.com",
+    "password": "james"
+  },
+  "guestass": {
+    "email": "saintlouishill@yahoo.com",
+    "password": "james"
+  },
+  "guestassa": {
+    "email": "jameshill@alambda.com",
+    "password": "james",
+    "track": "cyber"
+  },
+  "guest123": {
+    "email": "jameshill@alambda.com",
+    "password": "james",
+    "track": "web"
+  },
+  "jamesbb": {
+    "email": "jameshill@alambda.com",
+    "password": "james",
+    "track": "web"
+  },
+  "jhill006aas": {
+    "email": "jameshill@alambda.com",
+    "password": "james",
+    "track": "web"
+  },
+  "guestaaa": {
+    "email": "jameshill@alambda.com",
+    "password": "james",
+    "track": "cloud"
+  },
+  "guestaaaa": {
+    "email": "jameshill@alambda.com",
+    "password": "james",
+    "track": "web"
+  },
+  "James123": {
+    "email": "jameshill@alambda.com",
+    "password": "james",
+    "track": "Select Your Track"
+  },
+  "Markiej235": {
+    "email": "marcelpartee84@gmail.com",
+    "password": "Newbooty9",
+    "track": "cloud"
+  },
+  "Hhhh": {
+    "email": "jameshill@alambda.com",
+    "password": "aaa",
+    "track": "web"
+  },
+  "jhill006ss": {
+    "email": "jameshill@alambda.com",
+    "password": "asdf",
+    "track": "cyber"
+  },
+  "Jaye nobles": {
+    "email": "UniteTv1@gmail.com",
+    "password": "jermond23",
+    "track": "cyber"
+  },
+  "Hwalker314": {
+    "email": "haroldwalker07@gmail.com",
+    "password": "Newwave2025#",
+    "track": "cyber"
+  },
+  "guestaaaaaa": {
+    "email": "jameshill@alambda.com",
+    "password": "aaa",
+    "track": "cyber"
+  },
+  "Hwalker813": {
+    "email": "Haroldwalker07@gmail.com",
+    "password": "Newwave2025#",
+    "track": "cyber"
+  },
+  "teamtest_dev": {
+    "email": "jameshill@alambda.com",
+    "password": "team",
+    "track": "cyber"
+  },
+  "Maureen": {
+    "email": "Maureenbuthod@gmail.com",
+    "password": "Bodhigliani22",
+    "track": "data"
+  },
+  "test": {
+    "email": "saintlouishill@yahoo.com",
+    "password": "test",
+    "track": "cyber"
+  },
+  "Test111": {
+    "email": "jameshill@alambda.com",
+    "password": "test",
+    "track": "cyber"
+  },
+  "Lwaymhmg": {
+    "email": "lwaymhmg@gmail.com",
+    "password": "Race2datop#1",
+    "track": "data"
+  },
+  "jhill777": {
+    "email": "Jameshill@alambda.com",
+    "password": "test",
+    "track": "cyber"
+  },
+  "jhill006123": {
+    "email": "Jameshill@alambda.com",
+    "password": "test",
+    "track": "cyber"
+  },
+  "Test": {
+    "email": "jameshill@alambda.com",
+    "password": "test",
+    "track": "cyber"
+  },
+  "Test1112": {
+    "email": "jameshill@alambda.com",
+    "password": "test",
+    "track": "web"
+  },
+  "guestqqqq": {
+    "email": "Jameshill@alambda.com",
+    "password": "test",
+    "track": "cyber"
+  },
+  "kingzone": {
+    "email": "zonekings@gmail.com",
+    "password": "test",
+    "track": "cyber"
+  },
+  "zoneking1": {
+    "email": "jameshill@alambda.com",
+    "password": "test",
+    "track": "cyber"
+  },
+  "zoneking123": {
+    "email": "Jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$FlqJCKHd5FIhgQd3$ec63827c87c68a6ad438545d2a385985a73f7da0aeaee991dcb8946773e1b7de9af09bf68be2071d4d72c63b1be6b59a1bcabf3a1297324845ab87a2da4f8b43",
+    "track": "cyber"
+  },
+  "zoneking1234": {
+    "email": "Jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$YxZFSyVTYYZpHq5a$fb9151981c4c692ca842f431fe52e41e5b402b73be2c7e5abd4c3ca33a0765b24497502d011e2ef019395fe25a3fb38638fcd1f9d0a71cc2a4f97c02ce805549",
+    "track": "cyber"
+  },
+  "zonekings": {
+    "email": "zonekings@gmail.com",
+    "password": "scrypt:32768:8:1$RIkDnWtQhyXX0fer$a597d9e4d424369f190b0f128269916e1b4beea904f3f1616b8f95ff751807c2946cf602e4463a2d8caccd876e151491b17d2c6b53da53eca8f85db1c9fa488e",
+    "track": "Select Your Track"
+  },
+  "zone": {
+    "email": "zone@gmail.com",
+    "password": "scrypt:32768:8:1$U4rruFn248MzOKbj$08144f09ab0ecbad44de9820c764aacfb86a02469d4dcdbccd2608cfa1e280c880f85b61853cb4a41fb5e2da0b3ee99f72139646d0309693851026b4a941d1bd",
+    "track": "cyber"
+  },
+  "chrishinacrawford-hill": {
+    "email": "chrishina123@gmail.com",
+    "password": "scrypt:32768:8:1$JW5gtgIeRc9rdXaC$4f38be3133ba3b4e06e1ad6fae2eb71fae471430e1e63f257c3e46e56e0abd399f2c06159595b5078b3412629f0bba34f1169f1c34a9151c8fc610c9b96ba260",
+    "track": "cyber"
+  },
+  "gretel.tgtg": {
+    "email": "gdevendorf@toogoodtogo.com",
+    "password": "scrypt:32768:8:1$WuHwItMTk7ivqByu$db0525a75272611b6d70db1e776ff8fa4865ee8c386586049494cbd4153dbec8c3aa7b882e2c51678808188ff9a0c3bad4da7d81312412b60d5368d03fd645e2",
+    "track": "cyber"
+  },
+  "jim": {
+    "email": "jam@jam.com",
+    "password": "scrypt:32768:8:1$BR8FCVHAfXiEm94K$18139abc07f548b6669a863313341756c00a01cf7e243b0c99161a2c26915792605c6da63ef9a7aac6bb3eb5aaad428d4dd883220d60b243cfd22da767d0bcb3",
+    "track": ""
+  },
+  "jamesaaa": {
+    "email": "james@ass.com",
+    "password": "scrypt:32768:8:1$IxvqnW69YB2D6311$38b9b2e029d8e9d3af32747d9d753e80d49762dba0700f9789c80b4e913aeb1efdb61e1047515ab306fde604693563efdf9fdf3b2e0b7f0aef4bed0611277ce8",
+    "track": "cyber"
+  },
+  "Jaz": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$UbYo11CscsdA4Zap$6643fdec596a76c36fa1fb3ca2b83dd818d2080f58ec45bb98c4e2fe40bfc0178a808f2fd67bcb6c13b47ad019b9bd8c2235e8fe1c948dc53cfb17b067add427",
+    "track": "cyber"
+  },
+  "mstew": {
+    "email": "me.stewart@yahoo.com",
+    "password": "scrypt:32768:8:1$1DaGUnNb1d55lSv3$37e3c69e79a6dca9c4f883ac67ea831e2842ae6a3a01ad47a213de00c9b85f45503928d78df9ee849b37e956cd29154b0ed6cbfeeb2bef0a5510a086dc6f1a52",
+    "track": ""
+  },
+  "Twtszz": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$uZCI8d8tnDBqaaRx$9877a363db990dbd8cb73d973eae04ee309157cbd6b91fb59afdb48906e8ccc73b924651c2927a7f5782d69352c8b12b39355cc6490d7b5d83ddbfb70e567fb7",
+    "track": "cyber"
+  },
+  "Mikey": {
+    "email": "whyjunk2@gmail.com",
+    "password": "scrypt:32768:8:1$I4UM8ZkK6Jb4jSY0$8a180c08cfb21613c7f3eae71cb4a28d356b6d0c1295cb0b796cb43a9a91300ef346e3288eec1998e8d89265c8382dce91b1fda90101c538a0855100641ce50d",
+    "track": ""
+  },
+  "guest12345": {
+    "email": "saintlouishill@gmail.com",
+    "password": "scrypt:32768:8:1$NvcDgTQ12CD8PcOP$219d2d08cd754c294f2efe7738c2fe818fd1e408ea915862bfce5aa75b50ff04c538c83116f96370e4a190a658fa2cc91c5a09febc8cfb9d8f9aa176df4af770",
+    "track": "cyber"
+  },
+  "guest1234": {
+    "email": "Jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$3hVmU4UFJFO04HXF$3b3ef1be90db89fbcda11ff1c5109d04fc861c2f0589e0351cd28af0251c494c523494d2d54f371683b7d8713223572ff54bbe4f18ef83de0cc1b00ae15b30f5",
+    "track": "cyber"
+  },
+  "jim1234": {
+    "email": "jam@jam.com",
+    "password": "scrypt:32768:8:1$UojQ0uBPfhpvYZgh$789e7fb166c9bbcee494c378ee1c0431e1e6e47355c0306ca17e047facbdd536279233bdee6bc18ce0e85054d483e7de558d40c604be7450c28d7d2d4e4e0644",
+    "track": ""
+  },
+  "zonekings123222": {
+    "email": "enrollment@alambda.com",
+    "password": "scrypt:32768:8:1$M5f6mHeMp86BUhFH$4afdd7f761e17f718a93338697c9e1d4e266d1fd8a81b50282e8c3d13296eefe01fc60a7bf8e111cd0341b777ff9e94b4b656cef3fd841f7e916d057c4aefa3f",
+    "track": "cyber"
+  },
+  "zonekings12322211": {
+    "email": "chrishinahill@alambda.com",
+    "password": "scrypt:32768:8:1$ypUhZxZDPM2vURfK$6723f855b9013fdc71371baa1c0bcde5f3bfababb47ad6001f7ea229dde77788fbdb2cb693b0447a32d55d876ecd578cebe10227846e96bcbe5c66d52a526d12",
+    "track": "cyber"
+  },
+  "jhill7777": {
+    "email": "Jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$kLftnEiB5RcbpXxu$8d4d27acc8ed5ef3b574bc992c7adddd09329b61e54ff6e89372ad654cc52be082e583cad28ee4a4702d4bb7330ac52a18ebf6a9e6a0daabe3f2e8fca66e8da6",
+    "track": "cyber"
+  },
+  "jim777": {
+    "email": "jam@jam.com",
+    "password": "scrypt:32768:8:1$KvZAqKcciJgaF529$85c22019b4adefe39c80172586791ccbd6daee8fdef327d4b65c592bb8b118cf6e0a52bc4df7a399ae9cf485c4530a3ab32f5b1a0f4268f07038c06098e4b616",
+    "track": ""
+  },
+  "jameshill": {
+    "email": "james@ass.com",
+    "password": "scrypt:32768:8:1$HpdPKoNjeI6snqzY$e65b277202b2143212a421d43be6b93d8e0fe73752c22982a2cc60c37460a29b1ef86e248213d8174e70a51a3d59c047d1496d0870f5718fce25fe1abf8823b1",
+    "track": "web"
+  },
+  "jhill555": {
+    "email": "Jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$tg9FAiJZlh2lNIGK$3d1f78b7b5549c8c41399a4bb0d353d67e4dea336309c14b83f6358b17614bc673f05f91c739ef6159d717521a79d50c88c3c69735cbe74c0296e44f88fa6ca9",
+    "track": "cyber"
+  },
+  "jhill5553": {
+    "email": "Jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$2O9Q1OBKZFQBUSgT$f1b2bb678f66dbd65c4beadc34f2eeb94c740d112dec8c7c8d9ae4b7f24df8b1566e130b5610a94dc531a84a71422cd99b099a6778290ec4742b36d2ab94839b",
+    "track": "cyber"
+  },
+  "Jameshill@alambda.com": {
+    "email": "Jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$THy3zvfqiRY2FDI7$36d33d3aa82f6d9e9ff605e09fb4e30ff4428d45ef7004bb279b2106d6e9932f140813d61649084d130caa89cebf29c71984c81aa4d1f1aa66d019fa3a5de9ff",
+    "track": "data"
+  },
+  "Jameshill@alambda.comaaa": {
+    "email": "Jameshill234",
+    "password": "scrypt:32768:8:1$8yNibTU778zof5Ip$ec9e6dc137b8f7567b1210f7d9377563fe5c860d9311085ab6b74dec33eec49b88f1860019ead6f7f33a613b3e616e2eb8a1ea888ee98de04c9396a10b689c93",
+    "track": "web"
+  },
+  "saintlouishill@yahoo.comqqwqqw": {
+    "email": "qwwqwqw",
+    "password": "scrypt:32768:8:1$3EsM9mi9feR5WLrq$80a8d3dd783d8b9999c09803dd4df32b3d14fbca94a62d9e7db22fba5253ee58c2822db96b969a03d3329ce35a8f3ca26f03935d96281f32e34c4a06bd1b011f",
+    "track": "cloud"
+  },
+  "jameshill@alambda.comdssdsd": {
+    "email": "assasas",
+    "password": "scrypt:32768:8:1$mvSXjkcCMVmLJNaB$af802e3130346d905368d479bdcc7226f69ef370651e65b1cc59901e362300426f646926e18e45ffcfcc8a275c50cf7697cf7d2eac2421679c3f8e8ce017af0c",
+    "track": "web"
+  },
+  "zonekings12122": {
+    "email": "chrishina123@yahoo.com",
+    "password": "scrypt:32768:8:1$GeOaTB6vEDMaVs9n$7ec1e1f4a7f0c66fbe44fbf27b6973568e9b8a1e2abf3ceb4a3953bcb8fcbf9f7f90952e34c5be1200992bb61c980fe17a481f4ea5f773f5d0cf8f6e30654bb7",
+    "track": "managers"
+  },
+  "zonekings4545": {
+    "email": "enrollment@alambda.com",
+    "password": "scrypt:32768:8:1$i4jdasn2BFak3iua$ac2632b88d12774e68b170acca9d0b018e0b01a269202c2b75afa2b7f3ed380de5bc3abb9920856edb5d276e6fcb689e5ed84ce9d4cdc890786c4edc1a42f17b",
+    "track": "cyber"
+  },
+  "jameshill@alambda.comedd": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$holsg5i79Jox75BF$8938b4bd1e6b74ffd6cc3568088bdc1fcf61800d725bcf6a5f49e28a0d0c51a5c07b3c3edb7fbdd288171eecf51c53858a9267a3cadd007d40eebd304d056a71",
+    "track": "managers"
+  },
+  "jim777ddd": {
+    "email": "eerere",
+    "password": "scrypt:32768:8:1$5W5XPwPRF6c9SYFC$e9d80a7dc2205a3c1446080fd3c7f675ed8cbeed0caa5e59026a5acd7903e64fbfa5b9aea94d9b040d1a7db49ca10fc0ff4f900b8b9af9eda260770be9e071cf",
+    "track": ""
+  },
+  "laneshapatrice": {
+    "email": "lh8vx@umsl.edu",
+    "password": "scrypt:32768:8:1$e0CVCCeN2EFZt9c9$92688ea358fa7e420bed3e22d65dc7de5e25a905b98d30a4716f77ea274919e49b3c3a1b012c31b442c088af79a5f676a1be64518ad8d083b2131b680eaff337",
+    "track": "cybersecurity"
+  },
+  "temp9883": {
+    "email": "temperance9883@gmail.com",
+    "password": "scrypt:32768:8:1$o1zLuv6LnG1qjwxY$a96e3b7b6e347d23d488310884cf60028b5062ad19e09940c32760df6dc13f562422aed4e9d825afe3371898779fa36a18dc0d5168a60379663403f36e670148",
+    "track": "cybersecurity"
+  },
+  "Saintlouishill@yahoo.com": {
+    "email": "justicemalachi8@gmail.com",
+    "password": "scrypt:32768:8:1$zXUveYrqxbLEV0Pa$f56ebdaae44db7ec7680077c2da0d274b5ae14eff2c89701886fecd13cd25eca0226d14c247e99720d784374cc742e98d1c7f74b62345f904c512e5b93d5d9b8",
+    "track": "cybersecurity"
+  },
+  "Nfisher126": {
+    "email": "nfisher126000@gmail.com",
+    "password": "scrypt:32768:8:1$xwGHfY72bcZc5mah$67aab5f44dea59ecc7d7b1309f144ec61250d49e7156d53443eabe9ca02c03cc139da0e825cb08e67b36502ecd14aa3275cbd8d5393d38359c368efdb89bb9f0",
+    "track": "cybersecurity"
+  },
+  "Ariffy": {
+    "email": "ariffy23@gmail.com",
+    "password": "scrypt:32768:8:1$EvtBwfH1sY03IUcf$a29154326eba13e2dd8f9493ff51f0160f7518ae856b26635b780ed600f10073352e396e3bf5a72925690d826892f0a3c8fd85ef6545861150fea58c4142d550",
+    "track": "cybersecurity"
+  },
+  "kgcht": {
+    "email": "kgcht@umsystem.edu",
+    "password": "scrypt:32768:8:1$5rRlH04taUS8wCaI$be7325ac517ea9a09b4411a1c85daac3bbe54b962687a7282fcad30144d4f3228c9509ef03c33d2eeb96b0ec666adc72e608fca1f8c88cedbe9daa46b0239c5c",
+    "track": "cybersecurity"
+  },
+  "bsimcoke7462": {
+    "email": "bs9g7@umsl.edu",
+    "password": "scrypt:32768:8:1$SNAc0CjMIrqnVDCl$ca8363602a13c95cf0d827bd03617253d009afbda0adc24667aee7ecb9ea484d94e345ca39ca04bf0bfc94e2dfc82d3a2576d08479c0976fb7cfdbe43b2c56d8",
+    "track": "cybersecurity"
+  },
+  "Maisoonhamed": {
+    "email": "maisoon.ishag@gmail.com",
+    "password": "scrypt:32768:8:1$Y19Y09sibK37uWEw$e4ed4cff11a41c79635a748be40ed08a698646342d1172d3221b732199ffe9f4aee404ca34d5f7e4b8f3ee7287a62f2199dfb4f4cf67e39a98f295cba4a908e7",
+    "track": "cybersecurity"
+  },
+  "jameshill@alambda.com": {
+    "email": "aaaaaa",
+    "password": "scrypt:32768:8:1$iyBMzmQGepyE9OIN$c947cf5aeccfcb32c8a1e500dd8319d38e1a60c7741a14c3f70ea2740b1efaed4fb126d7954880545c6d1f31f61b63a12acbadbb1f6d4c947252aae3aef7733a",
+    "track": "managers"
+  },
+  "jmfmg@umsystem.edu": {
+    "email": "jmfmg@umsystem.edu",
+    "password": "scrypt:32768:8:1$OOF4I2np2iK9WfUc$6d254cff891c333a6609c8e04ddcd505f4cb630044905167861293d44f528b645103ab9c71a6bce91f28654447c1c90f3926a740f62c135bb30f32e916a48dc0",
+    "track": "data"
+  },
+  "JMickens": {
+    "email": "28gemini86@gmail.com",
+    "password": "scrypt:32768:8:1$P97mKv8ZXuTze7ep$59d15206a86ac792a1e9f17720300f3812d82243694f3c87aa3c880eee464ba16c5ec5e564e133fcf58c95229bc52bc540030f195d15ba569e0b16421eadfe01",
+    "track": ""
+  },
+  "thehouseofaarupllc@gmail.com": {
+    "email": "thehouseofaarupllc@gmail.com",
+    "password": "scrypt:32768:8:1$1jiWNtmt4qX3vInx$06a6f26968e4041d74763a1f316ffeb4491bf23cee1cebf671535744d4018382bef798b594a1cbad0582fb0bedb3fb7cc4788042a0b2647b304db2ac0ee56fef",
+    "track": ""
+  },
+  "Jfb417": {
+    "email": "jfb417@yahoo.com",
+    "password": "scrypt:32768:8:1$zzxap3fkKwSMye46$33ec8c24fab5d3d4c01052b96966908a6d714a0175b0123e09347062828ddf030fd590c783de2bf485ed1314a11c5232f6f92dc743487eae99b9ed22cbfc7ba1",
+    "track": "web"
+  },
+  "mohamed.july01@gmail.com": {
+    "email": "mohamed.july01@gmail.com",
+    "password": "scrypt:32768:8:1$zDhs9kPo3MZ0eLwj$9661099ace5f262938e81da74da45c44555fda05e521b499358929bfbb1a1a60df1fbd9a92c5fb7189bcb70e0fc95e706708aa9ea6feb3c839c90ab1fa3302b8",
+    "track": "data"
+  },
+  "jim1234qqq": {
+    "email": "qqqq",
+    "password": "scrypt:32768:8:1$7TH0wExJ2nRGkguG$4c59fc45b96c3aaf90f7ea60223e5abdd1ab07c60fbfffaa807df47946d3520f4ee4ceee8e79820fba1913b0d435c91ac92e322bcd674e03aa7c7efdab52eddb",
+    "track": ""
+  },
+  "jim1234saa": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$KBBB8w4l9vTxA0hN$cd95f856050c11db1c15ce4e7d4ecd72cf781079427f8e4722649018503b63c8ddada08a031bc46fb08c6f6648a2758ec176f87d852e738b15865946149fb369",
+    "track": ""
+  },
+  "Jameshill@alambda.comsss": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$LorDnaGTIWyq050z$6116eb2b1657e446f97fe28441140d79152ed4330d3e93da283277546a3f4e924c7d92e07002f8d94e9592741b440ef0246d2e4f2ed19844c0fb786b5e619818",
+    "track": "web"
+  },
+  "pavan": {
+    "email": "psvhv@umsystem.edu",
+    "password": "scrypt:32768:8:1$NBke0FzYf4XGs1Oc$d365cad0ccbcf0cda00267fee7a244465b4a02cc80f13a8075e5958e231aebb577c13c2a3207f32f0183668bc2f692c17e89651418c937c2ca2a061c94138f5f",
+    "track": ""
+  },
+  "psvhv@umsystem.edu": {
+    "email": "psvhv@umsystem.edu",
+    "password": "scrypt:32768:8:1$NK23M8g5JWa7KouN$d1f8ed9df1ac6f0b2aad72ce240ba073a212016588181e18f453101eae89d7f0df33f3b5895d8b2259288ab4be1aedb4a17cf2442d50d121132a9913553c7a41",
+    "track": "data"
+  },
+  "Jameshill@alambda.comssss": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$WPgrBfV1s7abfeGq$16378e1b4b9c60dbd246ec497805785f12aad0f135d35be6284d27e4934fd9ed964ca6e560ee6300d1c1912523f44774bb5ff09e361574dc50b5e033162a9d36",
+    "track": "cybersecurity"
+  },
+  "jim1234sd": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$L3Gu4aVdmbeO2LxP$2b94f137666db602d28633b0dcb4eaae69e825255949f605a27d3e24d2a0045e04dca7d538c346d742dd1be5ddba41b2f6a93b66c00cad47ac6f4ff640ddf544",
+    "track": ""
+  },
+  "hsv3318@yahoo.com": {
+    "email": "hsv3318@yahoo.com",
+    "password": "scrypt:32768:8:1$XkVVq3NPVyzlVqNt$f1b4bf2d8e495587cf343d47036b63ca81996922ac10ae641e6759d8ab3b4f97e53b05babf4aea2aaf1538af1ed8b57eb8ffc62bcd440116e4cab88d84323763",
+    "track": "cybersecurity"
+  },
+  "chrishina234": {
+    "email": "chrishina123@gmail.com",
+    "password": "scrypt:32768:8:1$HUKVtLgGqUmlxf0d$4198dc3455cae59f4e6447492f5e22ba85e34171c7e6f89d0a8b1bb89f3708f900627e028bdb73c8cb52dd803085ef02d82441d76074a88c3d7de7777ee92f5a",
+    "track": "web"
+  },
+  "jhill006aas12": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$swxtB0f0VXURZvGx$d207b5f8f44c906f54e28f5b78df3d426c3c855c32ceef34119c7056ddc6d82ffccfb959bf8adfc21e972db8038405b56987779104ecd2745da7f8a368599054",
+    "track": "data"
+  },
+  "jameshill324": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$VeNS0rxdE6RWBywQ$0b2b5f7f0a927e33ef7b0cc7aea98063abc3760580fe24fcbb47ee40260e8c0232d357ddc102dde69fb9ac0465a44151eb2031249e2cbfd0a2b7bf17b771a1c0",
+    "track": "web"
+  },
+  "Noah Johnson": {
+    "email": "ballnbaby005@gmail.com",
+    "password": "scrypt:32768:8:1$vO47EpCeN5UXqtkA$6415eea87f0e0be800b3b164fab60f9a3ba06ce29d4021f9485965d8431a18b3d9c0e55510ac667bcd8c9a0dd8688051c8e867fd7e2c4bef50b69a602c63423c",
+    "track": "cybersecurity"
+  },
+  "JesseRandle": {
+    "email": "restorecfn@gmail.com",
+    "password": "scrypt:32768:8:1$tDOqhLlgMtk4mt4i$d8351e284db6e620c91329c51c7e63d3d977c6da2c55d07a76cb67121c04345061b18b76831ff9a9d285b50d1afabb3ae7bd22c111c15c711f5f12a686f6de7f",
+    "track": "cybersecurity"
+  },
+  "jimhill8010": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$RujohEEfvfGnLxY9$6315c584a2c4a21e10acd9084a1b384a0a44411f789e7f3399e09d27c4ceecbe528a8d29746744737c915fa0f65c11362653410ebe765d9f40ae741b3b0d1a5f",
+    "track": "cybersecurity"
+  },
+  "Bigmoney": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$PHf8ckk5PgoNFiKy$e4e32430b7da9372cd24af29ca5f4e67c503e56c5dbdc1f8abd3b7336aa9abf46ea7a5fc824e18dd598e69afa48981d06197b7f24135b5b3075337d10b0e54ae",
+    "track": "web"
+  },
+  "Jameshill@alambda": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$3IhoVtDbQmdZCdhr$492546d474d305c44540056b351d6159f861844b8c868921a7bfcd77b1ad5ce775ca50026b334f9101cbfe1dd4dd374f0e8d081e5497aefe2240175bcbc11505",
+    "track": "cybersecurity"
+  },
+  "Jameshill@alam": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$x6iXjQBWIfWHF5Ph$3e74f5dd224bfd576413a969d5d2dae60d46318e2cbb0ba1f5a285eb3289fd9a84f56cb89989dabad71c0dd51b99a92005488b16ff4b4d775dd318a421b3efa5",
+    "track": "cloud"
+  },
+  "rooster71": {
+    "email": "guterrezconstruction99@gmail.com",
+    "password": "scrypt:32768:8:1$ZNDN6qwpXSfWV3g7$0df758b73ab0128396d4e36c20864f4146122806f586bbb93bde9d453373d29f04ace482bfe32736e8033b6ee7be39282be479ff99fe1a04d8a722ac58cd7e8f",
+    "track": "managers"
+  },
+  "st1jkin1": {
+    "email": "jimmy.king2401@yahoo.com",
+    "password": "scrypt:32768:8:1$JfMAYxVZwGLNwDeZ$0970b9dcf73433b919c7e7723fbb92b81094fe8bc057a7dcd2245ac077e1c32986e3dc3583feac519265eced81dc6dcf63ac741f90d53d2e6718e61fe79a68a9",
+    "track": "cybersecurity"
+  },
+  "hsv8962": {
+    "email": "pbvn87@umsystem.edu",
+    "password": "scrypt:32768:8:1$ZDlIiiRtYpEPkYPh$8d43a66fd73f6f49d05a272847415b5a42cb5eb1627c13db702de9de6dfc6222ec60a6c68a5c3d75e91243e87f9345b9257dd3cd1afd09e8c2b2d46300b43302",
+    "track": "cybersecurity"
+  },
+  "jmusicb1": {
+    "email": "jmusicb123@yahoo.com",
+    "password": "scrypt:32768:8:1$xq59mkjrcatwmiJ4$932b99ad466c826529be387183b71b187869379505672642dc6c560d73a232c2086ab39f85ed75e1a39efee162aff2cbbf632582b856e16980dcafa9f15304d2",
+    "track": "web"
+  },
+  "saintlouishill@yahoo.com": {
+    "email": "security2025",
+    "password": "scrypt:32768:8:1$3oMiYmgOmphuJsGU$ec49b11df2f52e8e0c43382d29f334fdce7c409b5d993f641fe634cfe436110a9071ac3a1c79b55ff759d599e7f17bc9a47cce2da7b1a63df17e219759502764",
+    "track": "cloud"
+  },
+  "pbvn87@umsystem.edu": {
+    "email": "pbvn87@umsystem.edu",
+    "password": "scrypt:32768:8:1$EugcWggoqAJAFQrH$8f80689790526109a45b92a52be4082222c21ebe83f174b38e0af2ef74ee8beb3ac587de2da67694502cfbaeaf25a209b51161a5921ab99a9571b6dd42526f42",
+    "track": "cybersecurity"
+  },
+  "Adisdizdarevic117": {
+    "email": "adisdizdarevic116@gmail.com",
+    "password": "scrypt:32768:8:1$c6wyFmKs0zOSBWuA$2867993b010571429ce94ab1f9452283e2b12cbf679a887a1f9073108eff33c7641136da6aba47106f5dc1198480820bf4efa3b6efddef5e55d595e3f59d965f",
+    "track": "web"
+  },
+  "Adisdizdarevic116": {
+    "email": "adisdizdarevic116@gmail.com",
+    "password": "scrypt:32768:8:1$HtULEpEXtpLHEPUg$867a953b09cc7858500947cefa50910638cfc216faab7c075d90b27f569170bd579a3f05d561652fc7456c4c842ef18dd3ebf5c24f4bc864401758c21a8c8c39",
+    "track": "web"
+  },
+  "nickrob": {
+    "email": "Nickolaus.robinson1@gmail.com",
+    "password": "scrypt:32768:8:1$gWqEPlQHh7XvfnQe$d704387f5cd77c5d94d302e1c12d36c44890ee7bbbec47d8d82bd195efdb9ff8ed0eb62cfb3fec1e36c0d0894c1509224756d1c9a433f8baea35efd5b184ac11",
+    "track": "web"
+  },
+  "pbvn87": {
+    "email": "pbvn87@umsystem.edu",
+    "password": "scrypt:32768:8:1$U0VgKstVshR2DeO0$b2e9dac59a14b5774b38566c00c8d3fde734511f68bbd8eab40e964c4d3ad5d0ed5e53c62c2c2779897895dee44caad601404af59b3c28b00fb1d200baf0bcc8",
+    "track": "cybersecurity"
+  },
+  "Naijaguy": {
+    "email": "felix4usa@gmail.com",
+    "password": "scrypt:32768:8:1$V7uAm8GCz8jZ6oaA$10ba3939ecc2b510586aa9a050571c3e1b762b95d36d471ccd611e8d7af98ab645244733337f703ccfa553f3cf0195550517b1697d9c97771caeb8414485ea09",
+    "track": "cybersecurity"
+  },
+  "MVardiman88": {
+    "email": "UniteoneLLC@Gmail.com",
+    "password": "scrypt:32768:8:1$oOe2OfFT1pMgwjs6$100763769cccc7049a72cf4faca970f467583264a0aa33e6c459b481af29728f2232f0f5bf625d0ee14a5cabda0a84c515c114c472920d863b98025b44d562a9",
+    "track": "managers"
+  },
+  "Atari88": {
+    "email": "marcelpartee84@gmail.com",
+    "password": "scrypt:32768:8:1$ZdkiQ3Ib57NoY8vH$63bd95890ce79dd9ad6adbd65f82164efae04c86343b2a912df455f6acb3f4d1c1dfd8b44dceaaf5b6d3e431e5e389c24d9e8a603dd6f3f2098a31bf4ff863d1",
+    "track": ""
+  },
+  "jim12345": {
+    "email": "jameshill@alambd.com",
+    "password": "scrypt:32768:8:1$8X9nU6BdFxm9nZi3$aab5114c0ce275e00229002c019ed3e8e919761a01ae4fd2da4b04517750476b3f0881b70371761869c797ccc77526e848bada2b2a8da766007dafe910496888",
+    "track": ""
+  },
+  "jim777ddd222": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$MeBc4rBHXOFtg0f1$b684efb856958d86724e4d68bb5f28618d2350d8a73dddd9c88ee06e67be1705a526dd973bc28ef9932adc49594b2fe669313fce3b2d951cde947a2280d37d54",
+    "track": ""
+  },
+  "Jameshill": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$7di0474NScXTER7V$dab9f2e69decd130c9f29d0e1ce60ecf9cfbe3983713052e5cabfcc3c042b984e6f6becd57946de6a124afa24ff237f8968985fb8e6c20a1841e259971df1c40",
+    "track": ""
+  },
+  "jimhill111": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$Z9kXtpFLp3sHyvjN$2a9f9dd2134ba02267f6333bffa831c4fb0ae5865eefa3866e159b856fd7b3584f6e802e47b64dc0975c4780389ddf762d61c5ea66ead8e9828459a953cf17d9",
+    "track": ""
+  },
+  "Jahill": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$N6aaB5hFJrSbsMXZ$b564af474485ae508bfa6f01e3b307f86e87d42a33ed37e9c1b026257487c326f361f97c4732c7d957e37d3d0429bf228930ab4deb14dff39106b8b7482a264a",
+    "track": ""
+  }
+}

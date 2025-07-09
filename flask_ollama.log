@@ -1,0 +1,37 @@
+2025-04-07 15:05:36,414 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.26.146:5000
+2025-04-07 15:05:36,414 [INFO] [33mPress CTRL+C to quit[0m
+2025-04-07 15:05:36,415 [INFO]  * Restarting with stat
+2025-04-07 15:05:36,809 [WARNING]  * Debugger is active!
+2025-04-07 15:05:36,813 [INFO]  * Debugger PIN: 919-115-363
+2025-04-07 15:05:42,715 [ERROR] Exception during /predict
+Traceback (most recent call last):
+  File "C:\Users\Owner\Webtest\app.py", line 24, in predict
+    data = request.get_json()
+  File "C:\Users\Owner\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.7_qbz5n2kfra8p0\LocalCache\local-packages\Python37\site-packages\werkzeug\wrappers\request.py", line 591, in get_json
+    return self.on_json_loading_failed(None)
+  File "C:\Users\Owner\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.7_qbz5n2kfra8p0\LocalCache\local-packages\Python37\site-packages\flask\wrappers.py", line 128, in on_json_loading_failed
+    return super().on_json_loading_failed(e)
+  File "C:\Users\Owner\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.7_qbz5n2kfra8p0\LocalCache\local-packages\Python37\site-packages\werkzeug\wrappers\request.py", line 632, in on_json_loading_failed
+    "Did not attempt to load JSON data because the request"
+werkzeug.exceptions.BadRequest: 400 Bad Request: Did not attempt to load JSON data because the request Content-Type was not 'application/json'.
+2025-04-07 15:05:42,739 [INFO] 127.0.0.1 - - [07/Apr/2025 15:05:42] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2025-04-07 15:23:16,815 [INFO] 10.0.26.146 - - [07/Apr/2025 15:23:16] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-07 15:23:28,550 [INFO] 127.0.0.1 - - [07/Apr/2025 15:23:28] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-07 15:23:29,359 [INFO] 127.0.0.1 - - [07/Apr/2025 15:23:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-07 15:23:35,885 [INFO] 10.0.26.146 - - [07/Apr/2025 15:23:35] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-07 15:23:45,908 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.26.146:5000
+2025-04-07 15:23:45,908 [INFO] [33mPress CTRL+C to quit[0m
+2025-04-07 15:23:45,909 [INFO]  * Restarting with stat
+2025-04-07 15:23:46,299 [WARNING]  * Debugger is active!
+2025-04-07 15:23:46,304 [INFO]  * Debugger PIN: 919-115-363
+2025-04-07 15:23:50,133 [INFO] 127.0.0.1 - - [07/Apr/2025 15:23:50] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-07 15:23:53,176 [INFO] 10.0.26.146 - - [07/Apr/2025 15:23:53] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-07 15:24:05,189 [INFO] 10.0.26.146 - - [07/Apr/2025 15:24:05] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-07 15:24:28,819 [INFO]  * Detected change in 'C:\\Users\\Owner\\Webtest\\app.py', reloading
+2025-04-07 15:24:28,836 [INFO]  * Restarting with stat

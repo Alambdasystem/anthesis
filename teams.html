@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Anthesis Team Generator</title>
+  <!-- Fonts & CSS -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: #f7fafc;
+      color: #222;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      z-index: 1000;
+    }
+    .header-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      color: #ff4d4d;
+      font-size: 1.75rem;
+      margin: 0;
+      font-weight: 700;
+    }
+    /* Centered card */
+    #main-card {
+      max-width: 900px;
+      margin: 3rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,191,174,0.1);
+      overflow: hidden;
+    }
+    #main-card .card-header {
+      background: #00bfae;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    #team-output {
+      max-height: 300px;
+      overflow: auto;
+      background: #f4fffd;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 1rem;
+      font-family: "Courier New", monospace;
+      white-space: pre-wrap;
+      font-size: 0.95rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background: #fff;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    /* Modal styling reuse */
+    .auth-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(10,132,255,0.07);
+    }
+    #login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10,132,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .auth-toggle {
+      background: none;
+      border: none;
+      color: #0a84ff;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: .5rem;
+      font-weight: 600;
+    }
+    .text-danger { font-size: 0.9rem; }
+    .spinner-border-sm { width: 1rem; height: 1rem; }
+    
+    /* Team visualization styles */
+    #team-visualization {
+      margin-top: 2rem;
+      min-height: 500px;
+      position: relative;
+    }
+    
+    .team-container {
+      position: relative;
+      margin-bottom: 3rem;
+      width: 100%;
+      min-height: 250px;
+    }
+    
+    .team-label {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #333;
+      padding: 5px 15px;
+      border-radius: 20px;
+      background: #f0f0f0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .team-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: #00bfae;
+      box-shadow: 0 4px 12px rgba(0,191,174,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: scale(0.5);
+      animation: bubbleAppear 0.5s forwards;
+    }
+    
+    .team-bubble:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0,191,174,0.3);
+      z-index: 10;
+    }
+    
+    @keyframes bubbleAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .team-bubble.team-1 {
+      background: linear-gradient(135deg, #00bfae, #009e8f);
+    }
+    
+    .team-bubble.team-2 {
+      background: linear-gradient(135deg, #4d7cff, #2850c8);
+    }
+    
+    .bubble-tooltip {
+      position: absolute;
+      background: white;
+      border-radius: 8px;
+      padding: 12px;
+      width: 220px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+    
+    .bubble-tooltip h5 {
+      margin: 0 0 5px;
+      font-size: 1rem;
+      color: #333;
+    }
+    
+    .bubble-tooltip p {
+      margin: 0 0 3px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    
+    .bubble-tooltip .confidence {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      background: #f0f8ff;
+    }
+    
+    .bubble-tooltip.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .view-toggle {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .view-toggle .btn {
+      margin: 0 5px;
+      font-weight: 500;
+    }
+    
+    .content-view {
+      display: none;
+    }
+    
+    .content-view.active {
+      display: block;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #main-card {
+        margin: 1rem;
+        max-width: calc(100% - 2rem);
+      }
+      
+      .team-container {
+        min-height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <h1>Team Generator</h1>
+      <button id="logout-btn" class="btn btn-outline-danger btn-sm" style="display:none;">Logout</button>
+    </div>
+  </header>
+
+  <!-- LOGIN / REGISTER Overlay -->
+  <div id="login-container">
+    <div class="auth-box" id="login-box">
+      <h2>Login</h2>
+      <input id="login-username" class="form-control mb-3" placeholder="Username"/>
+      <input id="login-password" type="password" class="form-control mb-3" placeholder="Password"/>
+      <button id="login-btn" class="btn btn-primary w-100 mb-2">Login</button>
+      <p id="login-error" class="text-danger"></p>
+      <button class="auth-toggle" onclick="showRegister()">Don't have an account? Register</button>
+    </div>
+    <div class="auth-box" id="register-box" style="display:none;">
+      <h2>Register</h2>
+      <input id="reg-username" class="form-control mb-3" placeholder="Username"/>
+      <input id="reg-email" type="email" class="form-control mb-3" placeholder="Email"/>
+      <input id="reg-password" type="password" class="form-control mb-3" placeholder="Password"/>
+      <input id="reg-confirm" type="password" class="form-control mb-3" placeholder="Confirm Password"/>
+      <button id="register-btn" class="btn btn-success w-100 mb-2">Register</button>
+      <p id="register-error" class="text-danger"></p>
+      <button class="auth-toggle" onclick="showLogin()">Already have an account? Login</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="main-content" style="display:none;">
+    <div id="main-card" class="card">
+      <div class="card-header text-center">Upload Resumes & Generate Team</div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="zipUpload" class="form-label">Select ZIP of resumes:</label>
+          <input type="file" id="zipUpload" accept=".zip" class="form-control"/>
+        </div>
+        <button id="generate-team-btn" class="btn btn-info w-100 mb-3">
+          <span id="btn-text">Generate Team</span>
+          <span id="btn-spinner" class="spinner-border spinner-border-sm text-light" style="display:none;"></span>
+        </button>
+        
+        <!-- View Toggle -->
+        <div class="view-toggle mb-3" style="display:none;" id="view-toggle">
+          <button class="btn btn-sm btn-outline-primary active" data-view="visualization">Visual</button>
+          <button class="btn btn-sm btn-outline-secondary" data-view="json">JSON</button>
+        </div>
+        
+        <!-- Visualization View -->
+        <div class="content-view active" id="visualization-view">
+          <h5 class="mb-3 text-center">Team Visualization</h5>
+          <div id="team-visualization">
+            <div id="team-1" class="team-container">
+              <div class="team-label">Team Alpha</div>
+            </div>
+            <div id="team-2" class="team-container">
+              <div class="team-label">Team Beta</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- JSON View -->
+        <div class="content-view" id="json-view">
+          <h5 class="mb-2">Team JSON & Reasoning:</h5>
+          <div id="team-output">Nothing yet...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>© <span id="year"></span> Anthesis AI • All rights reserved</footer>
+
+  <!-- Tooltip template (hidden) -->
+  <div id="bubble-tooltip" class="bubble-tooltip">
+    <h5>Name</h5>
+    <p><strong>Role:</strong> <span class="role"></span></p>
+    <p><strong>Skills:</strong> <span class="skills"></span></p>
+    <p class="confidence"></p>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Toggle between login and register forms
+    function showRegister() {
+      $('#login-box').hide();
+      $('#login-error').text('');
+      $('#register-box').show();
+      $('#register-error').text('');
+    }
+    function showLogin() {
+      $('#register-box').hide();
+      $('#register-error').text('');
+      $('#login-box').show();
+      $('#login-error').text('');
+    }
+
+    // On document ready: check token
+    $(function () {
+      $('#year').text(new Date().getFullYear());
+      const token = localStorage.getItem('token');
+      if (token) {
+        validateToken(token);
+      }
+      
+      // View toggle handlers
+      $('.view-toggle .btn').click(function() {
+        $('.view-toggle .btn').removeClass('active');
+        $(this).addClass('active');
+        
+        const view = $(this).data('view');
+        $('.content-view').removeClass('active');
+        $(`#${view}-view`).addClass('active');
+      });
+    });
+
+    // Validate token by hitting /health
+    async function validateToken(token) {
+      try {
+        const res = await fetch('https://api.alambda.com/health', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          // Hide login, show main
+          $('#login-container').hide();
+          $('#main-content').show();
+          $('#logout-btn').show();
+          return;
+        }
+      } catch (e) {
+        console.error('Token validation failed', e);
+      }
+      // If invalid:
+      localStorage.removeItem('token');
+      $('#login-container').show();
+      $('#main-content').hide();
+      $('#logout-btn').hide();
+    }
+
+    // REGISTER
+    $('#register-btn').click(async () => {
+      const u = $('#reg-username').val().trim();
+      const e = $('#reg-email').val().trim();
+      const p = $('#reg-password').val();
+      const c = $('#reg-confirm').val();
+      $('#register-error').text('');
+      if (!u || !e || !p) {
+        return $('#register-error').text('Username, email, and password are required.');
+      }
+      if (p !== c) {
+        return $('#register-error').text('Passwords must match.');
+      }
+      try {
+        const res = await fetch('https://api.alambda.com/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, email: e, password: p })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Registration failed');
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          validateToken(data.token);
+        } else {
+          throw new Error('No token received');
+        }
+      } catch (err) {
+        console.error('Registration error:', err);
+        $('#register-error').text(err.message);
+      }
+    });
+
+    // LOGIN
+    $('#login-btn').click(async () => {
+      const u = $('#login-username').val().trim();
+      const p = $('#login-password').val();
+      $('#login-error').text('');
+      if (!u || !p) {
+        return $('#login-error').text('Username and password are required.');
+      }
+      try {
+        const res = await fetch('https://api.alambda.com/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, password: p })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login failed');
+        localStorage.setItem('token', data.token);
+        validateToken(data.token);
+      } catch (err) {
+        console.error('Login error:', err);
+        $('#login-error').text(err.message);
+      }
+    });
+
+    // LOGOUT
+    $('#logout-btn').click(async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return;
+      }
+      try {
+        const res = await fetch('https://api.alambda.com/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (res.ok || res.status === 401) {
+          localStorage.removeItem('token');
+          $('#main-content').hide();
+          $('#logout-btn').hide();
+          $('#login-container').show();
+        } else {
+          const data = await res.json();
+          alert(data.error || 'Logout failed');
+        }
+      } catch (e) {
+        console.error('Logout error:', e);
+        localStorage.removeItem('token');
+        $('#main-content').hide();
+        $('#logout-btn').hide();
+        $('#login-container').show();
+      }
+    });
+
+    // Team visualization functions
+    function createTeamBubbles(teamData) {
+      // Validate the data structure before proceeding
+      if (!teamData || !teamData.teams || !Array.isArray(teamData.teams) || teamData.teams.length === 0) {
+        console.error('Invalid team data structure:', teamData);
+        $('#team-output').text('Error: Invalid data structure returned from API');
+        return;
+      }
+
+      // Clear existing bubbles
+      $('.team-container').empty();
+      
+      // Add team labels with safe access
+      if (teamData.teams[0]) {
+        $('#team-1').append('<div class="team-label">' + (teamData.teams[0].name || 'Team 1') + '</div>');
+      }
+      
+      if (teamData.teams.length > 1 && teamData.teams[1]) {
+        $('#team-2').append('<div class="team-label">' + (teamData.teams[1].name || 'Team 2') + '</div>');
+      }
+      
+      // Create bubbles for each team
+      teamData.teams.forEach((team, teamIndex) => {
+        // Skip if team doesn't have valid members array
+        if (!team || !team.members || !Array.isArray(team.members)) {
+          return;
+        }
+        
+        const teamId = teamIndex + 1;
+        const teamContainer = $(`#team-${teamId}`);
+        
+        if (!teamContainer.length) {
+          return; // Skip if container doesn't exist
+        }
+        
+        // Set the container dimensions
+        const containerWidth = teamContainer.width();
+        const containerHeight = 250;
+        
+        // Calculate positions for team members in a circle
+        team.members.forEach((member, i) => {
+          if (!member) return;
+          
+          const totalMembers = team.members.length;
+          const angleStep = (2 * Math.PI) / totalMembers;
+          const angle = i * angleStep;
+          
+          // Calculate bubble position in a circle
+          const radius = Math.min(containerWidth, containerHeight) * 0.35;
+          const centerX = containerWidth / 2;
+          const centerY = containerHeight / 2;
+          
+          const x = centerX + radius * Math.cos(angle) - 50;
+          const y = centerY + radius * Math.sin(angle) - 50;
+          
+          // Create the bubble with safe access to member properties
+          const bubble = $('<div>')
+            .addClass(`team-bubble team-${teamId}`)
+            .css({
+              left: x + 'px',
+              top: y + 'px',
+              width: '100px',
+              height: '100px',
+              animationDelay: (i * 0.1) + 's'
+            })
+            .text(member.name ? member.name.split(' ')[0] : 'Member')
+            .attr('data-member-index', i)
+            .attr('data-team-index', teamIndex)
+            .appendTo(teamContainer);
+          
+          // Add event listeners for hover
+          bubble.on('mouseenter', function(e) {
+            showTooltip(e, member);
+          }).on('mouseleave', function() {
+            hideTooltip();
+          });
+        });
+      });
+      
+      // Show the toggle view controls
+      $('#view-toggle').show();
+    }
+    
+    function showTooltip(event, member) {
+      if (!member) return;
+      
+      const tooltip = $('#bubble-tooltip');
+      const bubble = $(event.currentTarget);
+      const bubbleOffset = bubble.offset();
+      const bubbleWidth = bubble.outerWidth();
+      
+      // Set tooltip content with safe access
+      tooltip.find('h5').text(member.name || 'Unknown');
+      tooltip.find('.role').text(member.role || 'Not specified');
+      
+      const skills = member.key_skills && Array.isArray(member.key_skills) 
+        ? member.key_skills.join(', ') 
+        : 'None listed';
+      tooltip.find('.skills').text(skills);
+      
+      const confidenceValue = typeof member.confidence === 'number' 
+        ? (member.confidence * 100).toFixed(0) 
+        : 'N/A';
+      tooltip.find('.confidence').html(`<span class="confidence">Confidence: ${confidenceValue}%</span>`);
+      
+      // Position the tooltip
+      tooltip.css({
+        top: bubbleOffset.top - tooltip.outerHeight() - 10,
+        left: bubbleOffset.left + (bubbleWidth / 2) - (tooltip.outerWidth() / 2)
+      }).addClass('visible');
+    }
+    
+    function hideTooltip() {
+      $('#bubble-tooltip').removeClass('visible');
+    }
+    
+    // Handle window resize for responsive bubbles
+    $(window).resize(function() {
+      // Check if we have team data
+      if ($('.team-bubble').length > 0) {
+        // Get the current team data from the dom
+        const teamData = {
+          teams: []
+        };
+        
+        // Loop through each team
+        for (let teamIndex = 0; teamIndex < 2; teamIndex++) {
+          const teamMembers = [];
+          $(`#team-${teamIndex + 1} .team-bubble`).each(function() {
+            const memberIndex = $(this).data('member-index');
+            const originalTeamIndex = $(this).data('team-index');
+            // We'd need to reconstruct the member data here - in a real app we'd store the data
+          });
+        }
+        
+        // Reposition the bubbles
+        createTeamBubbles(window.lastTeamData);
+      }
+    });
+    
+    // Generate Team: upload ZIP + prompt → /team-generator
+    $('#generate-team-btn').click(async () => {
+      const fileInput = $('#zipUpload')[0];
+      if (!fileInput.files.length) {
+        alert('Please select a .zip file of resumes.');
+        return;
+      }
+      const zipFile = fileInput.files[0];
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Authentication token missing. Please log in again.');
+        return;
+      }
+
+      // Build the prompt text
+      const promptText = `
+You are a team-building AI. Given the attached ZIP of candidate resumes, do the following:
+1. Parse each resume and identify name, top skills, years of experience, and primary domain.
+2. Create TWO balanced teams of 4-6 people each.
+3. For each team, give it a creative name and ensure it covers frontend, backend, and specialized roles.
+4. For each chosen candidate, output:
+   - name
+   - assigned role (e.g. "Frontend Engineer")
+   - key_skills (array of strings with their top 2-3 skills)
+   - confidence score between 0.80 and 1.00
+5. Include a "reasoning" section explaining the team formation strategy.
+Return the entire result as JSON with this structure:
+{
+  "teams": [
+    {
+      "name": "Team Name",
+      "members": [
+        {
+          "name": "Person Name",
+          "role": "Role Name",
+          "key_skills": ["Skill1", "Skill2"],
+          "confidence": 0.95
+        }
+      ]
+    }
+  ],
+  "reasoning": "Explanation of team formation..."
+}
+`;
+
+      // Show spinner
+      $('#btn-text').hide();
+      $('#btn-spinner').show();
+      $('#team-output').text('Processing…');
+      
+      // Hide any existing visualizations
+      $('.team-bubble').remove();
+
+      const formData = new FormData();
+      formData.append('file', zipFile);
+      formData.append('prompt', promptText.trim());
+
+      try {
+        const res = await fetch('https://api.alambda.com/predict', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: formData
+        });
+        
+        const raw = await res.text();
+        let data;
+        
+        try {
+          data = JSON.parse(raw);
+        } catch (jsonErr) {
+          console.error('JSON parsing error:', jsonErr);
+          console.log('Raw response:', raw);
+          throw new Error('Server returned invalid JSON response');
+        }
+        
+        if (!res.ok) {
+          throw new Error(data.error || 'Team generation failed');
+        }
+        
+        // Store the raw response to display in JSON view
+        const rawResponse = data;
+        
+        // Check if we have the expected structure, if not, attempt to parse from text
+        if (!data.teams || !Array.isArray(data.teams)) {
+          console.log('API returned unexpected format, attempting to extract team data');
+          
+          // The API seems to be returning a different format with 'response' field
+          let responseText = '';
+          if (data.response) {
+            responseText = data.response;
+          } else if (typeof data === 'string') {
+            responseText = data;
+          } else {
+            responseText = JSON.stringify(data);
+          }
+          
+          // Display the raw response in the JSON view
+          $('#team-output').text(responseText);
+          
+          // Attempt to create a simple visualization with placeholder data
+          // This gives the user something to see even if the API response isn't as expected
+          const placeholderData = {
+            teams: [
+              {
+                name: "Team A (Placeholder)",
+                members: [
+                  {
+                    name: "Team Member 1", 
+                    role: "See JSON for details",
+                    key_skills: ["Check the JSON view for complete response"],
+                    confidence: 0.9
+                  },
+                  {
+                    name: "Team Member 2", 
+                    role: "API returned unstructured data",
+                    key_skills: ["Review JSON tab for complete information"],
+                    confidence: 0.9
+                  }
+                ]
+              },
+              {
+                name: "Team B (Placeholder)",
+                members: [
+                  {
+                    name: "Team Member 3", 
+                    role: "See JSON for details",
+                    key_skills: ["Check the JSON view for complete response"],
+                    confidence: 0.9
+                  },
+                  {
+                    name: "Team Member 4", 
+                    role: "API returned unstructured data",
+                    key_skills: ["Review JSON tab for complete information"],
+                    confidence: 0.9
+                  }
+                ]
+              }
+            ],
+            reasoning: "The API returned data in an unexpected format. Please see the JSON view for the complete response."
+          };
+          
+          // Store the placeholder data for resize events
+          window.lastTeamData = placeholderData;
+          
+          // Create the bubble visualization with placeholders
+          createTeamBubbles(placeholderData);
+          
+          // Show JSON view by default since the visual representation is just a placeholder
+          $('.view-toggle .btn').removeClass('active');
+          $('.view-toggle .btn[data-view="json"]').addClass('active');
+          $('.content-view').removeClass('active');
+          $('#json-view').addClass('active');
+          
+        } else {
+          // Original path when API returns the expected format
+          window.lastTeamData = data;
+          
+          // Pretty-print JSON + reasoning
+          const pretty = JSON.stringify(data, null, 2);
+          $('#team-output').text(pretty);
+          
+          // Create the bubble visualization
+          createTeamBubbles(data);
+          
+          // Show visualization view by default
+          $('.view-toggle .btn').removeClass('active');
+          $('.view-toggle .btn[data-view="visualization"]').addClass('active');
+          $('.content-view').removeClass('active');
+          $('#visualization-view').addClass('active');
+        }
+      } catch (err) {
+        console.error('Team-gen error:', err);
+        $('#team-output').text(`Error: ${err.message}`);
+      } finally {
+        $('#btn-spinner').hide();
+        $('#btn-text').show();
+      }
+    });
+  </script>
+</body>
+</html>

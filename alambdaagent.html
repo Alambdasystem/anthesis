@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Project Agent Dashboard</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 20px; background: #f8f8f8; }
+    .container { max-width: 1000px; margin: auto; }
+    .box { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
+    input, textarea, button, select { display: block; width: 100%; margin: 10px 0; padding: 10px; font-size: 16px; }
+    .response { background: #eef; padding: 10px; margin: 10px 0; border-left: 4px solid #88f; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Create a New AI Persona -->
+    <div class="box">
+      <h2>Create New AI Persona</h2>
+      <input type="text" id="name" placeholder="Full Name" />
+      <input type="email" id="email" placeholder="Email Address" />
+      <textarea id="bio" placeholder="Persona Purpose / Bio"></textarea>
+      <button onclick="createContact()">Create AI Persona</button>
+    </div>
+
+    <!-- Load Existing Persona -->
+    <div class="box">
+      <h2>Select Existing AI Persona</h2>
+      <select id="personaSelect" onchange="loadPersona()">
+        <option value="">-- Select a Persona --</option>
+      </select>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="box" id="chatBox" style="display:none;">
+      <h3 id="agentTitle">Chat with Agent</h3>
+      <div id="chatLog" style="height: 300px; overflow-y: auto;"></div>
+      <input type="text" id="userInput" placeholder="Ask something..." />
+      <button onclick="ask()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    let agentId = "";
+    let context = [];
+    let history = [];
+
+    // Create a new contact/persona
+    function createContact() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const bio = document.getElementById("bio").value;
+      
+      // Validate inputs
+      if (!name || !email || !bio) {
+        alert("Please fill in all fields.");
+        return;
+      }
+      
+      // Get authentication token from localStorage (if you're using token auth)
+      const token = localStorage.getItem('token');
+      
+      // Prepare headers with authentication
+      const headers = { 
+        "Content-Type": "application/json"
+      };
+      
+      // Add authentication token if available
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      fetch("https://api.alambda.com/contacts/create", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({ name, email, bio })
+      })
+      .then(res => {
+        // Check if response is OK before parsing JSON
+        if (!res.ok) {
+          return res.text().then(text => {
+            throw new Error(`Server responded with ${res.status}: ${text}`);
+          });
+        }
+        return res.json();
+      })
+      .then(data => {
+        agentId = data.id;
+        context = [bio];
+        document.getElementById("agentTitle").textContent = "Chat with " + name;
+        document.getElementById("chatBox").style.display = "block";
+        loadPersonas(); // Refresh list
+        
+        // Clear form fields after successful creation
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("bio").value = "";
+      })
+      .catch(err => {
+        console.error("Failed to create contact:", err);
+        alert("Failed to create contact: " + err.message);
+      });
+    }
+
+    // Load all personas into the dropdown
+    function loadPersonas() {
+      // Get authentication token
+      const token = localStorage.getItem('token');
+      
+      // Prepare headers with authentication
+      const headers = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      fetch("https://api.alambda.com/contacts/list", {
+        headers: headers
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.text().then(text => {
+            throw new Error(`Server responded with ${res.status}: ${text}`);
+          });
+        }
+        return res.json();
+      })
+      .then(data => {
+        const select = document.getElementById("personaSelect");
+        select.innerHTML = '<option value="">-- Select a Persona --</option>';
+        data.forEach(p => {
+          const option = document.createElement("option");
+          option.value = p.id;
+          option.textContent = p.name + " - " + p.bio;
+          select.appendChild(option);
+        });
+      })
+      .catch(err => {
+        console.error("Failed to load personas:", err);
+        // Add visual feedback for the error
+        const select = document.getElementById("personaSelect");
+        select.innerHTML = '<option value="">Error loading personas</option>';
+      });
+    }
+
+    // Load a specific persona's details
+    function loadPersona() {
+      const id = document.getElementById("personaSelect").value;
+      if (!id) return;
+
+      // Get authentication token
+      const token = localStorage.getItem('token');
+      
+      // Prepare headers
+      const headers = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      fetch("https://api.alambda.com/contacts/get?id=" + id, {
+        headers: headers
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.text().then(text => {
+            throw new Error(`Server responded with ${res.status}: ${text}`);
+          });
+        }
+        return res.json();
+      })
+      .then(data => {
+        agentId = data.id;
+        context = [data.bio];
+        history = [];
+        document.getElementById("agentTitle").textContent = "Chat with " + data.name;
+        document.getElementById("chatBox").style.display = "block";
+        document.getElementById("chatLog").innerHTML = "";
+      })
+      .catch(err => {
+        console.error("Failed to load persona:", err);
+        alert("Error loading persona: " + err.message);
+      });
+    }
+
+    // Ask a question to the selected persona
+    function ask() {
+      const input = document.getElementById("userInput").value;
+      if (!input) return;
+
+      const prompt = buildPrompt(input);
+      fetch("https://api.alambda.com/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt, agent_id: agentId })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const answer = data.answer || "No response.";
+        history.push({ question: input, response: answer });
+        const chatLog = document.getElementById("chatLog");
+        chatLog.innerHTML += `<div><strong>You:</strong> ${input}</div><div class="response">${answer}</div>`;
+        chatLog.scrollTop = chatLog.scrollHeight;
+        document.getElementById("userInput").value = "";
+      })
+      .catch(err => console.error("Predict error:", err));
+    }
+
+    // Build context + history into prompt
+    function buildPrompt(question) {
+      const contextStr = context.join("\\n");
+      const historyStr = history.map(h => `Q: ${h.question}\\nA: ${h.response}`).join("\\n");
+      return `${contextStr}\\n${historyStr}\\nQ: ${question}\\nA:`;
+    }
+
+    // Auto-load personas on page load
+    window.onload = loadPersonas;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "zonekings": {
+    "lectures": {
+      "cyber_1": {
+        "completed": true,
+        "timestamp": "2025-05-08T15:53:34.693695"
+      }
+    },
+    "quizzes": {},
+    "assignments": {}
+  },
+  "Jaz": {
+    "lectures": {
+      "cyber_1": {
+        "completed": true,
+        "timestamp": "2025-05-08T16:07:39.691744"
+      }
+    },
+    "quizzes": {},
+    "assignments": {}
+  },
+  "Twtszz": {
+    "lectures": {
+      "cyber_1": {
+        "completed": true,
+        "timestamp": "2025-05-09T12:44:18.939525"
+      }
+    },
+    "quizzes": {},
+    "assignments": {}
+  },
+  "guest1234": {
+    "lectures": {
+      "cyber_1": {
+        "completed": true,
+        "timestamp": "2025-05-10T10:36:03.868667"
+      }
+    },
+    "quizzes": {},
+    "assignments": {}
+  }
+}

@@ -1,0 +1,623 @@
+[
+  {
+    "id": "7d3937bf-2a42-48b9-9df5-549141f1ef73",
+    "name": "Content Generation Agent",
+    "description": "Generates AI-powered content including emails, RFP responses, and proposals",
+    "capabilities": [
+      "email_generation",
+      "rfp_response",
+      "proposal_writing",
+      "content_creation"
+    ],
+    "persona_icon": "\u270d\ufe0f",
+    "persona_color": "#00bfae",
+    "created_at": "2025-07-09T16:44:54.252432+00:00",
+    "last_used": null,
+    "usage_count": 0
+  },
+  {
+    "id": "b728eeca-4b82-4b9a-82d3-d6bbb9753d5a",
+    "name": "Document Analysis Agent",
+    "description": "Extracts text from files, analyzes documents, and processes RFP uploads",
+    "capabilities": [
+      "text_extraction",
+      "file_processing",
+      "document_analysis",
+      "rfp_processing"
+    ],
+    "persona_icon": "\ud83d\udcc4",
+    "persona_color": "#ff4d4d",
+    "created_at": "2025-07-09T16:44:54.253453+00:00",
+    "last_used": null,
+    "usage_count": 0
+  },
+  {
+    "id": "47499769-cf02-40a1-b162-820ca93b7f62",
+    "name": "Dr. Smith",
+    "description": "Lecture specialist in AI & Machine Learning Expert",
+    "capabilities": [
+      "lecture_delivery",
+      "educational_content",
+      "persona_interaction"
+    ],
+    "persona_icon": "\ud83c\udf93",
+    "persona_color": "#17a2b8",
+    "created_at": "2025-07-09T16:37:15.013610+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "lecture_id": "dr-smith",
+    "specialization": "AI & Machine Learning Expert",
+    "persona": "You are Dr. Smith, an AI and Machine Learning expert with 15 years of experience. You explain complex concepts in simple terms and always provide practical examples. You are enthusiastic about emerging technologies and love to share real-world applications.",
+    "agent_type": "lecture"
+  },
+  {
+    "id": "5f599ad3-b340-467a-82ac-77d7675ed368",
+    "name": "Prof. Chen",
+    "description": "Lecture specialist in Data Science & Analytics",
+    "capabilities": [
+      "lecture_delivery",
+      "educational_content",
+      "persona_interaction"
+    ],
+    "persona_icon": "\ud83c\udf93",
+    "persona_color": "#17a2b8",
+    "created_at": "2025-07-09T16:37:15.013610+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "lecture_id": "prof-chen",
+    "specialization": "Data Science & Analytics",
+    "persona": "You are Professor Chen, a data scientist with expertise in statistical analysis and big data. You focus on mathematical foundations and provide detailed explanations with charts and formulas. You emphasize evidence-based conclusions and rigorous methodology.",
+    "agent_type": "lecture"
+  },
+  {
+    "id": "0c396912-1471-4a81-9c66-06d8a0017477",
+    "name": "Dr. Wilson",
+    "description": "Lecture specialist in Systems Architecture",
+    "capabilities": [
+      "lecture_delivery",
+      "educational_content",
+      "persona_interaction"
+    ],
+    "persona_icon": "\ud83c\udf93",
+    "persona_color": "#17a2b8",
+    "created_at": "2025-07-09T16:37:15.013610+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "lecture_id": "dr-wilson",
+    "specialization": "Systems Architecture",
+    "persona": "You are Dr. Wilson, a systems architect with deep knowledge of scalable systems and infrastructure. You think in terms of system design patterns, performance optimization, and best practices. You provide architectural insights and technical depth.",
+    "agent_type": "lecture"
+  },
+  {
+    "id": "cc24c7dc-27ae-4b06-a32c-f8cdcb5359ae",
+    "name": "Prof. Taylor",
+    "description": "Lecture specialist in Leadership & Strategy",
+    "capabilities": [
+      "lecture_delivery",
+      "educational_content",
+      "persona_interaction"
+    ],
+    "persona_icon": "\ud83c\udf93",
+    "persona_color": "#17a2b8",
+    "created_at": "2025-07-09T16:37:15.013610+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "lecture_id": "prof-taylor",
+    "specialization": "Leadership & Strategy",
+    "persona": "You are Professor Taylor, a leadership expert focusing on team dynamics, strategic thinking, and organizational behavior. You provide insights into management principles, communication strategies, and business leadership approaches.",
+    "agent_type": "lecture"
+  },
+  {
+    "id": "173188d6-a048-4f15-84bc-cfc6d6eeee71",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.271470+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "jameshill@alambda.comdssdsd",
+    "email": "saintlouishill@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "b2086fd4-9df1-40b4-9689-9ec99547d4ef",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.272471+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "zonekings4545",
+    "email": "jameshill@alambda.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "20b9d433-5abd-42c8-b976-480df432c218",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.273472+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "jameshill@alambda.comedd",
+    "email": "jameshill@alambda.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "5e938053-41a0-4383-a84f-dd9c1af4346d",
+    "name": "LaNesha Houston",
+    "description": "Human user: LaNesha Houston (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.273472+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "laneshapatrice",
+    "email": "laneshahouston16@yahoo.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "3e52302f-f39b-49b9-91b0-23b366bfa450",
+    "name": "Temperance Blackman",
+    "description": "Human user: Temperance Blackman (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.274473+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "temp9883",
+    "email": "temperance9883@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "c947a141-1860-49dd-82a7-4caf289d371e",
+    "name": "Nola Fisher",
+    "description": "Human user: Nola Fisher (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.275474+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "Nfisher126",
+    "email": "nfisher126000@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "048fd050-3ebd-4758-986e-afb72dac10ef",
+    "name": "Arif Syed",
+    "description": "Human user: Arif Syed (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.275474+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "Ariffy",
+    "email": "ariffy23@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "6aa74659-7c4d-4c45-b144-166ca723db7b",
+    "name": "Kayla Gaynor",
+    "description": "Human user: Kayla Gaynor (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.276475+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "kgcht",
+    "email": "kgcht@umsystem.edu",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "b30b8155-83e8-4df3-8e37-6581f0a9fad1",
+    "name": "Brian Simcoke",
+    "description": "Human user: Brian Simcoke (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.277476+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "bsimcoke7462",
+    "email": "brian.coke42@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "99a01f9f-58de-4ad9-95a6-f1238f6ea1f4",
+    "name": "Maisoon Hamed",
+    "description": "Human user: Maisoon Hamed (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.278477+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "Maisoonhamed",
+    "email": "Maisoon.ishag@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "58ba0963-27d0-4bbd-b0b0-f147090d936f",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.278477+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "jameshill@alambda.com",
+    "email": "saintlouishill@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "44533ef1-cdb3-44cb-9dae-c27bb9d1be41",
+    "name": "Jayanth Reddy Mokanpally",
+    "description": "Human user: Jayanth Reddy Mokanpally (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.279478+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "jmfmg@umsystem.edu",
+    "email": "jmfmg@umsystem.edu",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "ffc6bdda-7bd9-4b08-a909-0ccc899a0e34",
+    "name": "Jessica Banthrongsack",
+    "description": "Human user: Jessica Banthrongsack (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.280478+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "Jfb417",
+    "email": "jfb417@yahoo.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "c45c3206-4093-413e-8b40-6eaf99e650ce",
+    "name": "Mohamed Abdi",
+    "description": "Human user: Mohamed Abdi (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.281479+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "mohamed.july01@gmail.com",
+    "email": "mohamed.july01@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "fa4360a9-6c27-4d73-9c11-41b01ea69db9",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.282480+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "Jameshill@alambda.comsss",
+    "email": "jameshill@alambda.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "3a5addbc-637a-4f68-b891-a15518f87185",
+    "name": "Pavan Simhadri",
+    "description": "Human user: Pavan Simhadri (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.283481+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "psvhv@umsystem.edu",
+    "email": "psvhv@umsystem.edu",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "877b9008-9db4-42a0-b333-bc0c4e49632b",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.284482+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "Jameshill@alambda.comssss",
+    "email": "jameshill@alambda.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "fcc15c06-ee90-4ffc-bf6e-c34eb5e5ef24",
+    "name": "Andrei simbillo",
+    "description": "Human user: Andrei simbillo (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.285483+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "hsv3318@yahoo.com",
+    "email": "hsv3318@yahoo.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "57d4257e-eee7-4dcb-b6d3-56cc53677115",
+    "name": "Chrishina Crawford",
+    "description": "Human user: Chrishina Crawford (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.286484+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "chrishina234",
+    "email": "chrishina123@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "7c64681f-616a-4920-92b9-07652daa89f9",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.287485+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "jhill006aas12",
+    "email": "jameshill@alambda.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "93c80d94-e6c2-4163-9f64-34e5453088a0",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.288486+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "jameshill324",
+    "email": "jameshill@alambda.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "520d5cab-8ea6-4cd4-96a4-031157b180d8",
+    "name": "Noah Johnson",
+    "description": "Human user: Noah Johnson (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.290072+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "Noah Johnson",
+    "email": "ballnbaby005@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "0226d902-9d2c-46f4-b793-5f1a6873b096",
+    "name": "Jesse Randle",
+    "description": "Human user: Jesse Randle (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.291074+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "JesseRandle",
+    "email": "restorecfn@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "0f06d5f4-2da3-4759-985e-08607949f96f",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.292075+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "Jameshill@alam",
+    "email": "jameshill@alambda.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "0c908315-9063-46dc-aac2-cc18a36c316a",
+    "name": "Carlos Gutierrez",
+    "description": "Human user: Carlos Gutierrez (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.294077+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "rooster71",
+    "email": "guterrezconstruction99@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "bd16039a-ee26-48fd-9d85-b94fb814df5c",
+    "name": "Jimmy King",
+    "description": "Human user: Jimmy King (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.295078+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "st1jkin1",
+    "email": "jimmy.king2401@yahoo.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "10918fa4-7a9f-4248-a06c-0ecfb5d1ca97",
+    "name": "PASCUAL VILLAR",
+    "description": "Human user: PASCUAL VILLAR (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-09T16:44:54.296079+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "hsv8962",
+    "email": "pbvn87@umsystem.edu",
+    "role": "cadet",
+    "agent_type": "human"
+  }
+]

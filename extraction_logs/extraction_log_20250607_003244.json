@@ -1,0 +1,333 @@
+{
+  "timestamp": "2025-06-07T00:32:43.715082+00:00",
+  "zip_filename": "_Resumes Intern-Appren.zip",
+  "files_processed": 36,
+  "files_skipped": 0,
+  "total_files": 36,
+  "file_details": [
+    {
+      "filename": "EtafAbdallah_cyb.docx",
+      "path": "EtafAbdallah_cyb.docx",
+      "extension": ".docx",
+      "size_bytes": 16724,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 2784
+    },
+    {
+      "filename": "Jayanth_Reddy_Resume.pdf",
+      "path": "Jayanth_Reddy_Resume.pdf",
+      "extension": ".pdf",
+      "size_bytes": 316834,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 3827
+    },
+    {
+      "filename": "Jessica.pdf",
+      "path": "Jessica.pdf",
+      "extension": ".pdf",
+      "size_bytes": 67834,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 1405
+    },
+    {
+      "filename": "Joe Rainey.docx",
+      "path": "Joe Rainey.docx",
+      "extension": ".docx",
+      "size_bytes": 11813,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 3666
+    },
+    {
+      "filename": "Kayla-Gaynor Resume.pdf",
+      "path": "Kayla-Gaynor Resume.pdf",
+      "extension": ".pdf",
+      "size_bytes": 66754,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 3050
+    },
+    {
+      "filename": "Kennedy.pdf",
+      "path": "Kennedy.pdf",
+      "extension": ".pdf",
+      "size_bytes": 93986,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 3015
+    },
+    {
+      "filename": "LaNesha Houston Resume.docx",
+      "path": "LaNesha Houston Resume.docx",
+      "extension": ".docx",
+      "size_bytes": 28850,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 2143
+    },
+    {
+      "filename": "Maisoon Hamed.pdf",
+      "path": "Maisoon Hamed.pdf",
+      "extension": ".pdf",
+      "size_bytes": 49743,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 2961
+    },
+    {
+      "filename": "Moe Abdi.pdf",
+      "path": "Moe Abdi.pdf",
+      "extension": ".pdf",
+      "size_bytes": 134016,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 2045
+    },
+    {
+      "filename": "mtjonesresume.docx",
+      "path": "mtjonesresume.docx",
+      "extension": ".docx",
+      "size_bytes": 8519,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 1948
+    },
+    {
+      "filename": "MuhammadMasri2025Resume.pdf",
+      "path": "MuhammadMasri2025Resume.pdf",
+      "extension": ".pdf",
+      "size_bytes": 139038,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 2720
+    },
+    {
+      "filename": "Nola Fisher Resume 08 18 2024.docx",
+      "path": "Nola Fisher Resume 08 18 2024.docx",
+      "extension": ".docx",
+      "size_bytes": 561830,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 2168
+    },
+    {
+      "filename": "PAVANI_M_RESUME (5).pdf",
+      "path": "PAVANI_M_RESUME (5).pdf",
+      "extension": ".pdf",
+      "size_bytes": 183407,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 6528
+    },
+    {
+      "filename": "PavanSimhadri_Resume.docx",
+      "path": "PavanSimhadri_Resume.docx",
+      "extension": ".docx",
+      "size_bytes": 198396,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 2898
+    },
+    {
+      "filename": "Resume Arif Syed.pdf",
+      "path": "Resume Arif Syed.pdf",
+      "extension": ".pdf",
+      "size_bytes": 84219,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 3090
+    },
+    {
+      "filename": "Systems Engineer - Brian Simcoke Resume v45.pdf",
+      "path": "Systems Engineer - Brian Simcoke Resume v45.pdf",
+      "extension": ".pdf",
+      "size_bytes": 621780,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 6328
+    },
+    {
+      "filename": "Temperance Blackman Resume projects.pdf",
+      "path": "Temperance Blackman Resume projects.pdf",
+      "extension": ".pdf",
+      "size_bytes": 219902,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 3329
+    },
+    {
+      "filename": "Zachary Martinez Resume September 2024-1.pdf",
+      "path": "Zachary Martinez Resume September 2024-1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 89350,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 1813
+    },
+    {
+      "filename": "._EtafAbdallah_cyb.docx",
+      "path": "__MACOSX\\._EtafAbdallah_cyb.docx",
+      "extension": ".docx",
+      "size_bytes": 1567,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 134
+    },
+    {
+      "filename": "._Jayanth_Reddy_Resume.pdf",
+      "path": "__MACOSX\\._Jayanth_Reddy_Resume.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1551,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 146
+    },
+    {
+      "filename": "._Jessica.pdf",
+      "path": "__MACOSX\\._Jessica.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1551,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 133
+    },
+    {
+      "filename": "._Joe Rainey.docx",
+      "path": "__MACOSX\\._Joe Rainey.docx",
+      "extension": ".docx",
+      "size_bytes": 1775,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 128
+    },
+    {
+      "filename": "._Kayla-Gaynor Resume.pdf",
+      "path": "__MACOSX\\._Kayla-Gaynor Resume.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1583,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 145
+    },
+    {
+      "filename": "._Kennedy.pdf",
+      "path": "__MACOSX\\._Kennedy.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1615,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 133
+    },
+    {
+      "filename": "._LaNesha Houston Resume.docx",
+      "path": "__MACOSX\\._LaNesha Houston Resume.docx",
+      "extension": ".docx",
+      "size_bytes": 1551,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 140
+    },
+    {
+      "filename": "._Maisoon Hamed.pdf",
+      "path": "__MACOSX\\._Maisoon Hamed.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1599,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 139
+    },
+    {
+      "filename": "._Moe Abdi.pdf",
+      "path": "__MACOSX\\._Moe Abdi.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1567,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 134
+    },
+    {
+      "filename": "._mtjonesresume.docx",
+      "path": "__MACOSX\\._mtjonesresume.docx",
+      "extension": ".docx",
+      "size_bytes": 1455,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 131
+    },
+    {
+      "filename": "._MuhammadMasri2025Resume.pdf",
+      "path": "__MACOSX\\._MuhammadMasri2025Resume.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1599,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 149
+    },
+    {
+      "filename": "._Nola Fisher Resume 08 18 2024.docx",
+      "path": "__MACOSX\\._Nola Fisher Resume 08 18 2024.docx",
+      "extension": ".docx",
+      "size_bytes": 1583,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 147
+    },
+    {
+      "filename": "._PAVANI_M_RESUME (5).pdf",
+      "path": "__MACOSX\\._PAVANI_M_RESUME (5).pdf",
+      "extension": ".pdf",
+      "size_bytes": 1743,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 145
+    },
+    {
+      "filename": "._PavanSimhadri_Resume.docx",
+      "path": "__MACOSX\\._PavanSimhadri_Resume.docx",
+      "extension": ".docx",
+      "size_bytes": 1663,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 138
+    },
+    {
+      "filename": "._Resume Arif Syed.pdf",
+      "path": "__MACOSX\\._Resume Arif Syed.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1551,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 142
+    },
+    {
+      "filename": "._Systems Engineer - Brian Simcoke Resume v45.pdf",
+      "path": "__MACOSX\\._Systems Engineer - Brian Simcoke Resume v45.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1567,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 169
+    },
+    {
+      "filename": "._Temperance Blackman Resume projects.pdf",
+      "path": "__MACOSX\\._Temperance Blackman Resume projects.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1615,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 161
+    },
+    {
+      "filename": "._Zachary Martinez Resume September 2024-1.pdf",
+      "path": "__MACOSX\\._Zachary Martinez Resume September 2024-1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 1567,
+      "status": "success",
+      "reason": "",
+      "extracted_chars": 166
+    }
+  ]
+}

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Cadet Academy</title>
+  <!-- Use Quicksand font to match index.html -->
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #f8f9fa;
+      color: #222;
+      overflow-x: hidden;
+    }
+    header {
+      padding: 1rem 2rem;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 4px 6px rgba(0, 255, 195, 0.08);
+    }
+    header h1 {
+      color: #00bfae;
+      font-size: 2.5rem;
+    }
+    .hero {
+      text-align: center;
+      padding: 2rem 1rem;
+      animation: fadeIn 1s ease-in;
+    }
+    .hero p {
+      color: #555;
+      font-size: 1.2rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      color: #222;
+      transition: transform 0.3s ease, box-shadow 0.3s;
+      box-shadow: 0 2px 8px rgba(0,255,195,0.04);
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00bfae;
+    }
+    .auth-section {
+      max-width: 420px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 0 8px rgba(0, 255, 195, 0.08);
+    }
+    .auth-section input,
+    .auth-section select {
+      background: #f3f3f3;
+      color: #222;
+      border: 1px solid #ccc;
+      margin-bottom: 0.75rem;
+    }
+    .auth-toggle {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .auth-toggle a {
+      color: #00bfae;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    footer {
+      padding: 1rem;
+      background: #fff;
+      color: #888;
+      text-align: center;
+      margin-top: 2rem;
+      border-top: 1px solid #e0e0e0;
+    }
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 0.5rem 2rem;
+      margin-bottom: 0.5rem;
+    }
+    nav a {
+      color: #0a84ff;
+      margin-right: 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ff4d4d;
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    // Redirect to index.html if at root or blank path
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+      window.location.replace('/index.html');
+    }
+    window.addEventListener('popstate', function() {
+      if (window.location.pathname === '/' || window.location.pathname === '') {
+        window.location.replace('/index.html');
+      }
+    });
+  </script>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="/index.html">Home</a>
+    <!-- You can add more menu items here if needed -->
+  </nav>
+  <header>
+    <h1>AI Cadet Academy</h1>
+  </header>
+  <div id="filter-heading" class="text-center mb-4" style="font-size:1.3rem;font-weight:600;color:#0a84ff;"></div>
+  <section class="hero" data-filter-section="all cybersecurity web data cloud managers">
+    <p>Accelerate your future with AI-powered training in tech's most in-demand careers.</p>
+  </section>
+
+  <!-- Alambda AI Training Approach Section -->
+  <section class="container mb-4"
+           style="background:#f4fffd; border-radius:12px; box-shadow:0 2px 8px rgba(0,255,195,0.04); padding:2rem 1.5rem;"
+           data-filter-section="all cybersecurity web data cloud managers">
+    <h2 class="text-info mb-3" style="font-size:2rem;">Our AI Training Process & Approach</h2>
+    <p style="color:#444; font-size:1.1rem;">At Alambda, we believe in empowering learners of all ages and backgrounds to thrive in the AI-driven future. Our programs are designed for:</p>
+    <ul style="color:#00bfae;">
+      <li data-filter-section="cybersecurity"><strong>Cybersecurity Cadet:</strong> Engaging, age-appropriate AI and coding foundations, with project-based learning and ethical AI awareness.</li>
+      <li data-filter-section="web"><strong>Web Dev Cadet:</strong> College readiness with advanced AI, data science, and real-world problem-solving. Portfolio development and mentorship included.</li>
+      <li data-filter-section="data"><strong>Data Science Cadet:</strong> Upskilling for the digital workforce—AI integration, automation, and leadership in tech transformation.</li>
+      <li data-filter-section="cloud"><strong>Cloud DevOps Cadet:</strong> Career-aligned tracks, hands-on labs, interview prep, and industry partnerships to bridge education and employment.</li>
+      <li data-filter-section="managers"><strong>AI for Managers:</strong> Empower leaders to leverage AI for strategic decision-making, team productivity, and digital transformation.</li>
+    </ul>
+    <h5 class="mt-3 text-success">Best Practices We Follow</h5>
+    <ul style="color:#00bfae;">
+      <li data-filter-section="cybersecurity web data cloud managers">Personalized, adaptive learning paths powered by AI analytics</li>
+      <li data-filter-section="cybersecurity web data cloud managers">Project-based and experiential learning for real-world impact</li>
+      <li data-filter-section="cybersecurity web data cloud managers">Continuous feedback, mentorship, and peer collaboration</li>
+      <li data-filter-section="cybersecurity web data cloud managers">Ethical AI and responsible technology use at every stage</li>
+      <li data-filter-section="cybersecurity web data cloud managers">Inclusive, accessible, and globally relevant content</li>
+    </ul>
+    <p style="color:#555;">Whether you’re a student, educator, or professional, Alambda’s training prepares you to lead and succeed in tomorrow’s world.</p>
+  </section>
+
+  <div class="container mb-5" data-filter-section="all cybersecurity web data cloud managers">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4">
+      <div class="col" data-filter="cybersecurity">
+        <div class="card p-3 h-100">
+          <h4>Cybersecurity Cadet</h4>
+          <p>Train with real-world threats, AI-assisted detection, and ethical hacking techniques.</p>
+        </div>
+      </div>
+      <div class="col" data-filter="web">
+        <div class="card p-3 h-100">
+          <h4>Web Dev Cadet</h4>
+          <p>Master HTML, CSS, JS, and backend frameworks. Build full-stack apps with AI copilots.</p>
+        </div>
+      </div>
+      <div class="col" data-filter="data">
+        <div class="card p-3 h-100">
+          <h4>Data Science Cadet</h4>
+          <p>Dive deep into machine learning, Python, AI modeling, and visual insights.</p>
+        </div>
+      </div>
+      <div class="col" data-filter="cloud">
+        <div class="card p-3 h-100">
+          <h4>Cloud DevOps Cadet</h4>
+          <p>Get hands-on with AWS, Azure, CI/CD pipelines, and intelligent infrastructure automation.</p>
+        </div>
+      </div>
+      <div class="col" data-filter="managers">
+        <div class="card p-3 h-100">
+          <h4>AI for Managers</h4>
+          <p>Empower leaders to leverage AI for strategic decision-making, team productivity, and digital transformation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Chat Section -->
+ 
+
+  <div class="auth-section" data-filter-section="all cybersecurity web data cloud managers">
+    <h3 class="text-center text-info mb-3" id="form-title">Register for Cadet Training</h3>
+    <input id="username" type="text" class="form-control" placeholder="Username" />
+    <input id="email" type="email" class="form-control" placeholder="Email" />
+    <input id="password" type="password" class="form-control" placeholder="Password" />
+    <select id="track" class="form-select">
+      <option disabled selected>Select Your Track</option>
+      <option value="cybersecurity">Cybersecurity</option>
+      <option value="web">Web Development</option>
+      <option value="data">Data Science</option>
+      <option value="cloud">Cloud DevOps</option>
+      <option value="managers">AI for Managers</option>
+    </select>
+    <button id="auth-action" class="btn btn-info w-100">Register</button>
+    <div class="auth-toggle">
+      <small><span id="toggle-text">Already have an account?</span> <a id="toggle-link">Login</a></small>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 AI Cadet Academy
+  </footer>
+
+  <script>
+    const API_ROOT = 'https://api.alambda.com';
+    let isLogin = false;
+
+    const toggleForm = () => {
+      isLogin = !isLogin;
+      document.getElementById('form-title').innerText = isLogin ? 'Login to Cadet Portal' : 'Register for Cadet Training';
+      document.getElementById('email').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('track').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('auth-action').innerText = isLogin ? 'Login' : 'Register';
+      document.getElementById('toggle-text').innerText = isLogin ? "Don't have an account?" : 'Already have an account?';
+      document.getElementById('toggle-link').innerText = isLogin ? 'Register' : 'Login';
+    };
+
+    document.getElementById('toggle-link').onclick = toggleForm;
+
+    document.getElementById('auth-action').onclick = async () => {
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const track = document.getElementById('track').value;
+
+      if (!username || !password || (!isLogin && (!email || !track))) {
+        return alert('Please fill out all required fields.');
+      }
+
+      const endpoint = isLogin ? '/login' : '/register';
+      const payload = isLogin
+        ? { username, password }
+        : { username, email, password, track };
+
+      try {
+        const res = await fetch(`${API_ROOT}${endpoint}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (data.token) {
+          localStorage.setItem('authToken', data.token);
+          alert(`${isLogin ? 'Login' : 'Registration'} successful! Redirecting...`);
+          const targetTrack = isLogin ? 'cadet' : track;
+          window.location.href = `/cadet-dashboard.html?track=${targetTrack}`;
+        } else {
+          const errMsg = data.error || 'Invalid credentials or unknown error.';
+          alert(`${isLogin ? 'Login' : 'Registration'} failed: ${errMsg}`);
+        }
+      } catch (e) {
+        alert('Network error: ' + e.message);
+      }
+    };
+  // AI Chat logic (copied from index.html)
+  async function sendMainMessage() {
+    const input = document.getElementById('userMessageInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    const cont = document.getElementById('main-chat-messages');
+    cont.innerHTML += `<div class="bubble user">${msg}</div>`;
+    input.value = '';
+    cont.scrollTop = cont.scrollHeight;
+    try {
+      const res = await fetch('https://api.alambda.com/predict', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({prompt: msg})
+      });
+      const d = await res.json();
+      cont.innerHTML += `<div class="bubble client">${d.response || 'No response'}</div>`;
+    } catch(err) {
+      let msg = 'Chat error';
+      if (err && err.message && (err.message.includes('401') || err.message.includes('403'))) {
+        msg = 'You are not authorized. Please log in.';
+      }
+      console.error('Chat error:', err);
+      alert(msg);
+    }
+    cont.scrollTop = cont.scrollHeight;
+  }
+
+  // Read ?filter=... from URL and filter cards
+  function getQueryParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+  }
+  window.addEventListener('DOMContentLoaded', function() {
+    const filter = getQueryParam('filter');
+    const filterMap = {
+      cybersecurity: "Cybersecurity",
+      web: "Web Development",
+      data: "Data Science",
+      cloud: "Cloud DevOps",
+      managers: "AI for Managers"
+    };
+    // Filter all major sections and paragraphs
+    if (filter) {
+      // Show filter heading
+      const heading = document.getElementById('filter-heading');
+      if (heading && filterMap[filter]) {
+        heading.textContent = `Showing: ${filterMap[filter]}`;
+      }
+      // Hide/show main sections
+      document.querySelectorAll('[data-filter-section]').forEach(function(section) {
+        const filters = section.getAttribute('data-filter-section').split(' ');
+        if (filters.includes(filter) || filters.includes('all')) {
+          section.style.display = '';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+      // Hide/show list items in approach section
+      document.querySelectorAll('li[data-filter-section]').forEach(function(li) {
+        const filters = li.getAttribute('data-filter-section').split(' ');
+        if (filters.includes(filter)) {
+          li.style.display = '';
+        } else {
+          li.style.display = 'none';
+        }
+      });
+      // Show only the relevant card
+      document.querySelectorAll('.row .col').forEach(function(card) {
+        if (card.getAttribute('data-filter') !== filter) {
+          card.style.display = 'none';
+        } else {
+          card.style.display = '';
+        }
+      });
+      // Set dropdown value
+      const trackSelect = document.getElementById('track');
+      if (trackSelect) trackSelect.value = filter;
+    }
+  });
+
+  // Check for Rubik's Access token and fetch users on page load
+  document.addEventListener('DOMContentLoaded', async function() {
+    // Create a container for Rubik's Access users
+    const mainContent = document.querySelector('.container.mb-5');
+    const rubikContainer = document.createElement('div');
+    rubikContainer.className = 'container mt-5 mb-5';
+    rubikContainer.innerHTML = '<h2 class="text-center mb-4">Rubik\'s Access Users</h2>';
+    
+    mainContent.parentNode.insertBefore(rubikContainer, mainContent.nextSibling);
+    
+    // Check if user is authenticated with Rubik's Access
+    const token = localStorage.getItem('rubikAccessToken');
+    
+    if (!token) {
+      rubikContainer.innerHTML += `
+        <div class="alert alert-warning">
+          <i class="bi bi-exclamation-triangle me-2"></i>
+          Please log in using Rubik's Access on the school page to view user data.
+        </div>
+      `;
+      return;
+    }
+    
+    // Show loading indicator
+    rubikContainer.innerHTML += `
+      <div id="rubikLoadingIndicator" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading users...</p>
+      </div>
+    `;
+    
+    try {
+      // Fetch users from the API
+      const response = await fetch('https://api.alambda.com/rubik-users', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      // Remove loading indicator
+      document.getElementById('rubikLoadingIndicator').remove();
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      const users = await response.json();
+      
+      // Display users in a card grid
+      if (Array.isArray(users) && users.length > 0) {
+        let userCardsHTML = '<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">';
+        
+        users.forEach(user => {
+          const trackDisplayMap = {
+            'cybersecurity': 'Cybersecurity',
+            'web': 'Web Development',
+            'data': 'Data Science',
+            'cloud': 'Cloud DevOps',
+            'managers': 'AI for Managers'
+          };
+          
+          const trackDisplay = trackDisplayMap[user.track] || user.track;
+          
+          userCardsHTML += `
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">${user.username}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">${user.email}</h6>
+                  <p class="card-text">
+                    <span class="badge bg-info">${trackDisplay}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        
+        userCardsHTML += '</div>';
+        rubikContainer.innerHTML += userCardsHTML;
+      } else {
+        rubikContainer.innerHTML += `
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle me-2"></i>
+            No users found in the system.
+          </div>
+        `;
+      }
+      
+    } catch (error) {
+      rubikContainer.innerHTML += `
+        <div class="alert alert-danger">
+          <i class="bi bi-exclamation-circle me-2"></i>
+          Error loading users: ${error.message}
+        </div>
+      `;
+      console.error('Failed to fetch users:', error);
+    }
+  });
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

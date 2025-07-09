@@ -1,0 +1,3240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadet Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg-main: #f7fafc;
+      --bg-panel: #fff;
+      --bg-sidebar: #e3f2fd;
+      --accent: #0a84ff;
+      --accent2: #ff4d4d;
+      --radius: 12px;
+      --text-main: #222;
+      --text-accent: #0a84ff;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0; display: flex; height: 100vh;
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg-main); color: var(--text-main);
+    }
+    /* Sidebar */
+    .sidebar {
+      width: 220px; background: var(--bg-sidebar);
+      display: flex; flex-direction: column;
+      border-right: 1.5px solid #b3d8ff;
+      box-shadow: 2px 0 8px #e3f2fd;
+      padding-top: 1.5rem;
+    }
+    .sidebar .nav-item {
+      padding: 1rem 1.5rem; cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-accent);
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-radius: var(--radius) 0 0 var(--radius);
+      margin-bottom: 0.5rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .sidebar .nav-item:hover,
+    .sidebar .nav-item.active {
+      background: var(--accent2);
+      color: #fff;
+    }
+    .sidebar .nav-item.locked {
+      opacity: 0.5;
+      pointer-events: none;
+      position: relative;
+    }
+    .sidebar .nav-item.locked::after {
+      content: 'ðŸ”’';
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+    }
+
+    /* Main area */
+    .main {
+      flex: 1; display: flex; flex-direction: column;
+      background: var(--bg-main);
+    }
+    header {
+      background: var(--bg-panel); padding: 1.2rem 2rem;
+      box-shadow: 0 2px 8px #e3f2fd;
+      border-bottom: 1.5px solid #b3d8ff;
+    }
+    header h1 {
+      margin: 0; color: var(--accent2); font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .content {
+      flex: 1; overflow-y: auto; padding: 2rem 2.5rem;
+    }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    .widget {
+      background: var(--bg-panel); padding: 1.5rem 1.2rem;
+      border-radius: var(--radius); margin-bottom: 2rem;
+      box-shadow: 0 2px 8px #e3f2fd;
+      border: 1.5px solid #b3d8ff;
+    }
+    .widget h3 { margin-top: 0; color: var(--accent); font-weight: 700; }
+
+    .btn {
+      background: var(--accent); color: #fff;
+      border: none; padding: 0.6rem 1.3rem;
+      cursor: pointer; border-radius: 6px;
+      font-weight: bold; margin-right: 0.5rem;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: var(--accent2);
+      color: #fff;
+    }
+    .list { list-style: none; padding: 0; }
+    .list li { margin: 0.5rem 0; }
+    .list a { color: var(--accent); text-decoration: none; }
+    .list a:hover { text-decoration: underline; }
+
+    .content-area {
+      background: #f4fffd; padding: 1rem;
+      border-radius: var(--radius); margin-top: 1rem;
+      max-height: 300px; overflow-y: auto;
+      border: 1px solid #b3d8ff;
+    }
+    .status { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .status div {
+      background: #e3f2fd; flex: 1 1 120px;
+      padding: 1rem; border-radius: var(--radius);
+      text-align: center;
+      color: var(--accent2);
+      font-weight: 700;
+      border: 1px solid #b3d8ff;
+    }
+    /* Enrollment Modal Styles */
+    #enrollmentModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(10,132,255,0.12);
+      z-index: 2000;
+      overflow-y: auto;
+    }
+    .enrollment-content {
+      background: #fff;
+      margin: 3rem auto;
+      padding: 2.5rem 2rem;
+      width: 95%;
+      max-width: 600px;
+      border-radius: 16px;
+      color: #222;
+      box-shadow: 0 4px 24px #e3f2fd;
+      border: 1.5px solid #b3d8ff;
+      position: relative;
+    }
+    .enrollment-content h2 { margin-top: 0; color: var(--accent); font-weight: 700;}
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; color: var(--accent2); font-weight: 600;}
+    .form-group input, .form-group select {
+      width: 100%; padding: 0.5rem; background: #f7fafc; border: 1px solid #b3d8ff; border-radius: 6px; color: #222;
+      font-family: 'Quicksand', sans-serif;
+    }
+    .form-group.full-width { grid-column: 1 / -1; }
+    .form-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
+    .locked { opacity: 0.6; pointer-events: none; position: relative; }
+    .locked::after { content: 'ðŸ”’'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+
+    /* Agreement Modal Styles */
+    #agreementModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(10,132,255,0.12);
+      z-index: 2000;
+      overflow-y: auto;
+    }
+    .agreement-content {
+      background: #fff;
+      margin: 3rem auto;
+      padding: 2.5rem 2rem;
+      width: 95%;
+      max-width: 700px;
+      border-radius: 16px;
+      color: #222;
+      box-shadow: 0 4px 24px #e3f2fd;
+      border: 1.5px solid #b3d8ff;
+      position: relative;
+    }
+    .agreement-content h2 { margin-top: 0; color: var(--accent); font-weight: 700;}
+    .agreement-content p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+    .agreement-content ul {
+      margin: 0.5rem 0 1.5rem 1.5rem;
+      line-height: 1.6;
+    }
+    .agreement-content label {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      margin: 1rem 0;
+    }
+    .agreement-content input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+
+    /* Chat styles */
+    #chatContacts {
+      border-right: 1px solid #e2e8f0;
+      overflow-y: auto;
+      max-height: 400px;
+    }
+    #chatContacts .list-item {
+      padding: 8px;
+      cursor: pointer;
+      border-bottom: 1px solid #e2e8f0;
+      transition: background 0.2s;
+    }
+    #chatContacts .list-item:hover {
+      background: #f0f8ff;
+    }
+    #chatHistory {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      background: #f9f9f9;
+      min-height: 300px;
+    }
+    .msg {
+      word-wrap: break-word;
+      line-height: 1.4;
+    }
+    .msg.user {
+      background: #0a84ff !important;
+      color: #fff !important;
+    }
+    .msg.ai {
+      background: #f0f0f0 !important;
+      color: #000 !important;
+    }
+    .msg.error {
+      background: #dc3545 !important;
+      color: #fff !important;
+    }
+    #chatInput {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    #chatSendBtn {
+      background: #0a84ff;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #chatSendBtn:hover {
+      background: #0066cc;
+    }
+
+    /* Quiz styles */
+    .quiz-content {
+      background: #f7fafc;
+      padding: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid #e3f2fd;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .loading {
+      text-align: center;
+      color: var(--accent);
+      font-weight: 600;
+      padding: 2rem;
+    }
+    .error {
+      color: var(--accent2);
+      font-weight: 600;
+      padding: 1rem;
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: var(--radius);
+    }
+
+    /* Enhanced Lecture UI Styles */
+    .lecture-agent-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .lecture-agent-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+    }
+    .agent-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-right: 12px;
+    }
+    .agent-info {
+      flex: 1;
+    }
+    .agent-name {
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .agent-specialization {
+      color: #64748b;
+      font-size: 0.9em;
+      margin-bottom: 8px;
+    }
+    .agent-stats {
+      display: flex;
+      gap: 16px;
+      font-size: 0.8em;
+      color: #64748b;
+    }
+    .context-display {
+      background: #f0f9ff;
+      border: 1px solid #0ea5e9;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 0.9em;
+    }
+    .context-display strong {
+      color: var(--accent);
+    }
+    
+    /* Chat-style message bubbles */
+    .msg {
+      margin: 8px 0;
+      padding: 12px 16px;
+      border-radius: 16px;
+      max-width: 85%;
+      word-wrap: break-word;
+      position: relative;
+      animation: fadeInUp 0.3s ease-out;
+    }
+    .msg.user {
+      background: linear-gradient(135deg, var(--accent) 0%, #3b82f6 100%);
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+    .msg.ai {
+      background: #f8fafc;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      margin-right: auto;
+      border-bottom-left-radius: 4px;
+    }
+    .msg.thinking {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #f59e0b;
+      margin-right: auto;
+      text-align: center;
+      font-style: italic;
+    }
+    .msg.error {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      margin-right: auto;
+    }
+    .msg.agent-action {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1px solid #0ea5e9;
+      color: #0c4a6e;
+      text-align: center;
+      margin: 12px auto;
+      max-width: 95%;
+    }
+    
+    /* Agent selector */
+    .agent-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .agent-selector button {
+      padding: 8px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
+      color: #64748b;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .agent-selector button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .agent-selector button.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Lecture history sidebar */
+    .lecture-history {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .lecture-history h4 {
+      margin: 0 0 12px 0;
+      color: var(--accent);
+      font-size: 1.1em;
+    }
+    .history-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .history-item:hover {
+      background: #f0f9ff;
+    }
+    .history-item:last-child {
+      border-bottom: none;
+    }
+    .history-item .title {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .history-item .meta {
+      font-size: 0.8em;
+      color: #64748b;
+    }
+
+    /* Notification System */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      z-index: 1000;
+      animation: slideInRight 0.3s ease-out;
+      max-width: 300px;
+    }
+    .notification.error {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    }
+    .notification.warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+    .notification.info {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+    
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    /* Agent Performance Indicators */
+    .agent-performance {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .performance-badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.7em;
+      font-weight: 600;
+    }
+    .performance-badge.excellent {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .performance-badge.good {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .performance-badge.new {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    
+    /* Quick Actions Panel */
+    .quick-actions {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 16px;
+      display: none;
+      z-index: 999;
+    }
+    .quick-actions.visible {
+      display: block;
+      animation: fadeInUp 0.3s ease-out;
+    }
+    .quick-actions button {
+      display: block;
+      width: 100%;
+      margin-bottom: 8px;
+      padding: 8px 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quick-actions button:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Enhanced context info box */
+    .context-info-expanded {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1px solid #0ea5e9;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+      position: relative;
+    }
+    .context-info-expanded::before {
+      content: '🎯';
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      background: white;
+      padding: 0 8px;
+      font-size: 1.2em;
+    }
+    .context-info-expanded h4 {
+      margin: 0 0 8px 0;
+      color: #0c4a6e;
+    }
+    .context-info-expanded .context-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .context-item {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #bae6fd;
+    }
+    .context-item strong {
+      color: #0ea5e9;
+    }
+
+    /* Email Delivery Section */
+    #emailDeliverySection {
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+    #emailDeliverySection h3 {
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    #emailDeliverySection .form-group {
+      margin-bottom: 1rem;
+    }
+    #emailDeliverySection .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--accent2);
+      font-weight: 600;
+    }
+    #emailDeliverySection .form-group input,
+    #emailDeliverySection .form-group textarea {
+      width: 100%;
+      padding: 0.5rem;
+      background: #f7fafc;
+      border: 1px solid #b3d8ff;
+      border-radius: 6px;
+      color: #222;
+      font-family: 'Quicksand', sans-serif;
+    }
+    #emailDeliverySection .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.3rem;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    #emailDeliverySection .btn-primary:hover {
+      background: var(--accent2);
+      color: #fff;
+    }
+
+    /* Email Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+    
+    @keyframes modalSlideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-header h3 {
+      margin: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+    }
+    
+    .close {
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+    
+    .spinner {
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Email Tab Styles */
+    .email-header {
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 1rem;
+    }
+
+    .email-filters {
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 1rem;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      background: #fff;
+      color: #666;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .filter-btn:hover {
+      background: #f8f9fa;
+      border-color: var(--accent);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .email-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .email-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .email-item:hover {
+      background: #f8f9fa;
+    }
+
+    .email-avatar {
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    .avatar-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .email-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .email-header-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .email-recipient {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .email-date {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .email-status {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .email-status.sent {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .email-status.received {
+      background: #e8f5e8;
+      color: #388e3c;
+    }
+
+    .email-subject {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .email-preview {
+      color: #666;
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .email-agents {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .agent-tag {
+      background: #fff3e0;
+      color: #f57c00;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .email-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-left: 1rem;
+    }
+
+    .action-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #ddd;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #666;
+    }
+
+    .action-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .email-item {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .email-actions {
+        flex-direction: row;
+        margin-left: 0;
+      }
+      
+      .email-header-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Enrollment Modal -->
+  <div id="enrollmentModal">
+    <div class="enrollment-content">
+      <h2>Complete Your Enrollment</h2>
+      <p>Please provide the following information to continue with your enrollment.</p>
+      <form id="enrollmentForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="dob">Date of Birth *</label>
+            <input type="date" id="dob" required>
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender">
+              <option value="">Select...</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+              <option value="prefer-not-to-say">Prefer not to say</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label for="address">Street Address *</label>
+            <input type="text" id="address" required>
+          </div>
+          <div class="form-group">
+            <label for="city">City *</label>
+            <input type="text" id="city" required>
+          </div>
+          <div class="form-group">
+            <label for="state">State *</label>
+            <input type="text" id="state" required>
+          </div>
+          <div class="form-group">
+            <label for="zip">ZIP Code *</label>
+            <input type="text" id="zip" required>
+          </div>
+          <div class="form-group">
+            <label for="education">Highest Education Level *</label>
+            <select id="education" required>
+              <option value="">Select...</option>
+              <option value="high-school">High School/GED</option>
+              <option value="some-college">Some College</option>
+              <option value="associates">Associate's Degree</option>
+              <option value="bachelors">Bachelor's Degree</option>
+              <option value="masters">Master's Degree</option>
+              <option value="phd">Doctorate/PhD</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="employment">Current Employment Status *</label>
+            <select id="employment" required>
+              <option value="">Select...</option>
+              <option value="employed">Employed</option>
+              <option value="unemployed">Unemployed</option>
+              <option value="student">Student</option>
+              <option value="self-employed">Self-Employed</option>
+              <option value="retired">Retired</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="income">Annual Income *</label>
+            <select id="income" required>
+              <option value="">Select...</option>
+              <option value="0-25000">$0 - $25,000</option>
+              <option value="25001-50000">$25,001 - $50,000</option>
+              <option value="50001-75000">$50,001 - $75,000</option>
+              <option value="75001-100000">$75,001 - $100,000</option>
+              <option value="100001+">$100,001+</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label>
+              <input type="checkbox" id="terms" required>
+              I agree to the terms and conditions *
+            </label>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn">Submit Enrollment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Agreement Modal -->
+  <div id="agreementModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,132,255,0.12); z-index: 2000; overflow-y: auto;">
+    <div class="enrollment-content" style="max-width: 700px;">
+      <h2>VOLUNTEER APPRENTICESHIP AGREEMENT</h2>
+      <p>Non-Disclosure and Non-Compete Agreement</p>
+      
+      <div style="max-height: 350px; overflow-y: auto; border: 1px solid #e3f2fd; padding: 1rem; margin-bottom: 1.5rem; border-radius: var(--radius); background: #f7fafc;">
+        <p>This Volunteer Apprenticeship Agreement ("Agreement") is made as of the date of signature below, by and between Alambda Systems, LLC, located at 911 Washington Ave, Suite 838, St. Louis, MO 63101, ("Alambda"), and the undersigned individual ("Apprentice").</p>
+        
+        <h4>1. Purpose</h4>
+        <p>This Agreement outlines the terms under which the Apprentice will serve as a volunteer apprentice with Alambda and sets forth obligations regarding confidentiality and competition.</p>
+        
+        <h4>2. Volunteer Nature</h4>
+        <p>The Apprentice acknowledges and agrees that:</p>
+        <ul>
+          <li>This apprenticeship is voluntary and unpaid.</li>
+          <li>Participation does not create an employment relationship.</li>
+          <li>The purpose is for training, mentorship, and educational development in AI, cloud computing, software engineering, cybersecurity, and related disciplines.</li>
+        </ul>
+        
+        <h4>3. Confidentiality (Non-Disclosure)</h4>
+        <p>The Apprentice agrees to maintain strict confidentiality regarding all proprietary and sensitive information accessed or received during the apprenticeship, including but not limited to:</p>
+        <ul>
+          <li>Alambda's AI models, systems, source code, architecture, and internal tools;</li>
+          <li>Project work, research, training materials, curriculum outlines, and strategies;</li>
+          <li>Client, government, healthcare, or partner data, communications, and contracts;</li>
+          <li>All discussions, code, files, or intellectual property related to internal Alambda initiatives.</li>
+        </ul>
+        
+        <h4>4. Non-Compete & Intellectual Property</h4>
+        <p>For the duration of the apprenticeship and for one (1) year after its conclusion, the Apprentice shall not develop, promote, or operate any educational AI platform or apprenticeship program that mimics or directly competes with Alambda's systems.</p>
+        <p>All inventions, code, documentation, or AI tools developed during the apprenticeship shall be considered property of Alambda Systems, LLC, unless otherwise agreed in writing.</p>
+        
+        <h4>5. Team Structure & Participation</h4>
+        <p>As part of the Alambda Cadet Program, you will be assigned to work in teams focusing on the following areas:</p>
+        <ul>
+          <li><strong>Team 1 – AI & Data Science:</strong> Develop models, chatbots, embeddings, and clinical intelligence tools.</li>
+          <li><strong>Team 2 – PLM / Lifecycle Management:</strong> Manage MLOps flows, product lifecycle workflows, and DevOps automation.</li>
+          <li><strong>Team 3 – Python Software Development:</strong> Code the backend tools for dashboards, APIs, and automation.</li>
+          <li><strong>Team 4 – Business Development & Strategy:</strong> Craft proposals, pursue RFPs, and build growth channels and documentation.</li>
+        </ul>
+        <p>Each cadet will participate in two teams, contributing to multiple areas of expertise while developing specialized skills.</p>
+      </div>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: flex; align-items: center; font-weight: 600;">
+          <input type="checkbox" id="agreementCheckbox" style="margin-right: 0.5rem;">
+          I have read and agree to the Volunteer Apprenticeship Agreement, including the non-disclosure and non-compete provisions
+        </label>
+      </div>
+      
+      <div class="form-actions">
+        <button id="cancelAgreement" class="btn" style="background: #ccc;">Cancel</button>
+        <button id="acceptAgreement" class="btn" disabled>Accept Agreement</button>
+      </div>
+    </div>
+  </div>
+
+<body>
+  <!-- Sidebar Navigation: Reorder tabs and add Dashboard -->
+  <div class="sidebar">
+    <div class="nav-item active" data-tab="dashboard">Dashboard</div>
+    <div class="nav-item" data-tab="teams">Teams</div>           <!-- moved up -->
+    <div class="nav-item" data-tab="lectures">Lectures</div>
+    <div class="nav-item" data-tab="quizzes">Quizzes</div>
+    <div class="nav-item" data-tab="assignments">Assignments</div>
+    <div class="nav-item" data-tab="email">📧 Email</div>
+    <div class="nav-item" data-tab="chat">💬 Chat</div>
+    <!-- Modules & Progress removed -->
+    <div class="nav-item" id="logout">Logout</div>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1 id="trackTitle">Cadet Dashboard</h1>
+    </header>
+    <div id="enrollmentPendingMsg" style="display:none; margin:2rem auto; max-width:500px; background:#fff3cd; color:#856404; border:1px solid #ffeeba; border-radius:10px; padding:2rem; text-align:center; font-size:1.3rem; font-weight:600;">
+    Enrollment Pending. Your enrollment is under review. You will get access to all sections once approved.
+    </div>
+    <div class="content">
+      <!-- Dashboard Tab -->
+      <div id="dashboard" class="tab-pane active">
+        <div class="widget">
+          <h3>Welcome to the Cadet Dashboard</h3>
+          <p>Use the sidebar to access Lectures, Modules, Quizzes, Assignments, and more.</p>
+        </div>
+        <!-- Progress Gauges -->
+        <div class="widget" style="display:flex;gap:2rem;flex-wrap:wrap;align-items:center;">
+          <div>
+            <canvas id="gaugeLectures" width="120" height="120"></canvas>
+            <div style="text-align:center;">Lectures</div>
+          </div>
+          <div>
+            <canvas id="gaugeModules" width="120" height="120"></canvas>
+            <div style="text-align:center;">Modules</div>
+          </div>
+          <div>
+            <canvas id="gaugeQuizzes" width="120" height="120"></canvas>
+            <div style="text-align:center;">Quizzes</div>
+          </div>
+          <div>
+            <canvas id="gaugeCompleted" width="120" height="120"></canvas>
+            <div style="text-align:center;">Completed</div>
+          </div>
+        </div>
+        <div class="widget">
+          <h3>Your Assignments</h3>
+          <ul id="assignmentList" class="list"></ul>
+        </div>
+      </div>
+      <!-- Lectures Tab -->
+      <div id="lectures" class="tab-pane">
+        <div class="widget">
+          <h3>Lectures</h3>
+          
+          <!-- Agent Selector -->
+          <div class="agent-selector">
+            <button data-agent="dr-smith" class="active">Dr. Smith (AI Expert)</button>
+            <button data-agent="prof-chen">Prof. Chen (Data Scientist)</button>
+            <button data-agent="dr-wilson">Dr. Wilson (Systems Architect)</button>
+            <button data-agent="prof-taylor">Prof. Taylor (Leadership)</button>
+          </div>
+          
+          <!-- Current Agent Display -->
+          <div id="currentAgentCard" class="lecture-agent-card">
+            <div style="display: flex; align-items: center;">
+              <div class="agent-avatar">DS</div>
+              <div class="agent-info">
+                <div class="agent-name">Dr. Smith</div>
+                <div class="agent-specialization">AI & Machine Learning Expert</div>
+                <div class="agent-stats">
+                  <span>Used: <strong>0</strong> times</span>
+                  <span>Last Used: <strong>Never</strong></span>
+                  <span>Specialization: <strong>AI Systems</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Context Display -->
+          <div class="context-display">
+            <strong>Current Context:</strong> <span id="contextSummary">No context set</span>
+          </div>
+          
+          <div style="margin-bottom:1rem;">
+            <label for="weekSelect">Select Week:</label>
+            <select id="weekSelect" class="form-control" style="width:120px;display:inline-block;margin-left:0.5rem;">
+              <!-- populate with weeks -->
+            </select>
+          </div>
+          <ul id="lecturesList" class="list"></ul>
+          <div id="lectureContent" class="content-area" style="display:none;"></div>
+          <div style="margin-top:1.5rem;">
+            <button id="refreshLectures" class="btn">Refresh</button>
+            <button id="genLecture" class="btn">Generate New Lecture</button>
+            <button id="clearLectureChat" class="btn" style="background: #64748b;">Clear Chat</button>
+          </div>
+        </div>
+        
+        <!-- Lecture History -->
+        <div class="lecture-history">
+          <h4>📚 Lecture History</h4>
+          <div id="lectureHistoryList">
+            <div style="text-align: center; color: #64748b; font-style: italic;">
+              No lectures generated yet
+            </div>
+          </div>
+        </div>
+        
+        <div class="widget">
+          <h3>Lecture PDF Output</h3>
+          <button id="downloadLecturePDF" class="btn">Download as PDF</button>
+          <div id="lecturePDFOutput" class="content-area" style="margin-top:1rem;min-height:80px;">Select a lecture to preview PDF output here.</div>
+        </div>
+      </div>
+      <!-- Quizzes Tab -->
+      <div id="quizzes" class="tab-pane">
+        <div class="widget">
+          <h3>Generate Quiz</h3>
+          <div style="margin-bottom:1rem;">
+            <select id="quizWeek" class="form-control" style="width:120px;display:inline-block;">
+              <!-- populate with <option value="1">Week 1</option>… -->
+            </select>
+            <button id="genQuiz" class="btn">Generate 20-Question Quiz</button>
+          </div>
+          <div id="quizOutput" class="content-area" style="max-height:500px; overflow-y:auto;"></div>
+          <button id="copyQuiz" class="btn" style="margin-top:0.5rem; display:none;">Copy to Clipboard</button>
+        </div>
+      </div>
+      <!-- Assignments Tab -->
+      <div id="assignments" class="tab-pane">
+        <div class="widget">
+          <h3>Your Assignments</h3>
+          <ul id="assignmentList" class="list"></ul>
+        </div>
+      </div>
+      <!-- Teams Tab -->
+      <div id="teams" class="tab-pane">
+        <div id="cadetChallenge">
+          <h2>🎯 Welcome to the Alambda Cadet Program</h2>
+          <p>You're now part of a hands-on, real-world experience where you'll build meaningful solutions in AI, Python, PLM, and Business Strategy.</p>
+          
+          <h3>🛠️ Team Focus Areas</h3>
+          <div id="teamTiles" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+            <div class="team-tile" data-team="ai" tabindex="0" style="background: #f4f8ff; border: 1px solid #b3d8ff; border-radius: var(--radius); padding: 1rem; cursor:pointer; transition:box-shadow 0.2s;">
+              <h4>🔹 Team 1 – AI & Data Science</h4>
+              <p>Develop models, chatbots, embeddings, and clinical intelligence tools.</p>
+            </div>
+            <div class="team-tile" data-team="plm" tabindex="0" style="background: #f4f8ff; border: 1px solid #b3d8ff; border-radius: var(--radius); padding: 1rem; cursor:pointer; transition:box-shadow 0.2s;">
+              <h4>🔹 Team 2 – PLM / Lifecycle Management</h4>
+              <p>Manage MLOps flows, product lifecycle workflows, and DevOps automation.</p>
+            </div>
+            <div class="team-tile" data-team="python" tabindex="0" style="background: #f4f8ff; border: 1px solid #b3d8ff; border-radius: var(--radius); padding: 1rem; cursor:pointer; transition:box-shadow 0.2s;">
+              <h4>🔹 Team 3 – Python Software Development</h4>
+              <p>Code the backend tools for dashboards, APIs, and automation.</p>
+            </div>
+            <div class="team-tile" data-team="bizdev" tabindex="0" style="background: #f4f8ff; border: 1px solid #b3d8ff; border-radius: var(--radius); padding: 1rem; cursor:pointer; transition:box-shadow 0.2s;">
+              <h4>🔹 Team 4 – Business Development & Strategy</h4>
+              <p>Craft proposals, pursue RFPs, and build growth channels and documentation.</p>
+            </div>
+          </div>
+          
+          <div id="teamDetailSection" style="display:none; margin-top:2rem;"></div>
+          
+          <p>As part of your cadet experience, you'll be assigned to work on <strong>two teams</strong>, contributing to multiple areas while developing specialized skills.</p>
+          
+          <h3>Collaboration Resources</h3>
+          <ul class="list">
+            <li>🔗 <a href="https://framevr.io/alambda/" target="_blank">Virtual Collaboration Space</a></li>
+            <li>🔗 <a href="https://discord.gg/VaefZYVj" target="_blank">Project Workspace & Tools - Dicord</a></li>
+          </ul>
+
+          <button id="acceptChallenge" class="btn btn-accept">🎉 Accept the Challenge</button>
+        </div>
+      </div>
+
+      <!-- Email Tab -->
+      <div id="email" class="tab-pane">
+        <div class="widget">
+          <div class="email-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3>📧 Email Center</h3>
+            <button onclick="openEmailModal()" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Compose Email
+            </button>
+          </div>
+          
+          <!-- Email Filters -->
+          <div class="email-filters" style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <button class="filter-btn active" data-filter="all">All Emails</button>
+            <button class="filter-btn" data-filter="sent">Sent</button>
+            <button class="filter-btn" data-filter="received">Received</button>
+            <button class="filter-btn" data-filter="with-agents">With AI Agents</button>
+          </div>
+          
+          <!-- Email List -->
+          <div class="email-list" id="emailList">
+            <!-- Sample Email Items -->
+            <div class="email-item" data-type="sent" data-agents="true">
+              <div class="email-avatar">
+                <div class="avatar-circle">PS</div>
+              </div>
+              <div class="email-content">
+                <div class="email-header-info">
+                  <span class="email-recipient">prof.smith@university.edu</span>
+                  <span class="email-date">Dec 15, 2024</span>
+                  <span class="email-status sent">Sent</span>
+                </div>
+                <div class="email-subject">Partnership Opportunity with Prof. Smith</div>
+                <div class="email-preview">Dear Prof. Smith, I hope this email finds you well. I'm reaching out from Alambda Systems regarding potential partnership...</div>
+                <div class="email-agents">
+                  <span class="agent-tag">Dr. Smith (AI Expert)</span>
+                  <span class="agent-tag">Prof. Chen (Data Science)</span>
+                </div>
+              </div>
+              <div class="email-actions">
+                <button class="action-btn" onclick="viewEmail(1)">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn" onclick="replyEmail(1)">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="email-item" data-type="received">
+              <div class="email-avatar">
+                <div class="avatar-circle">JD</div>
+              </div>
+              <div class="email-content">
+                <div class="email-header-info">
+                  <span class="email-recipient">john.doe@company.com</span>
+                  <span class="email-date">Dec 14, 2024</span>
+                  <span class="email-status received">Received</span>
+                </div>
+                <div class="email-subject">Re: AI Collaboration Proposal</div>
+                <div class="email-preview">Thank you for reaching out. We're very interested in exploring potential collaborations with Alambda Systems...</div>
+              </div>
+              <div class="email-actions">
+                <button class="action-btn" onclick="viewEmail(2)">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn" onclick="replyEmail(2)">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="email-item" data-type="sent">
+              <div class="email-avatar">
+                <div class="avatar-circle">MJ</div>
+              </div>
+              <div class="email-content">
+                <div class="email-header-info">
+                  <span class="email-recipient">mary.johnson@tech.edu</span>
+                  <span class="email-date">Dec 13, 2024</span>
+                  <span class="email-status sent">Sent</span>
+                </div>
+                <div class="email-subject">Research Collaboration Opportunity</div>
+                <div class="email-preview">Dear Dr. Johnson, We would like to propose a research collaboration focusing on machine learning applications...</div>
+              </div>
+              <div class="email-actions">
+                <button class="action-btn" onclick="viewEmail(3)">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn" onclick="replyEmail(3)">
+                  <i class="fas fa-reply"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Empty State -->
+          <div id="emailEmptyState" style="display: none; text-align: center; padding: 3rem; color: #666;">
+            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <h4>No emails found</h4>
+            <p>Start by composing your first email!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Tab -->
+      <div id="chat" class="tab-pane">
+        <div class="widget">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <h3>💬 Chat with Agents & Instructors</h3>
+            <button onclick="loadChatContacts()" class="btn" style="padding:0.3rem 0.8rem; font-size:0.9rem;">
+              🔄 Refresh Contacts
+            </button>
+          </div>
+          <div style="display:flex; gap:1rem; height: 450px;">
+            <!-- Contacts List -->
+            <div id="chatContacts" style="width:250px; border-right:1px solid #e2e8f0; overflow-y:auto;">
+              <div style="padding:8px; font-weight:600; color:#0a84ff; border-bottom:1px solid #e2e8f0;">
+                Available Contacts
+              </div>
+              <div style="padding:16px; text-align:center; color:#666;">
+                Loading contacts...
+              </div>
+            </div>
+            <!-- Chat Window -->
+            <div style="flex:1; display:flex; flex-direction:column;">
+              <div id="chatHistory" class="content-area" style="flex:1; overflow-y:auto; background:#f9f9f9; border:1px solid #e2e8f0; border-radius:6px;">
+                <div style="padding:20px; text-align:center; color:#666;">
+                  Select a contact to start chatting
+                </div>
+              </div>
+              <div style="margin-top:0.5rem; display:flex; gap:0.5rem;">
+                <input id="chatInput" type="text" class="form-control" placeholder="Type a message…" style="flex:1;" disabled>
+                <button id="chatSendBtn" class="btn" disabled>Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remove the old #cadetChallenge and #teamDetailSection from outside .main/.content -->
+
+  <!-- Add this after the main dashboard content, before the #cadetChallenge section for best visibility and usability -->
+  <div id="vr-collab-section" style="margin:2.5rem auto 2rem auto;max-width:900px;">
+  <h3 style="color:#0a84ff;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:10px;">
+    <i class="fas fa-vr-cardboard"></i> Virtual Collaboration Space
+  </h3>
+  <div style="background:#f7fafc;border:1.5px solid #b3d8ff;border-radius:16px;box-shadow:0 2px 12px #e3f2fd;padding:1.5rem;">
+    <iframe
+      src="https://framevr.io/alambda"
+      title="Alambda FrameVR"
+      style="width:100%;min-height:420px;max-height:60vh;border-radius:12px;border:none;box-shadow:0 2px 12px #e3f2fd;background:transparent;"
+      allow="microphone; camera; fullscreen; vr; xr-spatial-tracking"
+      loading="lazy"
+    ></iframe>
+    <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:12px;">
+      <a href="https://framevr.io/alambda" target="_blank" class="btn btn-outline-primary" style="font-size:1rem;">
+        <i class="fas fa-external-link-alt"></i> Open in New Tab
+      </a>
+      <span style="color:#555;font-size:0.98rem;">
+        <i class="fas fa-info-circle"></i> Use your mic/camera for live class, chat, and VR collaboration.
+      </span>
+    </div>
+    <!-- Zoom Panel (cannot embed, so use a button) -->
+    <div style="margin-top:2rem;">
+      <h3 style="color:#0a84ff;font-weight:700;margin-bottom:0.7rem;display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-video"></i> Zoom Meeting Room
+      </h3>
+      <div style="background:#fff;border:1.5px solid #b3d8ff;border-radius:12px;padding:1.5rem;text-align:center;">
+        <p style="color:#555;font-size:1.08rem;margin-bottom:1.2rem;">
+          Zoom cannot be embedded here due to browser security restrictions.<br>
+          Please use the button below to join the meeting in a new tab.
+        </p>
+        <a href="https://zoom.us/j/YOUR_MEETING_ID" target="_blank" class="btn" style="font-size:1.1rem;">
+          <i class="fas fa-external-link-alt"></i> Join Zoom Meeting
+        </a>
+        <div style="margin-top:0.7rem;">
+          <span style="color:#555;font-size:0.98rem;">
+            <i class="fas fa-info-circle"></i> Log in with your Zoom account to join meetings.
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- End Zoom Panel -->
+  </div>
+</div>
+
+  <!-- Email Delivery Modal -->
+  <div id="emailModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Send Email</h3>
+        <span class="close" onclick="closeEmailModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <!-- AI Agents Selector -->
+        <div id="emailAgentSelector" style="margin-bottom:1rem; padding:0.75rem; background:#f8f9fa; border-radius:8px; border:1px solid #e9ecef;">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+            <strong style="color:#333;">🤖 Include AI Agents:</strong>
+            <small style="color:#666;">(Select agents to include their expertise in your email)</small>
+          </div>
+          <div id="agentCheckboxes" style="display:flex; gap:0.5rem; flex-wrap:wrap; max-height:200px; overflow-y:auto;"></div>
+        </div>
+        
+        <form id="emailDeliveryForm">
+          <div class="form-group">
+            <label for="emailTo">Recipient Email</label>
+            <input type="email" id="emailTo" name="emailTo" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="emailSubject">Subject</label>
+            <input type="text" id="emailSubject" name="emailSubject" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="emailContent">Content</label>
+            <textarea id="emailContent" name="emailContent" class="form-control" rows="8" required></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeEmailModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              <span id="emailSendText">Send Email</span>
+              <span id="emailSpinner" class="spinner" style="display:none;">⟳</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // Global variables accessible throughout the script
+  const API_ROOT = 'https://api.alambda.com';
+  const token = localStorage.getItem('authToken');
+  const track = new URLSearchParams(location.search).get('track') || 'cadet';
+  
+  // Global functions that need to be accessible from HTML onclick handlers
+  function saveLectureToProgress(lectureData) {
+    try {
+      let progress = JSON.parse(localStorage.getItem('lectureProgress') || '[]');
+      const existingIndex = progress.findIndex(p => p.id === lectureData.id);
+      
+      if (existingIndex >= 0) {
+        progress[existingIndex] = { ...progress[existingIndex], ...lectureData, completed_at: new Date().toISOString() };
+      } else {
+        progress.push({ ...lectureData, completed_at: new Date().toISOString() });
+      }
+      
+      localStorage.setItem('lectureProgress', JSON.stringify(progress));
+      console.log('Lecture progress saved:', lectureData);
+    } catch (error) {
+      console.error('Error saving lecture progress:', error);
+    }
+  }
+
+  function generateMatchingQuiz(lectureId) {
+    console.log('Generating quiz for lecture:', lectureId);
+    // TODO: Implement quiz generation
+    alert('Quiz generation feature coming soon!');
+  }
+
+  function requestLectureVariation(lectureId) {
+    console.log('Requesting variation for lecture:', lectureId);
+    // TODO: Implement lecture variation
+    alert('Lecture variation feature coming soon!');
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!token) { alert('Not logged in.'); location.href='/school.html'; return; }
+    document.getElementById('trackTitle').innerText = `Cadet - ${track} Track`;
+
+    // Tab switching
+    const navs = document.querySelectorAll('.sidebar .nav-item');
+    const panes = document.querySelectorAll('.tab-pane');
+    navs.forEach(n => n.addEventListener('click', () => {
+      if (n.id==='logout') {
+        if (confirm('Log out?')) localStorage.removeItem('authToken'), location.href='/school.html';
+        return;
+      }
+      const tab = n.dataset.tab;
+      panes.forEach(p=>p.id===tab ? p.classList.add('active'):p.classList.remove('active'));
+      navs.forEach(x=>x===n?x.classList.add('active'):x.classList.remove('active'));
+    }));
+
+    // Authenticated fetch helper
+    async function fetchAuth(url, opts={}) {
+      opts.headers = { ...(opts.headers||{}), 'Authorization':`Bearer ${token}` };
+      const res = await fetch(url, opts);
+      if (!res.ok) throw new Error(await res.text());
+      return res;
+    }
+
+    let currentAgent = lectureAgents['dr-smith'];
+    let lectureHistory = JSON.parse(localStorage.getItem('lectureHistory') || '[]');
+
+    // Agent selector functionality
+    document.querySelectorAll('.agent-selector button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Update active button
+        document.querySelectorAll('.agent-selector button').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Switch agent
+        const agentKey = this.dataset.agent;
+        currentAgent = lectureAgents[agentKey];
+        updateAgentCard();
+        updateContextDisplay();
+        
+        // Show agent switch message
+        const lecturePane = document.getElementById('lectureContent');
+        if (lecturePane.style.display === 'block') {
+          lecturePane.innerHTML += `
+            <div class="msg agent-action">
+              <strong>🔄 Agent Switched</strong><br>
+              Now using ${currentAgent.getName()} for lecture generation
+            </div>
+          `;
+          lecturePane.scrollTop = lecturePane.scrollHeight;
+        }
+      });
+    });
+
+    // Update agent card display
+    function updateAgentCard() {
+      const card = document.getElementById('currentAgentCard');
+      const stats = currentAgent.getUsageStats();
+      const initials = currentAgent.getName().split(' ').map(n => n[0]).join('');
+      
+      card.innerHTML = `
+        <div style="display: flex; align-items: center;">
+          <div class="agent-avatar">${initials}</div>
+          <div class="agent-info">
+            <div class="agent-name">${stats.name}</div>
+            <div class="agent-specialization">${stats.specialization}</div>
+            <div class="agent-stats">
+              <span>Used: <strong>${stats.usageCount}</strong> times</span>
+              <span>Last Used: <strong>${stats.lastUsed}</strong></span>
+              <span>Specialization: <strong>${stats.specialization}</strong></span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Update context display
+    function updateContextDisplay() {
+      const context = currentAgent.getContext();
+      const summary = context.week ? 
+        `Week ${context.week}: ${context.topic} - ${JSON.stringify(context.context)}` : 
+        'No context set';
+      document.getElementById('contextSummary').textContent = summary;
+    }
+
+    // Clear lecture chat
+    document.getElementById('clearLectureChat').addEventListener('click', function() {
+      if (confirm('Clear all lecture chat history?')) {
+        document.getElementById('lectureContent').innerHTML = '';
+        document.getElementById('lectureContent').style.display = 'none';
+      }
+    });
+
+    // Save lecture to history
+    function saveLectureToHistory(week, topic, agentName, content) {
+      const historyItem = {
+        id: Date.now(),
+        week: week,
+        topic: topic,
+        agent: agentName,
+        content: content,
+        timestamp: new Date().toISOString(),
+        rating: 0
+      };
+      
+      lectureHistory.unshift(historyItem);
+      lectureHistory = lectureHistory.slice(0, 10); // Keep only last 10
+      localStorage.setItem('lectureHistory', JSON.stringify(lectureHistory));
+      updateLectureHistoryDisplay();
+    }
+
+    // Update lecture history display
+    function updateLectureHistoryDisplay() {
+      const historyList = document.getElementById('lectureHistoryList');
+      
+      if (lectureHistory.length === 0) {
+        historyList.innerHTML = `
+          <div style="text-align: center; color: #64748b; font-style: italic;">
+            No lectures generated yet
+          </div>
+        `;
+        return;
+      }
+      
+      historyList.innerHTML = lectureHistory.map(item => `
+        <div class="history-item" data-id="${item.id}">
+          <div class="title">Week ${item.week}: ${item.topic}</div>
+          <div class="meta">
+            ${item.agent} • ${new Date(item.timestamp).toLocaleDateString()}
+            <span style="float: right;">
+              <button onclick="viewLectureHistory(${item.id})" style="background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.8em;">View</button>
+              <button onclick="deleteLectureHistory(${item.id})" style="background: none; border: none; color: var(--accent2); cursor: pointer; font-size: 0.8em; margin-left: 8px;">Delete</button>
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // View lecture from history
+    window.viewLectureHistory = function(id) {
+      const item = lectureHistory.find(h => h.id === id);
+      if (item) {
+        const lecturePane = document.getElementById('lectureContent');
+        lecturePane.style.display = 'block';
+        lecturePane.innerHTML = `
+          <div class="msg agent-action">
+            <strong>📖 Viewing from History</strong><br>
+            Week ${item.week}: ${item.topic} (Generated by ${item.agent})
+          </div>
+          <div class="msg ai">
+            ${item.content}
+          </div>
+        `;
+        lecturePane.scrollTop = lecturePane.scrollHeight;
+      }
+    };
+
+    // Delete lecture from history
+    window.deleteLectureHistory = function(id) {
+      if (confirm('Delete this lecture from history?')) {
+        lectureHistory = lectureHistory.filter(h => h.id !== id);
+        localStorage.setItem('lectureHistory', JSON.stringify(lectureHistory));
+        updateLectureHistoryDisplay();
+      }
+    };
+
+    // Initialize displays
+    updateAgentCard();
+    updateLectureHistoryDisplay();
+    
+    // Initialize agents
+    Object.values(lectureAgents).forEach(agent => {
+      agent.reset();
+    });
+
+    function requestLectureVariation(week, title, currentAgent) {
+      // Get different agent for variation
+      const agents = Object.values(lectureAgents);
+      const alternativeAgent = agents.find(agent => agent.name !== currentAgent) || agents[0];
+      
+      // Show variation generation message
+      const lecturePane = document.getElementById('lectureContent');
+      lecturePane.innerHTML += `
+        <div class="msg variation" style="text-align:center; margin:8px 0; background:#fef3c7; padding:12px; border-radius:8px; border:1px solid #f59e0b;">
+          <strong>🔄 Generating Alternative Perspective</strong><br>
+          <div style="font-size:0.9em; color:#92400e; margin-top:4px;">
+            Switching to ${alternativeAgent.name} for a different approach...
+          </div>
+        </div>
+      `;
+      
+      // Scroll to bottom
+      lecturePane.scrollTop = lecturePane.scrollHeight;
+      
+      // Generate variation after short delay
+      setTimeout(() => {
+        document.getElementById('genLecture').click();
+      }, 1000);
+    }
+
+    // Add CSS for spin animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Global functions for button clicks
+    window.saveLectureToProgress = saveLectureToProgress;
+    window.generateMatchingQuiz = generateMatchingQuiz;
+    window.requestLectureVariation = requestLectureVariation;
+
+    document.getElementById('refreshLectures').onclick = refreshLectures;
+    document.getElementById('lecturesList').onclick = async e => {
+      if (e.target.dataset.id) {
+        const res = await fetchAuth(`${API_ROOT}/api/lectures/${e.target.dataset.id}`);
+        const lec = await res.json();
+        const c = document.getElementById('lectureContent');
+        c.innerHTML = lec.content;
+        c.style.display = 'block';
+      }
+    };
+
+    // Populate week selectors
+    for(let i=1;i<=14;i++){
+      // Populate lectures week selector
+      const lectureOption = document.createElement('option');
+      lectureOption.value = lectureOption.textContent = i;
+      document.getElementById('weekSelect').append(lectureOption);
+      
+      // Populate quiz week selector
+      const quizOption = document.createElement('option');
+      quizOption.value = i;
+      quizOption.textContent = `Week ${i}`;
+      document.getElementById('quizWeek').append(quizOption);
+    }
+    async function loadModule() {
+      const lvl = parseInt(document.getElementById('weekSelect').value,10);
+      const res = await fetchAuth(`${API_ROOT}/curriculum/generate`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({track,level:lvl})
+      });
+      const {html} = await res.json();
+      document.getElementById('moduleDetails').innerHTML = html;
+      document.getElementById('modulesCountDisplay').innerText = lvl;
+    }
+    
+    // Add null check for loadModule button
+    const loadModuleBtn = document.getElementById('loadModule');
+    if (loadModuleBtn) {
+      loadModuleBtn.onclick = loadModule;
+    }
+
+    // Quizzes
+    async function refreshQuizzes() {
+      try {
+        const res = await fetchAuth(`${API_ROOT}/api/quizzes/${track}`);
+        const data = await res.json();
+        // Update quiz count display if element exists
+        const quizCountEl = document.getElementById('quizzesCountDisplay');
+        if (quizCountEl) {
+          quizCountEl.innerText = data.length;
+        }
+      } catch (error) {
+        console.log('Quiz refresh not available:', error.message);
+      }
+    }
+    
+    // --- Enhanced Agentic Quiz Generation ---
+    document.getElementById('genQuiz').onclick = async () => {
+      const week = parseInt(document.getElementById('quizWeek').value, 10);
+      const quizOutput = document.getElementById('quizOutput');
+      const copyBtn = document.getElementById('copyQuiz');
+      const topicTitle = weekTopics[week] || "Advanced Leadership Topics";
+      
+      // Get lecture content if available from session storage (generated from lecture)
+      const lectureContent = sessionStorage.getItem('lectureContentForQuiz') || '';
+      const lectureTitle = sessionStorage.getItem('lectureTitleForQuiz') || topicTitle;
+      
+      // Build cadet context
+      const cadetContext = {
+        level: cadetProgress.completionRate > 70 ? 'advanced' : cadetProgress.completionRate > 40 ? 'intermediate' : 'beginner',
+        completedQuizzes: Object.keys(cadetProgress.quizzes),
+        difficultyPreference: 'mixed',
+        previousScores: Object.values(cadetProgress.quizzes).map(q => q.score).filter(s => s > 0)
+      };
+      
+      // Show agentic system activation
+      quizOutput.innerHTML = `
+        <div style="background:#f8fafc; padding:20px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:16px;">
+          <div style="text-align:center; margin-bottom:16px;">
+            <div style="font-size:1.2em; font-weight:600; color:#0ea5e9; margin-bottom:8px;">
+              🎯 Multi-Agent Quiz System Activated
+            </div>
+            <div style="font-size:0.9em; color:#64748b;">
+              Week ${week}: ${lectureTitle}<br>
+              Difficulty: ${cadetContext.level} • Questions: 20 • Time: 30 minutes
+            </div>
+          </div>
+          
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px;">
+            <div style="background:#f0f9ff; padding:12px; border-radius:8px; text-align:center;">
+              <div style="font-size:1.1em; margin-bottom:4px;">🎲</div>
+              <div style="font-size:0.8em; font-weight:600; color:#0ea5e9;">Multiple Choice</div>
+              <div style="font-size:0.7em; color:#64748b;">15 Questions</div>
+            </div>
+            <div style="background:#f0fdf4; padding:12px; border-radius:8px; text-align:center;">
+              <div style="font-size:1.1em; margin-bottom:4px;">🎭</div>
+              <div style="font-size:0.8em; font-weight:600; color:#22c55e;">Scenarios</div>
+              <div style="font-size:0.7em; color:#64748b;">3 Questions</div>
+            </div>
+            <div style="background:#fef3c7; padding:12px; border-radius:8px; text-align:center;">
+              <div style="font-size:1.1em; margin-bottom:4px;">⚡</div>
+              <div style="font-size:0.8em; font-weight:600; color:#f59e0b;">True/False</div>
+              <div style="font-size:0.7em; color:#64748b;">2 Questions</div>
+            </div>
+          </div>
+          
+          <div style="text-align:center; color:#0ea5e9;">
+            <div style="display:inline-block; animation:spin 1s linear infinite; font-size:1.5em;">🤖</div>
+            <div style="margin-top:8px; font-weight:600;">Agents are collaborating...</div>
+            <div style="font-size:0.9em; color:#64748b; margin-top:4px;">
+              Analyzing content • Designing questions • Calibrating difficulty
+            </div>
+          </div>
+        </div>
+      `;
+      
+      copyBtn.style.display = 'none';
+      
+      try {
+        // Generate quiz using agentic system
+        const quizResult = await generateAgenticQuiz(week, topicTitle, lectureContent, cadetContext);
+        
+        // Display comprehensive quiz with agent branding
+        quizOutput.innerHTML = `
+          <div style="background:#ffffff; border-radius:12px; border:1px solid #e2e8f0; overflow:hidden; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+            <!-- Quiz Header -->
+            <div style="background:linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%); color:white; padding:20px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <h3 style="margin:0; font-size:1.3em;">Week ${week} Comprehensive Quiz</h3>
+                  <div style="font-size:0.9em; opacity:0.9; margin-top:4px;">${topicTitle}</div>
+                </div>
+                <div style="text-align:right; font-size:0.8em;">
+                  <div>⏱️ ${quizResult.timeLimit} minutes</div>
+                  <div>🎯 ${quizResult.passingScore}% to pass</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Quiz Content -->
+            <div style="padding:20px;">
+              <div style="background:#f8fafc; padding:16px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:20px;">
+                <div style="font-size:0.9em; color:#64748b; margin-bottom:8px;">
+                  <strong>Generated by Multi-Agent System:</strong>
+                </div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  ${quizResult.agents.map(agent => `
+                    <span style="background:#0ea5e9; color:white; padding:4px 8px; border-radius:4px; font-size:0.7em;">
+                      ${agent}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+              
+              <div style="white-space: pre-wrap; line-height:1.6; font-family:'Segoe UI', sans-serif; font-size:1.05rem;">
+                ${quizResult.content}
+              </div>
+            </div>
+            
+            <!-- Quiz Actions -->
+            <div style="background:#f8fafc; padding:16px; border-top:1px solid #e2e8f0;">
+              <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                <button onclick="saveQuizToProgress(${week}, '${topicTitle.replace(/'/g, '\\\'')}', ${quizResult.questionCount})" 
+                        class="btn" style="font-size:0.9em; padding:8px 16px; background:#22c55e;">
+                  💾 Save Quiz
+                </button>
+                <button onclick="copyQuizToClipboard()" 
+                        class="btn" style="font-size:0.9em; padding:8px 16px; background:#3b82f6;">
+                  📋 Copy to Clipboard
+                </button>
+                <button onclick="startAgenticQuizTimer(${week}, ${quizResult.timeLimit})" 
+                        class="btn" style="font-size:0.9em; padding:8px 16px; background:#f59e0b;">
+                  ⏱️ Start Timed Quiz
+                </button>
+                <button onclick="generateQuizVariation(${week}, '${topicTitle.replace(/'/g, '\\\'')}', '${lectureContent.replace(/'/g, '\\\'')}', 'harder')" 
+                        class="btn" style="font-size:0.9em; padding:8px 16px; background:#8b5cf6;">
+                  🔥 Harder Version
+                </button>
+              </div>
+              
+              <div style="margin-top:12px; font-size:0.85em; color:#64748b;">
+                Generated by ${quizResult.agents.length} specialized agents • ${new Date().toLocaleString()} • 
+                Difficulty: ${cadetContext.level} • Questions: ${quizResult.questionCount}
+              </div>
+            </div>
+          </div>
+        `;
+        
+        copyBtn.style.display = 'block';
+        
+      } catch (error) {
+        quizOutput.innerHTML = `
+          <div style="background:#fff3cd; border:1px solid #fbbf24; border-radius:8px; padding:16px; color:#92400e;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:1.2em;">⚠️</span>
+              <strong>Multi-Agent System Error</strong>
+            </div>
+            <div style="margin-bottom:8px;">
+              Failed to generate quiz: ${error.message}
+            </div>
+            <div style="font-size:0.9em;">
+              The agent system encountered an issue. Please try again or contact support.
+            </div>
+          </div>
+        `;
+        copyBtn.style.display = 'none';
+      }
+    };
+
+    // Enhanced quiz helper functions
+    function saveQuizToProgress(week, title, questionCount) {
+      const quizData = {
+        week: week,
+        title: title,
+        questionCount: questionCount,
+        completed: true,
+        score: 0, // Will be updated when quiz is taken
+        attempts: 1,
+        timeSpent: 0,
+        answers: [],
+        agentGenerated: true,
+        generatedBy: 'Multi-Agent System'
+      };
+      
+      updateProgress('quizzes', 'week_' + week, quizData);
+      
+      // Show success message
+      alert(`Multi-agent quiz for Week ${week} has been saved to your progress!`);
+    }
+
+    function startAgenticQuizTimer(week, timeLimit) {
+      const startTime = Date.now();
+      
+      // Create enhanced timer display
+      const timerDiv = document.createElement('div');
+      timerDiv.id = 'agenticQuizTimer';
+      timerDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+        color: white;
+        padding: 16px 20px;
+        border-radius: 12px;
+        font-weight: bold;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        min-width: 180px;
+      `;
+      
+      document.body.appendChild(timerDiv);
+      
+      // Update timer every second
+      const timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const remaining = (timeLimit * 60) - elapsed;
+        
+        if (remaining <= 0) {
+          clearInterval(timerInterval);
+          timerDiv.remove();
+          alert('⏰ Time\'s up! Quiz session ended.');
+          
+          // Update progress with time spent
+          updateProgress('quizzes', 'week_' + week, {
+            timeSpent: timeLimit,
+            timedSession: true,
+            completedAt: new Date().toISOString(),
+            agentTimed: true
+          });
+          
+          return;
+        }
+        
+        const minutes = Math.floor(remaining / 60);
+        const seconds = remaining % 60;
+        
+        timerDiv.innerHTML = `
+          <div style="text-align:center;">
+            <div style="font-size:1.2em; margin-bottom:4px;">⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}</div>
+            <div style="font-size:0.8em; opacity:0.8;">Agent Quiz Timer</div>
+          </div>
+        `;
+        
+        // Change color when time is running low
+        if (remaining <= 300) { // 5 minutes
+          timerDiv.style.background = 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)';
+        } else if (remaining <= 600) { // 10 minutes
+          timerDiv.style.background = 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)';
+        }
+      }, 1000);
+      
+      alert(`🚀 Agent Quiz Timer Started! You have ${timeLimit} minutes to complete the quiz.`);
+    }
+
+    function generateQuizVariation(week, title, lectureContent, difficulty) {
+      const quizOutput = document.getElementById('quizOutput');
+      
+      // Show variation generation
+      quizOutput.innerHTML = `
+        <div style="background:#fef3c7; padding:20px; border-radius:12px; border:1px solid #f59e0b; text-align:center;">
+          <div style="font-size:1.2em; font-weight:600; color:#92400e; margin-bottom:8px;">
+            🔥 Generating ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Quiz Variation
+          </div>
+          <div style="font-size:0.9em; color:#92400e;">
+            Adjusting difficulty level and question complexity...
+          </div>
+          <div style="margin-top:12px; color:#f59e0b;">
+            <div style="display:inline-block; animation:spin 1s linear infinite; font-size:1.5em;">⚙️</div>
+          </div>
+        </div>
+      `;
+      
+      // Generate variation after delay
+      setTimeout(() => {
+        document.getElementById('genQuiz').click();
+      }, 1500);
+    }
+
+    // Global functions for quiz system
+    window.saveQuizToProgress = saveQuizToProgress;
+    window.startAgenticQuizTimer = startAgenticQuizTimer;
+    window.generateQuizVariation = generateQuizVariation;
+
+    // Copy quiz to clipboard
+    document.getElementById('copyQuiz').onclick = async () => {
+      const quizContent = document.querySelector('#quizOutput')?.textContent || '';
+      try {
+        await navigator.clipboard.writeText(quizContent);
+        alert('Quiz copied to clipboard!');
+      } catch (err) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = quizContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Quiz copied to clipboard!');
+      }
+    };
+
+    async function genQuiz() {
+      // This function is replaced by the onclick handler above
+      // Keeping for backward compatibility
+      document.getElementById('genQuiz').click();
+    }
+    document.getElementById('refreshQuizzes').onclick = refreshQuizzes;
+    document.getElementById('genQuiz').onclick      = genQuiz;
+
+    // Assignments & Progress
+    async function loadOverview() {
+      const res = await fetchAuth(`${API_ROOT}/cadet/overview`);
+      const { assignments, modulesCompleted, quizzesPassed, lecturesCount } = await res.json();
+      document.getElementById('assignmentList').innerHTML =
+        assignments.map(a=>`<li>${a.title} Ã¢â‚¬â€œ ${a.status}</li>`).join('');
+      document.getElementById('modulesCountDisplay').innerText   = modulesCompleted;
+      document.getElementById('quizzesCountDisplay').innerText   = quizzesPassed;
+      document.getElementById('completedCountDisplay').innerText = modulesCompleted + quizzesPassed;
+      document.getElementById('lecturesCountDisplay').innerText  = lecturesCount || 0;
+      updateGauges(lecturesCount||0, modulesCompleted, quizzesPassed, modulesCompleted+quizzesPassed);
+    }
+
+    // Update progress gauges
+    function updateGauges(lectures, modules, quizzes, completed) {
+      // Simple circular progress implementation
+      const drawGauge = (canvasId, value, max = 100) => {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = 45;
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Background circle
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#e3f2fd';
+        ctx.lineWidth = 8;
+        ctx.stroke();
+        
+        // Progress circle
+        const progress = Math.min(value / max,  1);
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, -Math.PI / 2, (-Math.PI / 2) + (progress * 2 * Math.PI));
+        ctx.strokeStyle = '#0a84ff';
+        ctx.lineWidth = 8;
+        ctx.stroke();
+        
+        // Text
+        ctx.fillStyle = '#222';
+        ctx.font = '16px Quicksand';
+        ctx.textAlign = 'center';
+        ctx.fillText(value, centerX, centerY + 5);
+      };
+      
+      drawGauge('gaugeLectures', lectures, 20);
+      drawGauge('gaugeModules', modules, 14);
+      drawGauge('gaugeQuizzes', quizzes, 14);
+      drawGauge('gaugeCompleted', completed, 28);
+    }
+
+    // Initial loads
+    refreshLectures();
+    refreshQuizzes();
+    loadOverview();
+    
+    // ADD THIS LINE - Call checkEnrollment here
+    checkEnrollment();
+});
+    // ENROLLMENT LOGIC
+    const enrollmentModal = document.getElementById('enrollmentModal');
+    const enrollmentForm = document.getElementById('enrollmentForm');
+    const lockedSections = ['modules', 'quizzes', 'assignments', 'progress'];
+    let isEnrolled = localStorage.getItem('isEnrolled') === 'true';
+
+    function showEnrollmentModal() {
+      enrollmentModal.style.display = 'block';
+    }
+    function hideEnrollmentModal() {
+           enrollmentModal.style.display = 'none';
+    }
+    function lockSections() {
+      lockedSections.forEach(sectionId => {
+        const section = document.querySelector(`[data-tab="${sectionId}"]`);
+        if (section) {
+          section.classList.add('locked');
+          section.onclick = (e) => {
+            e.preventDefault();
+            alert('Please complete your enrollment to access this section.');
+            showEnrollmentModal();
+          };
+        }
+      });
+    }
+    function unlockSections() {
+      lockedSections.forEach(sectionId => {
+        const section = document.querySelector(`[data-tab="${sectionId}"]`);
+        if (section) {
+          section.classList.remove('locked');
+          section.onclick = null;
+        }
+      });
+    }
+    enrollmentForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const requiredFields = enrollmentForm.querySelectorAll('[required]');
+      let isValid = true;
+      requiredFields.forEach(field => {
+        if (!field.value.trim() && field.type !== 'checkbox') {
+          isValid = false;
+          field.style.borderColor = 'red';
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      if (!enrollmentForm.terms.checked) {
+        isValid = false;
+        alert('You must agree to the terms and conditions.');
+        return;
+      }
+      if (!isValid) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      // Collect form data
+      const enrollmentData = {
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName: document.getElementById('lastName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        dob: document.getElementById('dob').value.trim(),
+        gender: document.getElementById('gender').value,
+        address: document.getElementById('address').value.trim(),
+        city: document.getElementById('city').value.trim(),
+        state: document.getElementById('state').value.trim(),
+        zip: document.getElementById('zip').value.trim(),
+        education: document.getElementById('education').value,
+        employment: document.getElementById('employment').value,
+        income: document.getElementById('income').value,
+        agreedToTerms: enrollmentForm.terms.checked
+      };
+      try {
+        const token = localStorage.getItem('authToken');
+        const response = await fetch('https://api.alambda.com/api/enrollment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(enrollmentData)
+        });
+        const result = await response.json();
+        if (!response.ok) {
+          throw new Error(result.error || 'Enrollment failed');
+        }
+        unlockSections();
+        hideEnrollmentModal();
+        alert('Enrollment successful! You now have access to all sections.');
+      } catch (error) {
+        alert('Error submitting enrollment: ' + error.message);
+      }
+    });
+    function showEnrollmentPendingMsg() {
+  document.getElementById('enrollmentPendingMsg').style.display = 'block';
+  document.querySelector('.content').style.display = 'none';
+}
+function hideEnrollmentPendingMsg() {
+  document.getElementById('enrollmentPendingMsg').style.display = 'none';
+  document.querySelector('.content').style.display = '';
+}
+
+async function checkEnrollment() {
+  // First check if agreement was already accepted
+  const agreementAccepted = localStorage.getItem('agreementAccepted') === 'true';
+  if (agreementAccepted) {
+    // If agreement accepted, skip enrollment modal
+    unlockSections();
+    hideEnrollmentModal();
+    hideEnrollmentPendingMsg();
+    return;
+  }
+
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    showEnrollmentModal();
+    lockSections();
+    showEnrollmentPendingMsg();
+    return;
+  }
+  try {
+    const res = await fetch('https://api.alambda.com/api/enrollment/status', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+    if (data.enrolled) {
+      unlockSections();
+      hideEnrollmentModal();
+      hideEnrollmentPendingMsg();
+    } else {
+      showEnrollmentModal();
+      lockSections();
+      showEnrollmentPendingMsg();
+    }
+  } catch (error) {
+    showEnrollmentModal();
+    lockSections();
+    showEnrollmentPendingMsg();
+  }
+}
+    // Add functionality for the "Accept Challenge" button
+    document.getElementById('acceptChallenge').addEventListener('click', () => {
+      // Show the agreement modal
+      document.getElementById('agreementModal').style.display = 'block';
+      
+      // Enable/disable accept button based on checkbox
+      const agreementCheckbox = document.getElementById('agreementCheckbox');
+      const acceptButton = document.getElementById('acceptAgreement');
+      
+      agreementCheckbox.addEventListener('change', () => {
+        acceptButton.disabled = !agreementCheckbox.checked;
+      });
+      
+      // Handle cancel button
+      document.getElementById('cancelAgreement').addEventListener('click', () => {
+        document.getElementById('agreementModal').style.display = 'none';
+      });
+      
+      // Handle accept button
+      acceptButton.addEventListener('click', () => {
+        // Hide the agreement modal
+        document.getElementById('agreementModal').style.display = 'none';
+        
+        // Trigger confetti using Canvas Confetti
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+        
+        // Store agreement acceptance in localStorage
+        localStorage.setItem('agreementAccepted', 'true');
+        localStorage.setItem('agreementDate', new Date().toISOString());
+        
+        // Replace the section content
+        const challengeSection = document.getElementById('cadetChallenge');
+        challengeSection.innerHTML = `
+          <h2>✅ Challenge Accepted!</h2>
+          <p>You will soon be assigned to a project team. Next step: schedule your kickoff meeting.</p>
+          <p><small>Agreement accepted on ${new Date().toLocaleDateString()}</small></p>
+        `;
+      });
+    });
+    // Team details data
+    const teamDetails = {
+      ai: {
+        title: "Team 1 – AI & Data Science",
+        description: `
+          <ul>
+            <li>Design and train machine learning models for real-world datasets.</li>
+            <li>Build chatbots and conversational AI using Python and cloud APIs.</li>
+            <li>Develop embeddings for search, recommendations, and NLP tasks.</li>
+            <li>Prototype clinical intelligence tools for healthcare and diagnostics.</li>
+          </ul>
+          <h5>Progress Tracker</h5>
+          <ol id="progress-ai">
+            <li><input type="checkbox"> Complete dataset exploration</li>
+            <li><input type="checkbox"> Build first chatbot prototype</li>
+            <li><input type="checkbox"> Submit model evaluation report</li>
+            <li><input type="checkbox"> Demo clinical tool to mentor</li>
+          </ol>
+        `
+      },
+      plm: {
+        title: "Team 2 – PLM / Lifecycle Management",
+        description: `
+          <ul>
+            <li>Map out product lifecycle workflows for AI/ML projects.</li>
+            <li>Automate CI/CD and MLOps pipelines using cloud tools.</li>
+            <li>Document best practices for versioning and deployment.</li>
+            <li>Collaborate with other teams to ensure smooth releases.</li>
+          </ul>
+          <h5>Progress Tracker</h5>
+          <ol id="progress-plm">
+            <li><input type="checkbox"> Diagram lifecycle workflow</li>
+            <li><input type="checkbox"> Set up CI/CD pipeline</li>
+            <li><input type="checkbox"> Write deployment checklist</li>
+            <li><input type="checkbox"> Present workflow to cohort</li>
+          </ol>
+        `
+      },
+      python: {
+        title: "Team 3 – Python Software Development",
+        description: `
+          <ul>
+            <li>Develop backend APIs for dashboards and automation tools.</li>
+            <li>Write clean, well-documented Python code.</li>
+            <li>Integrate with cloud services and databases.</li>
+            <li>Support other teams with reusable modules.</li>
+          </ul>
+          <h5>Progress Tracker</h5>
+          <ol id="progress-python">
+            <li><input type="checkbox"> Scaffold API endpoints</li>
+            <li><input type="checkbox"> Implement authentication</li>
+            <li><input type="checkbox"> Connect to cloud database</li>
+            <li><input type="checkbox"> Code review with mentor</li>
+          </ol>
+        `
+      },
+      bizdev: {
+        title: "Team 4 – Business Development & Strategy",
+        description: `
+          <ul>
+            <li>Draft proposals and respond to RFPs for AI solutions.</li>
+            <li>Research market opportunities and competitors.</li>
+            <li>Develop documentation and pitch decks.</li>
+            <li>Coordinate with technical teams for demos.</li>
+          </ul>
+          <h5>Progress Tracker</h5>
+          <ol id="progress-bizdev">
+            <li><input type="checkbox"> Complete market research</li>
+            <li><input type="checkbox"> Draft proposal outline</li>
+            <li><input type="checkbox"> Build pitch deck</li>
+            <li><input type="checkbox"> Present to leadership</li>
+          </ol>
+        `
+      }
+    };
+
+    // Make team tiles interactive
+    document.querySelectorAll('.team-tile').forEach(tile => {
+      tile.addEventListener('click', function() {
+        const team = this.getAttribute('data-team');
+        const detail = teamDetails[team];
+        if (detail) {
+          const section = document.getElementById('teamDetailSection');
+          section.innerHTML = `
+            <div style="background:#fff; border:1.5px solid #b3d8ff; border-radius:16px; box-shadow:0 2px 8px #e3f2fd; padding:2rem;">
+              <h3 style="color:var(--accent2);margin-top:0;">${detail.title}</h3>
+              ${detail.description}
+              <button id="closeTeamDetail" class="btn" style="margin-top:1.5rem;">Close</button>
+            </div>
+          `;
+          section.style.display = 'block';
+          section.scrollIntoView({behavior:'smooth', block:'center'});
+          document.getElementById('closeTeamDetail').onclick = () => {
+            section.style.display = 'none';
+          };
+        }
+      });
+      // Keyboard accessibility
+      tile.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+      tile.addEventListener('mouseover', function() {
+        this.style.boxShadow = '0 4px 16px #b3d8ff';
+      });
+      tile.addEventListener('mouseout', function() {
+        this.style.boxShadow = '';
+      });
+    });
+
+    // Email Delivery Logic - Updated for modal with agents
+    document.getElementById('emailDeliveryForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const sendText = document.getElementById('emailSendText');
+      const spinner = document.getElementById('emailSpinner');
+      
+      // Disable form and show loading
+      submitBtn.disabled = true;
+      sendText.style.display = 'none';
+      spinner.style.display = 'inline-block';
+
+      // Get selected agents - handle both registered agents (ID) and local agents (key)
+      const selectedAgentElements = Array.from(
+        document.querySelectorAll('#agentCheckboxes input:checked')
+      );
+      
+      const selectedAgents = [];
+      const selectedAgentIds = [];
+      
+      selectedAgentElements.forEach(cb => {
+        if (cb.dataset.local === 'true') {
+          // Local agent - use the old format for backward compatibility
+          const key = cb.value;
+          const agent = lectureAgents[key];
+          if (agent) {
+            selectedAgents.push({
+              key,
+              name: agent.getName(),
+              specialization: agent.getSpecialization(),
+              persona: agent.getPersona()
+            });
+          }
+        } else {
+          // Registered agent - just collect the ID
+          selectedAgentIds.push(cb.value);
+        }
+      });
+
+      const emailData = {
+        context: {
+          content: document.getElementById('emailContent').value,
+          agent_ids: selectedAgentIds,    // For registered agents
+          agents: selectedAgents          // For local agents (backward compatibility)
+        },
+        destination: {
+          email: document.getElementById('emailTo').value,
+          subject: document.getElementById('emailSubject').value,
+        },
+      };
+
+      try {
+        const response = await fetch('https://api.alambda.com/api/agents/workflows/email', {
+          method: 'POST',
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(emailData),
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          // Combine both types of agents for display
+          const totalAgents = [...selectedAgents, ...selectedAgentIds.map(id => ({id}))];
+          
+          // Add to email list
+          addEmailToList({
+            recipient: document.getElementById('emailTo').value,
+            subject: document.getElementById('emailSubject').value,
+            content: document.getElementById('emailContent').value,
+            agents: selectedAgents, // For display purposes, use the detailed agent info
+            agentCount: selectedAgentElements.length
+          });
+          
+          const agentCountMsg = selectedAgentElements.length > 0 ? 
+            ` with ${selectedAgentElements.length} AI agent(s) included` : '';
+          alert(`Email sent successfully${agentCountMsg}!`);
+          closeEmailModal();
+        } else {
+          alert(`Error sending email: ${result.error || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error('Error sending email:', error);
+        alert('Failed to send email.');
+      } finally {
+        // Re-enable form and hide loading
+        submitBtn.disabled = false;
+        spinner.style.display = 'none';
+        sendText.style.display = 'inline';
+      }
+    });
+  // Chat functionality
+  let loadChatContacts; // Global reference to the function
+  
+  function initializeChat() {
+    // Get token within function scope
+    const token = localStorage.getItem('authToken');
+    
+    const chatContactsEl = document.getElementById('chatContacts');
+    const chatHistoryEl  = document.getElementById('chatHistory');
+    const chatInput      = document.getElementById('chatInput');
+    const chatSendBtn    = document.getElementById('chatSendBtn');
+
+    // Safety check - only initialize chat if elements exist
+    if (!chatContactsEl || !chatHistoryEl || !chatInput || !chatSendBtn) {
+      console.warn('Chat elements not found, skipping chat initialization');
+      return;
+    }
+
+    let activeChatId = null;  // agent.id or user.id
+
+    // 1) Load all agents + users as contacts
+    loadChatContacts = async function() {
+    try {
+      const res = await fetch(`${API_ROOT}/api/agents/contacts`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+      
+      const contacts = await res.json();
+      
+      if (!Array.isArray(contacts)) {
+        throw new Error('Invalid response format');
+      }
+      
+      if (contacts.length === 0) {
+        chatContactsEl.innerHTML = `
+          <div style="padding:8px; font-weight:600; color:#0a84ff; border-bottom:1px solid #e2e8f0;">
+            Available Contacts
+          </div>
+          <div style="padding:16px; text-align:center; color:#666;">
+            No contacts available yet.<br>
+            <small>Agents will appear here once initialized.</small>
+          </div>
+        `;
+        return;
+      }
+      
+      chatContactsEl.innerHTML = `
+        <div style="padding:8px; font-weight:600; color:#0a84ff; border-bottom:1px solid #e2e8f0;">
+          Available Contacts
+        </div>
+      ` + contacts.map(c => `
+        <div class="list-item" data-id="${c.id}" style="padding:8px; cursor:pointer; border-bottom:1px solid #e2e8f0;">
+          ${c.icon || '🤖'} ${c.name}
+          <div style="font-size:0.8em; color:#666;">${c.type === 'ai' ? 'AI Agent' : 'Human'}</div>
+        </div>
+      `).join('');
+
+      // click handler
+      chatContactsEl.querySelectorAll('.list-item').forEach(el => {
+        el.addEventListener('click', async () => {
+          activeChatId = el.dataset.id;
+          // highlight
+          chatContactsEl.querySelectorAll('.list-item').forEach(x => x.style.background = '');
+          el.style.background = '#e2f0ff';
+          
+          // Enable chat input
+          chatInput.disabled = false;
+          chatSendBtn.disabled = false;
+          chatInput.placeholder = `Type a message to ${el.textContent.trim()}...`;
+          
+          await loadChatHistory(activeChatId);
+        });
+      });
+    } catch(e) {
+      console.error("Failed to load contacts", e);
+      chatContactsEl.innerHTML = `
+        <div style="padding:8px; font-weight:600; color:#0a84ff; border-bottom:1px solid #e2e8f0;">
+          Available Contacts
+        </div>
+        <div style="padding:16px; text-align:center; color:#dc3545;">
+          <div>⚠️ Could not load contacts</div>
+          <small style="color:#666;">Check your connection and try refreshing the page.</small>
+        </div>
+      `;
+    }
+  }
+
+  // 2) Load history for a contact
+  async function loadChatHistory(peer) {
+    try {
+      const res = await fetch(`${API_ROOT}/api/chat/inbox?peer=${peer}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const conv = await res.json();
+      
+      chatHistoryEl.innerHTML = conv.map(m => `
+        <div style="margin:4px 0; text-align:${m.from === peer ? 'left' : 'right'};">
+          <div class="msg ${m.from === peer ? 'ai' : 'user'}" style="display:inline-block; padding:6px 10px; border-radius:12px; 
+                      background:${m.from === peer ? '#f0f0f0' : '#0a84ff'}; color:${m.from === peer ? '#000' : '#fff'}; max-width:70%;">
+            ${m.text}
+          </div>
+        </div>
+      `).join('');
+      chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
+    } catch(e) {
+      console.error("Failed to load history", e);
+      chatHistoryEl.innerHTML = `<div style="padding:8px;color:#dc3545;">Could not load conversation</div>`;
+    }
+  }
+
+  // 3) Send a new message
+  chatSendBtn.addEventListener('click', async () => {
+    const txt = chatInput.value.trim();
+    if (!activeChatId || !txt) return;
+    
+    // Optimistically render user message
+    chatHistoryEl.innerHTML += `
+      <div style="margin:4px 0; text-align:right;">
+        <div class="msg user" style="display:inline-block; padding:6px 10px; border-radius:12px; 
+                    background:#0a84ff; color:#fff; max-width:70%;">${txt}</div>
+      </div>
+    `;
+    chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
+    chatInput.value = '';
+
+    try {
+      await fetch(`${API_ROOT}/api/chat/send`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ to: activeChatId, text: txt })
+      });
+      // Reload to pick up AI response
+      await loadChatHistory(activeChatId);
+    } catch(e) {
+      console.error("Failed to send", e);
+      // Show error message
+      chatHistoryEl.innerHTML += `
+        <div style="margin:4px 0; text-align:left;">
+          <div class="msg error" style="display:inline-block; padding:6px 10px; border-radius:12px; 
+                      background:#dc3545; color:#fff; max-width:70%;">Failed to send message</div>
+        </div>
+      `;
+      chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
+    }
+  });
+
+  // Allow Enter key to send messages
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      chatSendBtn.click();
+    }
+  });
+  
+  // Load contacts after a short delay to allow agents to initialize
+  setTimeout(loadChatContacts, 1000);
+  } // End of initializeChat function
+
+  // initialize on page load
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize chat functionality
+    initializeChat();
+    
+    // First initialize agents if needed
+    try {
+      await fetch(`${API_ROOT}/api/agents/initialize`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+    } catch(e) {
+      console.warn('Could not initialize agents:', e);
+    }
+    
+    // Chat contacts will be loaded by initializeChat function
+  });
+  </script>
+
+  <!-- Mind Panel Chat Widget -->
+<div id="mindPanelChat" style="position:fixed;bottom:24px;right:24px;z-index:9999;">
+  <button id="openMindPanelBtn" class="btn" style="border-radius:50%;width:56px;height:56px;background:linear-gradient(90deg,#0a84ff 60%,#ff4d4d 100%);color:#fff;font-size:1.6rem;box-shadow:0 4px 12px rgba(0,0,0,.18);border:none;outline:none;cursor:pointer;">
+    💬
+  </button>
+  <div id="mindPanelWindow" style="display:none;width:370px;max-width:95vw;height:480px;box-shadow:0 8px 32px #0a84ff33;background:#fff;border-radius:18px;overflow:hidden;flex-direction:column;">
+    <div style="background:linear-gradient(90deg,#0a84ff 60%,#ff4d4d 100%);color:#fff;font-weight:700;font-size:1.2rem;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+      <span><i class="fas fa-robot"></i> Mind Panel Advisor</span>
+      <button id="closeMindPanelBtn" style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;">&times;</button>
+    </div>
+    <div id="mindPanelMessages" style="flex:1;padding:16px 12px 8px 12px;overflow-y:auto;background:#f7fafc;font-size:1.05rem;display:flex;flex-direction:column;gap:8px;"></div>
+    <div style="display:flex;padding:12px 10px;background:#f7fafc;border-top:1px solid #e3f2fd;gap:8px;">
+      <input id="mindPanelInput" type="text" class="form-control" placeholder="Ask your advisor..." style="flex:1;border-radius:12px;border:1px solid #e3f2fd;padding:10px 14px;font-size:1.05rem;">
+      <button id="mindPanelSendBtn" class="btn" style="border-radius:12px;background:linear-gradient(90deg,#0a84ff 60%,#ff4d4d 100%);color:#fff;font-weight:700;padding:0 18px;">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Mind Panel Chat Logic
+(function(){
+  // Get token from global scope
+  const token = localStorage.getItem('authToken');
+  const API_ROOT = 'https://api.alambda.com';
+  
+  const openBtn = document.getElementById('openMindPanelBtn');
+  const closeBtn = document.getElementById('closeMindPanelBtn');
+  const panelWin = document.getElementById('mindPanelWindow');
+  const msgBox  = document.getElementById('mindPanelMessages');
+  const input   = document.getElementById('mindPanelInput');
+  const sendBtn = document.getElementById('mindPanelSendBtn');
+  let currentTeam = null;
+
+  // Show/hide chat
+  openBtn.onclick = () => { panelWin.style.display='flex'; setTimeout(()=>input.focus(), 200); if(msgBox.childElementCount===0) mindPanelIntro(); };
+  closeBtn.onclick = () => { panelWin.style.display = 'none'; };
+
+  // Intro message
+  function mindPanelIntro(teamName) {
+    msgBox.innerHTML = `<div style="background:#fff0f0;color:#ff4d4d;padding:12px 16px;border-radius:12px;margin-bottom:6px;">
+      <b>🤖 Mind Panel Advisor</b><br>
+      Hi! I'm your AI advisor. Select a team or ask a question about your tasks.<br>
+      ${teamName ? `<span style="color:#0a84ff;">You are viewing: <b>${teamName}</b></span>` : ''}
+    </div>`;
+    msgBox.scrollTop = msgBox.scrollHeight;
+  }
+
+  // Send message to AI backend
+  async function mindPanelSend(msg, team) {
+    msgBox.innerHTML += `<div style="background:#0a84ff;color:#fff;padding:10px 14px;border-radius:12px;margin:4px 0 4px auto;max-width:80%;text-align:right;">${msg}</div>`;
+    msgBox.scrollTop = msgBox.scrollHeight;
+    // Compose prompt for AI
+    let prompt = msg;
+    if (team) {
+      prompt = `You are an expert advisor for "${teamDetails[team].title}". The user is working on this team's checklist. Guide them, answer questions, and offer step-by-step help. User says: "${msg}"`;
+    }
+    msgBox.innerHTML += `<div style="color:#aaa;padding:8px 0 0 8px;"><i class="fas fa-spinner fa-spin"></i> Thinking...</div>`;
+    msgBox.scrollTop = msgBox.scrollHeight;
+    try {
+      const res = await fetch('https://api.alambda.com/predict', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ prompt, temperature: 0.7, max_tokens: 180 })
+      });
+      const d = await res.json();
+      const aiReply = d.answer || d.response || d.result || d.message || d.text || 'Sorry, no response.';
+      msgBox.lastChild.remove();
+      msgBox.innerHTML += `<div style="background:#f4f8ff;color:#0a84ff;padding:10px 14px;border-radius:12px;margin:4px 0 4px 0;max-width:85%;text-align:left;">${aiReply}</div>`;
+      msgBox.scrollTop = msgBox.scrollHeight;
+    } catch {
+      msgBox.lastChild.remove();
+      msgBox.innerHTML += `<div style="color:#ff4d4d;">AI advisor unavailable.</div>`;
+    }
+  }
+
+  // Send on button or Enter
+  sendBtn.onclick = () => {
+    const msg = input.value.trim();
+    if (!msg) return;
+    mindPanelSend(msg, currentTeam);
+    input.value = '';
+  };
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendBtn.click();
+  });
+
+  // Listen for team tile clicks to set context
+  document.querySelectorAll('.team-tile').forEach(tile => {
+    tile.addEventListener('click', function() {
+      currentTeam = this.getAttribute('data-team');
+      panelWin.style.display = 'flex';
+      mindPanelIntro(teamDetails[currentTeam].title);
+      msgBox.innerHTML += `<div style="background:#f7fafc;color:#0a84ff;padding:10px 14px;border-radius:12px;margin:4px 0 4px 0;max-width:85%;text-align:left;">
+        <b>You're now chatting with the advisor for:</b><br>${teamDetails[currentTeam].title}<br>
+        <small>Ask for help with your checklist or any team topic!</small>
+      </div>`;
+      msgBox.scrollTop = msgBox.scrollHeight;
+      input.focus();
+    });
+  });
+
+  // Optional: If user closes and reopens, keep last team context
+  // (If you want to reset, set currentTeam = null on closeBtn.onclick)
+})();
+
+   class LectureAgent {
+      constructor(name, specialization, persona) {
+        this.name = name;
+        this.specialization = specialization;
+        this.persona = persona;
+        this.usageCount = 0;
+        this.lastUsed = null;
+      }
+      
+      async generateContent(week, topic, context = {}) {
+        this.usageCount++;
+        this.lastUsed = new Date();
+        
+        const prompt = this.buildPrompt(week, topic, context);
+        return await this.callAI(prompt);
+      }
+      
+      buildPrompt(week, topic, context) {
+        return `${this.persona}\n\nTopic: ${topic}\nWeek: ${week}\n\nContext: ${JSON.stringify(context)}
+        `;
+      }
+
+      async callAI(prompt) {
+        const response = await fetch('https://api.alambda.com/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt, temperature: 0.7, max_tokens: 180 })
+        });
+        const data = await response.json();
+        return data.answer || data.response || data.result || data.message || data.text || 'Sorry, no response.';
+      }
+      getUsageStats() {
+        return {
+          name: this.name,
+          specialization: this.specialization,
+          usageCount: this.usageCount,
+          lastUsed: this.lastUsed ? this.lastUsed.toLocaleString() : 'Never'
+        };
+      }
+      resetUsage() {
+        this.usageCount = 0;
+        this.lastUsed = null;
+      }
+      getContext() {
+        return {
+          week: this.week,
+          topic: this.topic,
+          context: this.context
+        };
+      }
+      setContext(week, topic, context) {
+        this.week = week;
+        this.topic = topic;
+        this.context = context;
+      }
+      getContextSummary() {
+        return `Week: ${this.week}, Topic: ${this.topic}, Context: ${JSON.stringify(this.context)}`;
+      }
+      getPersona() {
+        return this.persona;
+      }
+      getSpecialization() {
+        return this.specialization;
+      }
+      getName() {
+        return this.name;
+      }
+      getUsageCount() {
+        return this.usageCount;
+      }
+      getLastUsed() {
+        return this.lastUsed ? this.lastUsed.toLocaleString() : 'Never';
+      }
+      getStatus() {
+        return `Agent: ${this.name} | Specialization: ${this.specialization} | Usage: ${this.usageCount} times | Last Used: ${this.getLastUsed()}`;
+      }
+      getFullInfo() {
+        return `Name: ${this.name}\nSpecialization: ${this.specialization}\nUsage Count: ${this.usageCount}\nLast Used: ${this.getLastUsed()}\nPersona: ${this.persona}`;
+      }
+      getShortInfo() {
+        return `${this.name} (${this.specialization}) - Used ${this.usageCount} times`;
+      }
+      getDetailedInfo() {
+        return `Agent Name: ${this.name}\nSpecialization: ${this.specialization}\nUsage Count: ${this.usageCount}\nLast Used: ${this.getLastUsed()}\nPersona: ${this.persona}`;
+      }
+      getSummary() {
+        return `Agent: ${this.name} | Specialization: ${this.specialization} | Usage: ${this.usageCount} times | Last Used: ${this.getLastUsed()}`;
+      }
+      getBrief() {
+        return `${this.name} (${this.specialization}) - Used ${this.usageCount} times`;
+      }
+      reset() {
+        this.usageCount = 0;
+        this.lastUsed = null;
+        this.week = null;
+        this.topic = null;
+        this.context = null;
+      }
+      getContextSummary() {
+        return `Week: ${this.week}, Topic: ${this.topic}, Context: ${JSON.stringify(this.context)}`;
+      }
+      setContext(week, topic, context) {
+        this.week = week;
+        this.topic = topic;
+        this.context = context;
+      }
+      getContext() {
+        return {
+          week: this.week,
+          topic: this.topic,
+          context: this.context
+        };
+      }
+      
+      // Enhanced methods for UI integration
+      getInitials() {
+        return this.name.split(' ').map(n => n[0]).join('');
+      }
+      
+      getStatusBadge() {
+        const color = this.usageCount > 5 ? '#22c55e' : this.usageCount > 2 ? '#f59e0b' : '#64748b';
+        return `<span style="background: ${color}; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.7em;">${this.usageCount} uses</span>`;
+      }
+      
+      getPersonalizedGreeting() {
+        const greetings = {
+          'AI & Machine Learning Expert': 'Ready to dive into the fascinating world of AI!',
+          'Data Science & Analytics': 'Let\'s explore the power of data together!',
+          'Systems Architecture': 'Time to build some robust systems!',
+          'Leadership & Strategy': 'Let\'s develop your leadership skills!'
+        };
+        return greetings[this.specialization] || 'Ready to learn something new!';
+      }
+    }
+
+    // Enhanced Lecture Agent System - Global scope
+    const lectureAgents = {
+      'dr-smith': new LectureAgent(
+        'Dr. Smith',
+        'AI & Machine Learning Expert',
+        'You are Dr. Smith, an AI and Machine Learning expert with 15 years of experience. You explain complex concepts in simple terms and always provide practical examples. You are enthusiastic about emerging technologies and love to share real-world applications.'
+      ),
+      'prof-chen': new LectureAgent(
+        'Prof. Chen',
+        'Data Science & Analytics',
+        'You are Professor Chen, a data scientist with expertise in statistical analysis and big data. You focus on mathematical foundations and provide detailed explanations with charts and formulas. You emphasize evidence-based conclusions and rigorous methodology.'
+      ),
+      'dr-wilson': new LectureAgent(
+        'Dr. Wilson',
+        'Systems Architecture',
+        'You are Dr. Wilson, a systems architect with deep knowledge of scalable systems and infrastructure. You think in terms of system design patterns, performance optimization, and best practices. You provide architectural insights and technical depth.'
+      ),
+      'prof-taylor': new LectureAgent(
+        'Prof. Taylor',
+        'Leadership & Strategy',
+        'You are Professor Taylor, a leadership expert focusing on team dynamics, strategic thinking, and organizational behavior. You provide insights into management principles, communication strategies, and business leadership approaches.'
+      )
+    };
+   
+    // Email Modal Functions
+    window.openEmailModal = async function() {
+      document.getElementById('emailModal').style.display = 'block';
+      await populateEmailAgents();
+    };
+
+    window.closeEmailModal = function() {
+      document.getElementById('emailModal').style.display = 'none';
+      // Clear form
+      document.getElementById('emailDeliveryForm').reset();
+      document.getElementById('agentCheckboxes').innerHTML = '';
+    };
+
+    // Populate agent checkboxes in email modal from backend
+    async function populateEmailAgents() {
+      const container = document.getElementById('agentCheckboxes');
+      container.innerHTML = '<small style="color:#666;">Loading agents...</small>';
+      
+      try {
+        // Fetch registered agents from backend
+        const response = await fetch(`${API_ROOT}/contacts/list`, {
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch agents');
+        }
+        
+        const agents = await response.json();
+        container.innerHTML = '';
+        
+        // Filter to only show agent-type contacts
+        const agentContacts = agents.filter(a => a.type === 'agent');
+        
+        if (agentContacts.length === 0) {
+          container.innerHTML = '<small style="color:#666;">No AI agents registered yet.</small>';
+          return;
+        }
+        
+        agentContacts.forEach(agent => {
+          const id = `email-agent-${agent.id}`;
+          const wrapper = document.createElement('label');
+          wrapper.style = "display:flex;align-items:center;gap:6px;margin-right:1rem;cursor:pointer;padding:0.25rem 0.5rem;border-radius:4px;background:#fff;border:1px solid #ddd;margin-bottom:0.5rem;";
+          wrapper.innerHTML = `
+            <input type="checkbox" id="${id}" value="${agent.id}" style="margin:0;">
+            <div style="flex:1;">
+              <div style="font-weight:500;color:#333;font-size:0.9rem;">${agent.name}</div>
+              <div style="font-size:0.8rem;color:#666;line-height:1.2;">${agent.bio ? agent.bio.substring(0, 100) + (agent.bio.length > 100 ? '...' : '') : 'AI Assistant'}</div>
+            </div>
+          `;
+          container.appendChild(wrapper);
+        });
+        
+      } catch (error) {
+        console.error('Error fetching agents:', error);
+        container.innerHTML = '<small style="color:#dc3545;">Error loading agents. Using local agents...</small>';
+        
+        // Fallback to local lectureAgents if backend fails
+        populateLocalAgents();
+      }
+    }
+
+    // Fallback function to use local lectureAgents
+    function populateLocalAgents() {
+      const container = document.getElementById('agentCheckboxes');
+      container.innerHTML = '';
+      
+      Object.entries(lectureAgents).forEach(([key, agent]) => {
+        const id = `email-agent-${key}`;
+        const wrapper = document.createElement('label');
+        wrapper.style = "display:flex;align-items:center;gap:6px;margin-right:1rem;cursor:pointer;padding:0.25rem 0.5rem;border-radius:4px;background:#fff;border:1px solid #ddd;margin-bottom:0.5rem;";
+        wrapper.innerHTML = `
+          <input type="checkbox" id="${id}" value="${key}" data-local="true" style="margin:0;">
+          <div style="flex:1;">
+            <div style="font-weight:500;color:#333;font-size:0.9rem;">${agent.getName()}</div>
+            <div style="font-size:0.8rem;color:#666;line-height:1.2;">${agent.getSpecialization()}</div>
+          </div>
+        `;
+        container.appendChild(wrapper);
+      });
+    }
+
+    // Register all agents with the backend via contacts API
+    async function registerAllAgents() {
+      const token = localStorage.getItem('authToken');
+      if (!token) return;
+      
+      try {
+        console.log('Registering lecture agents with backend...');
+        
+        for (let [key, agent] of Object.entries(lectureAgents)) {
+          const agentData = {
+            name: agent.getName(),
+            email: '', // Agents don't have email addresses
+            bio: agent.getPersona(),
+            type: 'agent',
+            specialization: agent.getSpecialization()
+          };
+          
+          const response = await fetch(`${API_ROOT}/contacts/create`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(agentData)
+          });
+          
+          if (response.ok) {
+            const result = await response.json();
+            console.log(`✅ Agent registered: ${agent.getName()}`, result);
+          } else {
+            // Might already exist, which is fine
+            console.log(`⚠️ Agent registration response for ${agent.getName()}:`, response.status);
+          }
+        }
+        
+        console.log('All agents registration attempts completed');
+      } catch (error) {
+        console.error('Error registering agents:', error);
+      }
+    }
+
+    // Register agents on dashboard init
+    registerAllAgents().catch(console.error);
+
+    // Email Management Functions
+    let emailData = JSON.parse(localStorage.getItem('emailData')) || [];
+
+    // Email filtering functionality
+    function initEmailFilters() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Update active filter
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.dataset.filter;
+          filterEmails(filter);
+        });
+      });
+    }
+
+    function filterEmails(filter) {
+      const emailItems = document.querySelectorAll('.email-item');
+      let visibleCount = 0;
+      
+      emailItems.forEach(item => {
+        let show = false;
+        
+        switch(filter) {
+          case 'all':
+            show = true;
+            break;
+          case 'sent':
+            show = item.dataset.type === 'sent';
+            break;
+          case 'received':
+            show = item.dataset.type === 'received';
+            break;
+          case 'with-agents':
+            show = item.dataset.agents === 'true';
+            break;
+        }
+        
+        if (show) {
+          item.style.display = 'flex';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      // Show/hide empty state
+      const emptyState = document.getElementById('emailEmptyState');
+      if (visibleCount === 0) {
+        emptyState.style.display = 'block';
+      } else {
+        emptyState.style.display = 'none';
+      }
+    }
+
+    // Email action functions
+    window.viewEmail = function(emailId) {
+      // For now, just show an alert - could open a detailed view modal
+      alert(`Viewing email ${emailId}. Full email viewer coming soon!`);
+    };
+
+    window.replyEmail = function(emailId) {
+      // Open the compose modal with reply context
+      openEmailModal();
+      // Could pre-populate with "Re:" subject and quoted content
+    };
+
+    // Add new email to the list (called after successful send)
+    function addEmailToList(emailInfo) {
+      const emailList = document.getElementById('emailList');
+      const newEmail = document.createElement('div');
+      newEmail.className = 'email-item';
+      newEmail.dataset.type = 'sent';
+      
+      const hasAgents = (emailInfo.agents && emailInfo.agents.length > 0) || emailInfo.agentCount > 0;
+      if (hasAgents) {
+        newEmail.dataset.agents = 'true';
+      }
+      
+      const initials = emailInfo.recipient.split('@')[0].substring(0, 2).toUpperCase();
+      
+      // Create agent tags - handle both detailed agents and agent count
+      let agentTags = '';
+      if (emailInfo.agents && emailInfo.agents.length > 0) {
+        agentTags = emailInfo.agents.map(agent => 
+          `<span class="agent-tag">${agent.name || 'AI Agent'}</span>`
+        ).join('');
+      } else if (emailInfo.agentCount > 0) {
+        agentTags = `<span class="agent-tag">${emailInfo.agentCount} AI Agent${emailInfo.agentCount > 1 ? 's' : ''}</span>`;
+      }
+      
+      newEmail.innerHTML = `
+        <div class="email-avatar">
+          <div class="avatar-circle">${initials}</div>
+        </div>
+        <div class="email-content">
+          <div class="email-header-info">
+            <span class="email-recipient">${emailInfo.recipient}</span>
+            <span class="email-date">${new Date().toLocaleDateString()}</span>
+            <span class="email-status sent">Sent</span>
+          </div>
+          <div class="email-subject">${emailInfo.subject}</div>
+          <div class="email-preview">${emailInfo.content.substring(0, 150)}...</div>
+          ${agentTags ? `<div class="email-agents">${agentTags}</div>` : ''}
+        </div>
+        <div class="email-actions">
+          <button class="action-btn" onclick="viewEmail('${Date.now()}')">
+            <i class="fas fa-eye"></i>
+          </button>
+          <button class="action-btn" onclick="replyEmail('${Date.now()}')">
+            <i class="fas fa-reply"></i>
+          </button>
+        </div>
+      `;
+      
+      // Insert at the beginning of the list
+      emailList.insertBefore(newEmail, emailList.firstChild);
+      
+      // Store in localStorage
+      emailData.unshift({
+        id: Date.now(),
+        ...emailInfo,
+        date: new Date().toISOString(),
+        type: 'sent'
+      });
+      localStorage.setItem('emailData', JSON.stringify(emailData));
+    }
+
+    // Initialize email filters
+    initEmailFilters();
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('emailModal');
+      if (event.target === modal) {
+        closeEmailModal();
+      }
+    });
+   
+</script>
+  </body>
+</html>

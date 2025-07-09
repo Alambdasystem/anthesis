@@ -1,0 +1,16 @@
+{
+  "title": "Understanding Aerodynamics for Cadets",
+  "description": "In this module, cadets will learn the basics of aerodynamics and its application in aircraft design. This knowledge is essential for understanding how planes fly and the forces that act upon them.",
+  "link": "https://www.militaryaviationuniversity.com/cadet-level-14/understanding-aerodynamics",
+  "questions": [
+    {
+      "text": "1: What is the primary force that acts on an object moving through the air?",
+      "options": [
+        "A: Gravity",
+        "B: Lift",
+        "C: Drag"
+      ],
+      "answer": "B"
+    }
+  ]
+}
