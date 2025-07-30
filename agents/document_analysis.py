@@ -92,15 +92,26 @@ class DocumentAnalysisAgent(BaseAgent):
             
             elif ext == '.pdf':
                 try:
-                    import PyPDF2
-                    with open(filepath, 'rb') as f:
-                        reader = PyPDF2.PdfReader(f)
-                        text = ""
-                        for page in reader.pages:
-                            text += page.extract_text() + "\n"
-                        return text
+                    # Try PyMuPDF first (better extraction)
+                    import fitz  # PyMuPDF
+                    doc = fitz.open(filepath)
+                    text = ""
+                    for page in doc:
+                        text += page.get_text() + "\n"
+                    doc.close()
+                    return text
                 except ImportError:
-                    return "Error: PyPDF2 not installed"
+                    try:
+                        # Fall back to PyPDF2
+                        import PyPDF2
+                        with open(filepath, 'rb') as f:
+                            reader = PyPDF2.PdfReader(f)
+                            text = ""
+                            for page in reader.pages:
+                                text += page.extract_text() + "\n"
+                            return text
+                    except ImportError:
+                        return "Error: Neither PyMuPDF nor PyPDF2 installed"
             
             elif ext == '.docx':
                 try:
