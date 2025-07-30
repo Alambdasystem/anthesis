@@ -1,6 +1,6 @@
 [
   {
-    "id": "1820922a-6d21-480a-b9db-ece8847667b4",
+    "id": "c9a551f9-4797-43f0-8d75-9f26d3ee5159",
     "name": "Content Generation Agent",
     "description": "Generates AI-powered content including emails, RFP responses, and proposals",
     "capabilities": [
@@ -11,12 +11,12 @@
     ],
     "persona_icon": "\u270d\ufe0f",
     "persona_color": "#00bfae",
-    "created_at": "2025-07-30T14:56:50.102623+00:00",
+    "created_at": "2025-07-30T16:11:51.925483+00:00",
     "last_used": null,
     "usage_count": 0
   },
   {
-    "id": "200f65c1-090c-4b68-a8db-951550558b01",
+    "id": "d708441e-774d-4c4d-9429-ab14db7063f5",
     "name": "Document Analysis Agent",
     "description": "Extracts text from files, analyzes documents, and processes RFP uploads",
     "capabilities": [
@@ -27,12 +27,12 @@
     ],
     "persona_icon": "\ud83d\udcc4",
     "persona_color": "#ff4d4d",
-    "created_at": "2025-07-30T14:56:50.103137+00:00",
+    "created_at": "2025-07-30T16:11:51.926483+00:00",
     "last_used": null,
     "usage_count": 0
   },
   {
-    "id": "fe3784fe-af98-4943-94e8-cd145eb5da1f",
+    "id": "6a01cf1c-2951-493e-bdff-ea15a22b7d7b",
     "name": "Dr. Smith",
     "description": "Lecture specialist in AI & Machine Learning Expert",
     "capabilities": [
@@ -42,7 +42,7 @@
     ],
     "persona_icon": "\ud83c\udf93",
     "persona_color": "#17a2b8",
-    "created_at": "2025-07-23T06:30:25.825997+00:00",
+    "created_at": "2025-07-30T16:11:51.924482+00:00",
     "last_used": null,
     "usage_count": 0,
     "lecture_id": "dr-smith",
@@ -51,7 +51,7 @@
     "agent_type": "lecture"
   },
   {
-    "id": "763b7542-0884-4242-9a9e-aadbecb94633",
+    "id": "dc46a537-caf3-488d-8969-44b1a0e8102e",
     "name": "Prof. Chen",
     "description": "Lecture specialist in Data Science & Analytics",
     "capabilities": [
@@ -61,7 +61,7 @@
     ],
     "persona_icon": "\ud83c\udf93",
     "persona_color": "#17a2b8",
-    "created_at": "2025-07-23T06:30:25.825997+00:00",
+    "created_at": "2025-07-30T16:11:51.924482+00:00",
     "last_used": null,
     "usage_count": 0,
     "lecture_id": "prof-chen",
@@ -70,7 +70,7 @@
     "agent_type": "lecture"
   },
   {
-    "id": "00306d74-3a36-44cc-a452-35207041b9c2",
+    "id": "0486d62b-6a6a-4eea-a681-d7e64dc785f4",
     "name": "Dr. Wilson",
     "description": "Lecture specialist in Systems Architecture",
     "capabilities": [
@@ -80,7 +80,7 @@
     ],
     "persona_icon": "\ud83c\udf93",
     "persona_color": "#17a2b8",
-    "created_at": "2025-07-23T06:30:25.825997+00:00",
+    "created_at": "2025-07-30T16:11:51.924482+00:00",
     "last_used": null,
     "usage_count": 0,
     "lecture_id": "dr-wilson",
@@ -89,7 +89,7 @@
     "agent_type": "lecture"
   },
   {
-    "id": "da5bb576-7e74-48f9-bda3-ff703df6a292",
+    "id": "23ba201b-29c0-43c8-bf67-f2eef869b645",
     "name": "Prof. Taylor",
     "description": "Lecture specialist in Leadership & Strategy",
     "capabilities": [
@@ -99,7 +99,7 @@
     ],
     "persona_icon": "\ud83c\udf93",
     "persona_color": "#17a2b8",
-    "created_at": "2025-07-23T06:30:25.825997+00:00",
+    "created_at": "2025-07-30T16:11:51.924482+00:00",
     "last_used": null,
     "usage_count": 0,
     "lecture_id": "prof-taylor",
@@ -108,7 +108,7 @@
     "agent_type": "lecture"
   },
   {
-    "id": "6c0b5188-34b4-41ba-9908-751810de1d60",
+    "id": "7e6bbcfd-5ac7-438c-9f4f-5182bb135c7d",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -118,7 +118,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.122001+00:00",
+    "created_at": "2025-07-30T16:11:51.930487+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "jameshill@alambda.comdssdsd",
@@ -127,7 +127,7 @@
     "agent_type": "human"
   },
   {
-    "id": "6982c67f-8d60-4380-9416-49461a82837c",
+    "id": "758d4873-7507-4efb-8820-7167511274ed",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -137,7 +137,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.123024+00:00",
+    "created_at": "2025-07-30T16:11:51.931488+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "zonekings4545",
@@ -146,7 +146,7 @@
     "agent_type": "human"
   },
   {
-    "id": "ef52773e-5310-46b5-99e9-341e7f25754a",
+    "id": "ddc6be82-af7c-4216-aec7-c7ac2c2081a1",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -156,7 +156,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.124549+00:00",
+    "created_at": "2025-07-30T16:11:51.932489+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "jameshill@alambda.comedd",
@@ -165,7 +165,7 @@
     "agent_type": "human"
   },
   {
-    "id": "46ace0aa-f316-4e7a-b072-6b4ca7cc41a3",
+    "id": "d667570e-027a-4c11-b88a-9b38a090fc5d",
     "name": "LaNesha Houston",
     "description": "Human user: LaNesha Houston (cadet)",
     "capabilities": [
@@ -175,7 +175,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.126217+00:00",
+    "created_at": "2025-07-30T16:11:51.933490+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "laneshapatrice",
@@ -184,7 +184,7 @@
     "agent_type": "human"
   },
   {
-    "id": "bbb7f4b9-873f-4f54-8b33-325322be6bc6",
+    "id": "369b478f-fa64-4e8a-b7d9-9ba36cdef33d",
     "name": "Temperance Blackman",
     "description": "Human user: Temperance Blackman (cadet)",
     "capabilities": [
@@ -194,7 +194,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.126719+00:00",
+    "created_at": "2025-07-30T16:11:51.934490+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "temp9883",
@@ -203,7 +203,7 @@
     "agent_type": "human"
   },
   {
-    "id": "f771abcf-7fbd-4c71-8338-ae2b42259ff4",
+    "id": "09b95139-0089-44f4-850b-eb342e8f9c47",
     "name": "Nola Fisher",
     "description": "Human user: Nola Fisher (cadet)",
     "capabilities": [
@@ -213,7 +213,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.126719+00:00",
+    "created_at": "2025-07-30T16:11:51.936492+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Nfisher126",
@@ -222,7 +222,7 @@
     "agent_type": "human"
   },
   {
-    "id": "577396ac-3721-48e1-8e8b-814f875982d6",
+    "id": "4c98c23a-bb2c-4706-8625-a8702d798047",
     "name": "Arif Syed",
     "description": "Human user: Arif Syed (cadet)",
     "capabilities": [
@@ -232,7 +232,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.127721+00:00",
+    "created_at": "2025-07-30T16:11:51.937493+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Ariffy",
@@ -241,7 +241,7 @@
     "agent_type": "human"
   },
   {
-    "id": "72884123-c9db-4fa8-8562-e35f6b108795",
+    "id": "e219b67a-4b9a-4cb0-8614-8c412b279556",
     "name": "Kayla Gaynor",
     "description": "Human user: Kayla Gaynor (cadet)",
     "capabilities": [
@@ -251,7 +251,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.128721+00:00",
+    "created_at": "2025-07-30T16:11:51.938494+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "kgcht",
@@ -260,7 +260,7 @@
     "agent_type": "human"
   },
   {
-    "id": "6c9449db-cd74-4ebb-902c-e4a249b9e636",
+    "id": "a97bd86f-255e-4279-898f-72315417df98",
     "name": "Brian Simcoke",
     "description": "Human user: Brian Simcoke (cadet)",
     "capabilities": [
@@ -270,7 +270,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.129722+00:00",
+    "created_at": "2025-07-30T16:11:51.940496+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "bsimcoke7462",
@@ -279,7 +279,7 @@
     "agent_type": "human"
   },
   {
-    "id": "86b34152-a5d5-464e-8cca-7633f9ae30c2",
+    "id": "83617781-09d4-4a9b-aa65-3d04cc8c0332",
     "name": "Maisoon Hamed",
     "description": "Human user: Maisoon Hamed (cadet)",
     "capabilities": [
@@ -289,7 +289,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.130724+00:00",
+    "created_at": "2025-07-30T16:11:51.941497+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Maisoonhamed",
@@ -298,7 +298,7 @@
     "agent_type": "human"
   },
   {
-    "id": "f88fb1ee-7429-4684-b42e-437e2cb95a9c",
+    "id": "fbd87aa1-265c-4cb8-83dc-934122525550",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -308,7 +308,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.131724+00:00",
+    "created_at": "2025-07-30T16:11:51.942498+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "jameshill@alambda.com",
@@ -317,7 +317,7 @@
     "agent_type": "human"
   },
   {
-    "id": "f85ed04f-5a7d-4d1e-8c28-29cf1b32854d",
+    "id": "03cdf6fb-17aa-4bb5-b7a5-d106eeca8f63",
     "name": "Jayanth Reddy Mokanpally",
     "description": "Human user: Jayanth Reddy Mokanpally (cadet)",
     "capabilities": [
@@ -327,7 +327,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.132725+00:00",
+    "created_at": "2025-07-30T16:11:51.944500+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "jmfmg@umsystem.edu",
@@ -336,7 +336,7 @@
     "agent_type": "human"
   },
   {
-    "id": "2de02683-4407-491a-bd05-dde9e0b4b630",
+    "id": "ac91f734-af4a-4682-9564-0acab2695f1f",
     "name": "Jessica Banthrongsack",
     "description": "Human user: Jessica Banthrongsack (cadet)",
     "capabilities": [
@@ -346,7 +346,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.133726+00:00",
+    "created_at": "2025-07-30T16:11:51.945501+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Jfb417",
@@ -355,7 +355,7 @@
     "agent_type": "human"
   },
   {
-    "id": "766f90d3-d4f6-447a-b346-c84401ef9912",
+    "id": "7fc3208d-adff-482c-b52d-df74920d13a7",
     "name": "Mohamed Abdi",
     "description": "Human user: Mohamed Abdi (cadet)",
     "capabilities": [
@@ -365,7 +365,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.134727+00:00",
+    "created_at": "2025-07-30T16:11:51.946501+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "mohamed.july01@gmail.com",
@@ -374,7 +374,7 @@
     "agent_type": "human"
   },
   {
-    "id": "d265d290-3a36-4de3-b05f-dec4cb623ef6",
+    "id": "97de0173-c524-4ace-a833-66e9c2c66948",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -384,7 +384,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.135728+00:00",
+    "created_at": "2025-07-30T16:11:51.947503+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Jameshill@alambda.comsss",
@@ -393,7 +393,7 @@
     "agent_type": "human"
   },
   {
-    "id": "4ac7955f-dbf3-483c-b559-bbf3e44be710",
+    "id": "7cd458dc-4ad7-4eaf-8522-46d6af9a6fc2",
     "name": "Pavan Simhadri",
     "description": "Human user: Pavan Simhadri (cadet)",
     "capabilities": [
@@ -403,7 +403,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.136729+00:00",
+    "created_at": "2025-07-30T16:11:51.949504+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "psvhv@umsystem.edu",
@@ -412,7 +412,7 @@
     "agent_type": "human"
   },
   {
-    "id": "584297be-abc8-43a9-ba8f-48699ee97b24",
+    "id": "1ceba398-42c3-499b-827e-bfe3a1f6cc92",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -422,7 +422,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.138244+00:00",
+    "created_at": "2025-07-30T16:11:51.951563+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Jameshill@alambda.comssss",
@@ -431,7 +431,7 @@
     "agent_type": "human"
   },
   {
-    "id": "be09946f-e5bf-40bd-8253-f8e78f953705",
+    "id": "f83045d1-03f9-4d91-b297-22da8159ffa6",
     "name": "Andrei simbillo",
     "description": "Human user: Andrei simbillo (cadet)",
     "capabilities": [
@@ -441,7 +441,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.140285+00:00",
+    "created_at": "2025-07-30T16:11:51.953508+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "hsv3318@yahoo.com",
@@ -450,7 +450,7 @@
     "agent_type": "human"
   },
   {
-    "id": "d30b8b42-7cbd-460a-952c-630647536e62",
+    "id": "a6cb9adf-4c6d-49b1-b2e6-3f6d4a86b5a4",
     "name": "Chrishina Crawford",
     "description": "Human user: Chrishina Crawford (cadet)",
     "capabilities": [
@@ -460,7 +460,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.141288+00:00",
+    "created_at": "2025-07-30T16:11:51.955510+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "chrishina234",
@@ -469,7 +469,7 @@
     "agent_type": "human"
   },
   {
-    "id": "1a3aa0aa-e424-447b-bdfd-2317d85c854a",
+    "id": "b2c11d31-0987-462b-bb10-d3c21e2b5ea1",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -479,7 +479,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.143289+00:00",
+    "created_at": "2025-07-30T16:11:51.956511+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "jhill006aas12",
@@ -488,7 +488,7 @@
     "agent_type": "human"
   },
   {
-    "id": "4107dee6-7382-4e67-a437-fbe328ada001",
+    "id": "0c4088c1-341b-498f-83b2-b2a57abd6490",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -498,7 +498,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.144291+00:00",
+    "created_at": "2025-07-30T16:11:51.959513+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "jameshill324",
@@ -507,7 +507,7 @@
     "agent_type": "human"
   },
   {
-    "id": "7b7264d4-57de-4806-b4d4-24abef2061e1",
+    "id": "afa90ee3-7d52-47ec-b20a-fc4fe0ed3a16",
     "name": "Noah Johnson",
     "description": "Human user: Noah Johnson (cadet)",
     "capabilities": [
@@ -517,7 +517,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.145291+00:00",
+    "created_at": "2025-07-30T16:11:51.961515+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Noah Johnson",
@@ -526,7 +526,7 @@
     "agent_type": "human"
   },
   {
-    "id": "cae600c8-479a-4acb-a3ad-3c27ebe713e8",
+    "id": "55844f6b-a75a-4301-958f-1824c30233ee",
     "name": "Jesse Randle",
     "description": "Human user: Jesse Randle (cadet)",
     "capabilities": [
@@ -536,7 +536,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.147162+00:00",
+    "created_at": "2025-07-30T16:11:51.962516+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "JesseRandle",
@@ -545,7 +545,7 @@
     "agent_type": "human"
   },
   {
-    "id": "1ec3e546-2a9f-4908-b0cd-69bca4340e2c",
+    "id": "94a2522f-ce28-4184-b7f4-bd6b23bf49a6",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -555,7 +555,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.150027+00:00",
+    "created_at": "2025-07-30T16:11:51.964518+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Jameshill@alam",
@@ -564,7 +564,7 @@
     "agent_type": "human"
   },
   {
-    "id": "21bc6d1e-26c1-4df0-991b-93d9ee5cca35",
+    "id": "d15d12bd-498c-4802-80b2-0c9cc6bffac8",
     "name": "Carlos Gutierrez",
     "description": "Human user: Carlos Gutierrez (cadet)",
     "capabilities": [
@@ -574,7 +574,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.151559+00:00",
+    "created_at": "2025-07-30T16:11:51.966520+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "rooster71",
@@ -583,7 +583,7 @@
     "agent_type": "human"
   },
   {
-    "id": "658df6f7-9a6e-40d2-b415-26f129d1e22f",
+    "id": "3c76dea8-9638-4537-8df7-604d82fc5326",
     "name": "Jimmy King",
     "description": "Human user: Jimmy King (cadet)",
     "capabilities": [
@@ -593,7 +593,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.152558+00:00",
+    "created_at": "2025-07-30T16:11:51.969522+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "st1jkin1",
@@ -602,7 +602,7 @@
     "agent_type": "human"
   },
   {
-    "id": "46dbbcf4-ec7a-49f7-942a-29755a4d9196",
+    "id": "1f863e14-dfc1-4754-b0ab-097ce5256bbe",
     "name": "PASCUAL VILLAR",
     "description": "Human user: PASCUAL VILLAR (cadet)",
     "capabilities": [
@@ -612,7 +612,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.153559+00:00",
+    "created_at": "2025-07-30T16:11:51.971524+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "hsv8962",
@@ -621,7 +621,7 @@
     "agent_type": "human"
   },
   {
-    "id": "aa344d09-cb30-4d53-b4e2-a7fe197567fe",
+    "id": "941f48c8-7301-4858-b8dd-d2ef22251cb4",
     "name": "James Hill",
     "description": "Human user: James Hill (cadet)",
     "capabilities": [
@@ -631,7 +631,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.155561+00:00",
+    "created_at": "2025-07-30T16:11:51.974527+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "jhill0063",
@@ -640,7 +640,7 @@
     "agent_type": "human"
   },
   {
-    "id": "c936de00-6985-468e-a10c-5a32d8ef19c6",
+    "id": "1114def1-cf53-48b6-873e-336d777f9c93",
     "name": "Nickolaus Robinson",
     "description": "Human user: Nickolaus Robinson (cadet)",
     "capabilities": [
@@ -650,7 +650,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.156562+00:00",
+    "created_at": "2025-07-30T16:11:51.976529+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "nickrob",
@@ -659,7 +659,7 @@
     "agent_type": "human"
   },
   {
-    "id": "e0ebde00-a5e8-4575-bb07-885318bf0a5b",
+    "id": "f73590b5-6a49-4faa-b52e-b234173ec8b8",
     "name": "Anthony andress",
     "description": "Human user: Anthony andress (cadet)",
     "capabilities": [
@@ -669,7 +669,7 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.158563+00:00",
+    "created_at": "2025-07-30T16:11:51.979531+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "anthony andress",
@@ -678,7 +678,7 @@
     "agent_type": "human"
   },
   {
-    "id": "c0e8f10e-b7d3-40c3-b9fc-53036945e888",
+    "id": "74170ab8-7c51-4da1-a3a0-d7640c5c7e23",
     "name": "Golfred Jean-Baptiste",
     "description": "Human user: Golfred Jean-Baptiste (cadet)",
     "capabilities": [
@@ -688,11 +688,30 @@
     ],
     "persona_icon": "\ud83d\udc64",
     "persona_color": "#28a745",
-    "created_at": "2025-07-30T14:56:50.159903+00:00",
+    "created_at": "2025-07-30T16:11:51.982534+00:00",
     "last_used": null,
     "usage_count": 0,
     "user_id": "Gfred211",
     "email": "gfred323@gmail.com",
+    "role": "cadet",
+    "agent_type": "human"
+  },
+  {
+    "id": "2e97d01f-bc31-44e6-adbf-b3c36eb8e282",
+    "name": "James Hill",
+    "description": "Human user: James Hill (cadet)",
+    "capabilities": [
+      "human_interaction",
+      "learning",
+      "communication"
+    ],
+    "persona_icon": "\ud83d\udc64",
+    "persona_color": "#28a745",
+    "created_at": "2025-07-30T16:11:51.985537+00:00",
+    "last_used": null,
+    "usage_count": 0,
+    "user_id": "testuser1",
+    "email": "jameshill@alambda.com",
     "role": "cadet",
     "agent_type": "human"
   }

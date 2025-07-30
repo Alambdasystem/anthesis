@@ -1278,7 +1278,7 @@
     <header>
       <h1 id="trackTitle">Cadet Dashboard</h1>
     </header>
-    <div id="enrollmentPendingMsg" style="display:none; margin:2rem auto; max-width:500px; background:#fff3cd; color:#856404; border:1px solid #ffeeba; border-radius:10px; padding:2rem; text-align:center; font-size:1.3rem; font-weight:600;">
+    <div id="enrollmentPendingMsg" style="display:none !important; margin:2rem auto; max-width:500px; background:#fff3cd; color:#856404; border:1px solid #ffeeba; border-radius:10px; padding:2rem; text-align:center; font-size:1.3rem; font-weight:600;">
     Enrollment Pending. Your enrollment is under review. You will get access to all sections once approved.
     </div>
     <div class="content">
@@ -4000,6 +4000,11 @@ D) Skip to final projects
     
     // ADD THIS LINE - Call checkEnrollment here
     checkEnrollment();
+    
+    // Ensure all sections are unlocked on page load
+    unlockSections();
+    hideEnrollmentPendingMsg();
+    console.log('🔓 All tabs activated and accessible');
 });
     // ENROLLMENT LOGIC
     const enrollmentModal = document.getElementById('enrollmentModal');
@@ -4014,6 +4019,10 @@ D) Skip to final projects
            enrollmentModal.style.display = 'none';
     }
     function lockSections() {
+      // Disabled - never lock sections anymore
+      console.log('Section locking disabled - all tabs remain accessible');
+      return;
+      /* Original code disabled:
       lockedSections.forEach(sectionId => {
         const section = document.querySelector(`[data-tab="${sectionId}"]`);
         if (section) {
@@ -4025,6 +4034,7 @@ D) Skip to final projects
           };
         }
       });
+      */
     }
     function unlockSections() {
       lockedSections.forEach(sectionId => {
@@ -4095,15 +4105,28 @@ D) Skip to final projects
       }
     });
     function showEnrollmentPendingMsg() {
-  document.getElementById('enrollmentPendingMsg').style.display = 'block';
-  document.querySelector('.content').style.display = 'none';
-}
-function hideEnrollmentPendingMsg() {
-  document.getElementById('enrollmentPendingMsg').style.display = 'none';
-  document.querySelector('.content').style.display = '';
-}
+      // Disabled - no longer show enrollment pending message
+      console.log('Enrollment pending message disabled');
+      return;
+      /* Original code disabled:
+      document.getElementById('enrollmentPendingMsg').style.display = 'block';
+      document.querySelector('.content').style.display = 'none';
+      */
+    }
+    function hideEnrollmentPendingMsg() {
+      document.getElementById('enrollmentPendingMsg').style.display = 'none';
+      document.querySelector('.content').style.display = '';
+    }
 
 async function checkEnrollment() {
+  // Disable enrollment checks - always unlock all sections
+  unlockSections();
+  hideEnrollmentModal();
+  hideEnrollmentPendingMsg();
+  console.log('✅ All sections unlocked - enrollment checks disabled');
+  return;
+  
+  /* Original enrollment logic disabled:
   // First check if agreement was already accepted
   const agreementAccepted = localStorage.getItem('agreementAccepted') === 'true';
   if (agreementAccepted) {
@@ -4140,6 +4163,7 @@ async function checkEnrollment() {
     lockSections();
     showEnrollmentPendingMsg();
   }
+  */
 }
     // Add functionality for the "Accept Challenge" button
     document.getElementById('acceptChallenge').addEventListener('click', () => {
