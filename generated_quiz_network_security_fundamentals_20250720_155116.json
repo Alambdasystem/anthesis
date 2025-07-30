@@ -1,0 +1,91 @@
+{
+  "quiz_title": "Quiz: Network Security Fundamentals",
+  "week": 2,
+  "lecturer": "Prof. Alex Martinez",
+  "questions": [
+    {
+      "question": "What is the main purpose of a firewall in network security?",
+      "options": [
+        "A) To speed up network traffic",
+        "B) To filter and control network traffic",
+        "C) To store user passwords",
+        "D) To backup network data"
+      ],
+      "correct_answer": "B",
+      "explanation": "Firewalls are designed to filter and control network traffic based on security rules."
+    },
+    {
+      "question": "Which type of firewall is most effective in detecting and preventing attacks?",
+      "options": [
+        "A) Packet filtering",
+        "B) Stateful firewalls",
+        "C) Application-level firewalls"
+      ],
+      "correct_answer": "B",
+      "explanation": "Stateful firewalls are more effective because they consider the context of network traffic, allowing for more accurate detection and prevention."
+    },
+    {
+      "question": "What is the primary function of an Intrusion Detection System (IDS)?",
+      "options": [
+        "A) To detect and prevent attacks",
+        "B) To encrypt data",
+        "C) To authenticate users"
+      ],
+      "correct_answer": "A",
+      "explanation": "IDS systems are designed to monitor network traffic for signs of unauthorized access or malicious activity, triggering alerts when potential security threats are detected."
+    },
+    {
+      "question": "What is a Distributed Denial of Service (DDoS) attack?",
+      "options": [
+        "A) A type of malware",
+        "B) A type of firewall attack",
+        "C) An attack where multiple devices flood a network with traffic",
+        "D) A type of VPN attack"
+      ],
+      "correct_answer": "C",
+      "explanation": "In a DDoS attack, multiple devices (often controlled remotely by an attacker) are used to flood a targeted network or system with traffic, overwhelming its resources and causing it to become unavailable."
+    },
+    {
+      "question": "Which protocol is commonly used for secure communication between websites and browsers?",
+      "options": [
+        "A) SSL/TLS",
+        "B) IPSec",
+        "C) WPA2/WPA3"
+      ],
+      "correct_answer": "A",
+      "explanation": "SSL/TLS (Secure Sockets Layer/Transport Layer Security) is a widely used protocol for encrypting communication between websites and browsers, ensuring the confidentiality and integrity of data exchanged."
+    },
+    {
+      "question": "What is the primary benefit of using Virtual Private Networks (VPNs)?",
+      "options": [
+        "A) Increased security",
+        "B) Improved network performance",
+        "C) Enhanced remote access to company networks",
+        "D) All of the above"
+      ],
+      "correct_answer": "D",
+      "explanation": "VPNs provide multiple benefits, including enhanced remote access to company networks, improved security through encryption, and better network performance."
+    },
+    {
+      "question": "Why is regular security audits and penetration testing important for network security?",
+      "options": [
+        "A) To ensure compliance with regulations",
+        "B) To identify vulnerabilities in the network",
+        "C) To train employees on security awareness"
+      ],
+      "correct_answer": "B",
+      "explanation": "Regular security audits and penetration testing help organizations identify vulnerabilities and weaknesses in their networks, allowing them to take proactive steps to address these issues before they can be exploited by attackers."
+    },
+    {
+      "question": "What is the importance of keeping systems and software updated?",
+      "options": [
+        "A) To reduce network congestion",
+        "B) To enhance user productivity",
+        "C) To fix security vulnerabilities",
+        "D) To improve system performance"
+      ],
+      "correct_answer": "C",
+      "explanation": "Keeping systems and software up-to-date helps ensure that security vulnerabilities are patched, reducing the risk of attacks and maintaining the overall security posture of an organization."
+    }
+  ]
+}

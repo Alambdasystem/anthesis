@@ -159,8 +159,23 @@ def process_rfp_workflow():
 
         # Get additional parameters
         form_data = request.form.to_dict()
-        company_info = form_data.get('company_info', 'Alambda Systems')
+        company_info_str = form_data.get('company_info', 'Alambda Systems')
         response_style = form_data.get('response_style', 'professional')
+        
+        # Parse company_info if it's JSON, otherwise create a basic dictionary
+        try:
+            import json
+            company_info = json.loads(company_info_str) if company_info_str.startswith('{') else {
+                'name': company_info_str,
+                'focus': 'AI and software development',
+                'why_hot': 'Experienced team'
+            }
+        except (json.JSONDecodeError, AttributeError):
+            company_info = {
+                'name': company_info_str if company_info_str else 'Alambda Systems',
+                'focus': 'AI and software development', 
+                'why_hot': 'Experienced team'
+            }
         
         # Use coordinator to process RFP
         result = coordinator.execute("process_rfp_workflow", {

@@ -1,0 +1,96 @@
+{
+  "quiz_title": "Week 3 Quiz: Incident Response and Digital Forensics",
+  "week": 3,
+  "lecturer": "Dr. Elena Rodriguez",
+  "topic": "Incident Response and Digital Forensics",
+  "questions": [
+    {
+      "question": "What is the primary purpose of an Incident Response Plan (IRP)?",
+      "options": [
+        "A) To outline procedures for responding to security incidents",
+        "B) To provide training for incident responders",
+        "C) To identify potential security threats",
+        "D) To conduct regular security audits"
+      ],
+      "correct_answer": "A",
+      "explanation": "An IRP is a documented plan outlining procedures for responding to security incidents, ensuring a structured and coordinated response."
+    },
+    {
+      "question": "Which of the following is a key concept in digital forensic analysis?",
+      "options": [
+        "A) Encryption techniques",
+        "B) Network segmentation",
+        "C) Digital evidence collection and preservation",
+        "D) Incident response planning"
+      ],
+      "correct_answer": "C",
+      "explanation": "Digital forensic analysis involves the examination of digital evidence to determine the nature and extent of a security incident, ensuring that it is properly collected, preserved, and analyzed."
+    },
+    {
+      "question": "What is the main goal of containing a security incident?",
+      "options": [
+        "A) To eradicate the threat",
+        "B) To restore affected systems and data",
+        "C) To notify stakeholders and management",
+        "D) To document the incident"
+      ],
+      "correct_answer": "B",
+      "explanation": "Containing a security incident involves isolating affected systems, networks, or data to prevent further damage or spread of the threat, ensuring that the incident does not escalate."
+    },
+    {
+      "question": "Which of the following is an essential component of compliance regulations like HIPAA and PCI-DSS?",
+      "options": [
+        "A) Incident response planning",
+        "B) Digital forensic analysis",
+        "C) Security awareness training",
+        "D) All of the above"
+      ],
+      "correct_answer": "D",
+      "explanation": "Compliance regulations, such as HIPAA and PCI-DSS, require organizations to implement incident response plans and conduct digital forensic analyses to ensure adherence to security standards."
+    },
+    {
+      "question": "What is the role of an Incident Response Team (IRT) in responding to a security incident?",
+      "options": [
+        "A) To investigate the cause of the incident",
+        "B) To contain and eradicate the threat",
+        "C) To restore affected systems and data",
+        "D) To coordinate with stakeholders and management"
+      ],
+      "correct_answer": "D",
+      "explanation": "The IRT's primary role is to coordinate the response efforts, including notifying stakeholders and management, and ensuring that the incident is properly documented and reported."
+    },
+    {
+      "question": "What is the purpose of conducting a digital forensic analysis in a ransomware attack?",
+      "options": [
+        "A) To negotiate with the attackers",
+        "B) To restore access to encrypted data",
+        "C) To identify the attackers' methods and techniques",
+        "D) All of the above"
+      ],
+      "correct_answer": "D",
+      "explanation": "Conducting a digital forensic analysis in a ransomware attack aims to gather evidence of the attackers' methods, tactics, and techniques (MTTs), as well as identify potential vulnerabilities that led to the attack."
+    },
+    {
+      "question": "Which of the following is NOT a key concept in incident response?",
+      "options": [
+        "A) Containment",
+        "B) Eradication",
+        "C) Recovery",
+        "D) Digital forensic analysis"
+      ],
+      "correct_answer": "C",
+      "explanation": "Recovery refers to the process of restoring affected systems and data after the incident has been contained and eradicated, which is a post-incident activity."
+    },
+    {
+      "question": "What is the main benefit of having an Incident Response Plan (IRP) in place?",
+      "options": [
+        "A) Reduced downtime",
+        "B) Increased security threats",
+        "C) Improved incident response coordination",
+        "D) Decreased regulatory compliance costs"
+      ],
+      "correct_answer": "C",
+      "explanation": "An IRP ensures that incident response efforts are coordinated and structured, leading to improved incident response times and better overall security posture."
+    }
+  ]
+}

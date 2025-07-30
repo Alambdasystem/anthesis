@@ -571,5 +571,45 @@
     "email": "jameshill@alambda.com",
     "password": "scrypt:32768:8:1$N6aaB5hFJrSbsMXZ$b564af474485ae508bfa6f01e3b307f86e87d42a33ed37e9c1b026257487c326f361f97c4732c7d957e37d3d0429bf228930ab4deb14dff39106b8b7482a264a",
     "track": ""
+  },
+  "jimsandbox": {
+    "email": "jameshill@yahoo.com",
+    "password": "scrypt:32768:8:1$CghunGsqAEf3izjn$7c27ddcda02cc4029a134e894d087ec7fe22d41b747656a913156f94cdfecc0f4f2fef3420d343e5a1edf5f079c5fab44a99fabbe5d35c5157f4c4dbffff8d84",
+    "track": ""
+  },
+  "Idris19": {
+    "email": "idrishassen1981@gmail.com",
+    "password": "scrypt:32768:8:1$YQRYY5K0C0gHeCax$7d74ad88d642b4bf9c659b02c8d1c9f4bd1749c3257cdf2adda26e6b4e5deeb28e6d3dac7fe5e5d4f23e916e8c742c409c5ebd2b0271dbcc7e788bafd0e5f02d",
+    "track": "web"
+  },
+  "chrishina": {
+    "email": "chrishinahill@alambda.com",
+    "password": "scrypt:32768:8:1$VlBJofYJiu4BL95X$649f124ffc10f6947f25c9a8fe4663cab1b8c083e8a31acd2f036aa55e8b03a36adf16037232b8fa7003cce31ec257ce80e176fba0331f51b70aa5494edd5f39",
+    "track": "cybersecurity"
+  },
+  "jhill0063": {
+    "email": "jameshill@alambda.com",
+    "password": "scrypt:32768:8:1$esQwtURgk0yf6naZ$4017289cc446b3fb49cc09a8d033e060c9f1364e1c36de2a9ee2c3972c0bb1c13d39bdb0544010a89c1c04026c7138d239f8eacaa26a7f98e8cd6068e2830cec",
+    "track": "Select Your Track"
+  },
+  "testuser": {
+    "email": "test@example.com",
+    "password": "scrypt:32768:8:1$L4YeLxf2BAous7oj$0bc89930d65aed0e4b4a3ffd4290d59f28f298f12fcefd1a23ceedc73cb9c218b898427bd6a9023595b8295751fae7c5715502fbcbd5117dbe9d39d8d6b69ca9",
+    "track": ""
+  },
+  "anthony andress": {
+    "email": "andressanthony6@gmail.com",
+    "password": "scrypt:32768:8:1$7euBROJvSYz2KDkd$87180cad03255aedf8349822b2fabfe8cbc3df01ad6fa7a7a1f7bfd355dc325e333176de1de63c8a9430c9e258734de417edfe35cf4ddb5bab765fb3ce0b65b5",
+    "track": "cybersecurity"
+  },
+  "Gfred211": {
+    "email": "gfred323@gmail.com",
+    "password": "scrypt:32768:8:1$jcCfPv7oehGmuLkp$e1d4cb8ae99315f74bb6652a972e59738d5962bbbeb885d79c3f6b05bc73b6c9fe007c5aea52f7b3755306666f0046c2aab1328971ee62c98dd64102c8ad2298",
+    "track": "web"
+  },
+  "testuser1": {
+    "email": "jameshill@alambda1.1com",
+    "password": "scrypt:32768:8:1$aL9DTJPQ02EfMD3Z$864a79bc41dce5d2e1c750d4e6b8d40b4cf4aaac0655c9494e97bae450a6bf97a33f78cbd0637e0be315a83626b1801a3d2ea4eb49d2a7143b1cdabd9af58cc0",
+    "track": "cybersecurity"
   }
 }

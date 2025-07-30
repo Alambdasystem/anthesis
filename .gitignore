@@ -1,2 +1,83 @@
-venv
+# Python virtual environments
+venv/
+env/
+ENV/
+venv*/
+.venv/
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 temp.py
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+anthesis.db
+
+# Log files
+*.log
+logs/
+flask_ollama.log
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Upload directories
+uploads/
+extraction_logs/
+
+# Test results
+test_results_*.json
+final_test_results_*.json
+
+# Backup files
+*.bak
+*.backup
+
+# Certificate files (keep secure)
+*.pem
+*.key
+*.crt
+cert.jpg
+
+# Local configuration files
+config.local.json
+local_settings.py

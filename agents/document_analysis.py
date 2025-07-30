@@ -92,15 +92,26 @@ class DocumentAnalysisAgent(BaseAgent):
             
             elif ext == '.pdf':
                 try:
-                    import PyPDF2
-                    with open(filepath, 'rb') as f:
-                        reader = PyPDF2.PdfReader(f)
-                        text = ""
-                        for page in reader.pages:
-                            text += page.extract_text() + "\n"
-                        return text
+                    # Try PyMuPDF first (better extraction)
+                    import fitz  # PyMuPDF
+                    doc = fitz.open(filepath)
+                    text = ""
+                    for page in doc:
+                        text += page.get_text() + "\n"
+                    doc.close()
+                    return text
                 except ImportError:
-                    return "Error: PyPDF2 not installed"
+                    try:
+                        # Fall back to PyPDF2
+                        import PyPDF2
+                        with open(filepath, 'rb') as f:
+                            reader = PyPDF2.PdfReader(f)
+                            text = ""
+                            for page in reader.pages:
+                                text += page.extract_text() + "\n"
+                        return text
+                    except ImportError:
+                        return "Error: No PDF library installed (PyMuPDF or PyPDF2 required)"
             
             elif ext == '.docx':
                 try:
@@ -109,9 +120,112 @@ class DocumentAnalysisAgent(BaseAgent):
                     text = ""
                     for paragraph in doc.paragraphs:
                         text += paragraph.text + "\n"
+                    # Also extract text from tables
+                    for table in doc.tables:
+                        for row in table.rows:
+                            for cell in row.cells:
+                                text += cell.text + " "
+                            text += "\n"
                     return text
                 except ImportError:
                     return "Error: python-docx not installed"
+            
+            elif ext == '.doc':
+                try:
+                    # Try textract first
+                    import textract
+                    return textract.process(filepath).decode('utf-8', errors='ignore')
+                except ImportError:
+                    try:
+                        # Try antiword as fallback
+                        import subprocess
+                        result = subprocess.run(['antiword', filepath], 
+                                              capture_output=True, text=True, errors='ignore')
+                        return result.stdout if result.returncode == 0 else "Error: Could not process .doc file"
+                    except (ImportError, FileNotFoundError):
+                        return "Error: textract or antiword required for .doc files"
+            
+            elif ext in ['.ppt', '.pptx']:
+                try:
+                    from pptx import Presentation
+                    prs = Presentation(filepath)
+                    text = ""
+                    for slide in prs.slides:
+                        for shape in slide.shapes:
+                            if hasattr(shape, "text"):
+                                text += shape.text + "\n"
+                    return text
+                except ImportError:
+                    return "Error: python-pptx not installed"
+            
+            elif ext == '.rtf':
+                try:
+                    from striprtf.striprtf import rtf_to_text
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        rtf = f.read()
+                    return rtf_to_text(rtf)
+                except ImportError:
+                    # Basic fallback - just read as text (won't properly handle RTF formatting)
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        return f.read()
+            
+            elif ext == '.odt':
+                try:
+                    import odf.opendocument
+                    import odf.text
+                    doc = odf.opendocument.load(filepath)
+                    paragraphs = doc.getElementsByType(odf.text.P)
+                    return '\n'.join([p.plainText() for p in paragraphs])
+                except ImportError:
+                    try:
+                        import textract
+                        return textract.process(filepath).decode('utf-8', errors='ignore')
+                    except ImportError:
+                        return "Error: No ODT library installed"
+            
+            elif ext in ['.html', '.htm']:
+                try:
+                    from bs4 import BeautifulSoup
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        soup = BeautifulSoup(f.read(), 'html.parser')
+                    return soup.get_text(separator='\n')
+                except ImportError:
+                    # Raw HTML as fallback
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        return f.read()
+            
+            elif ext in ['.md', '.markdown']:
+                try:
+                    import markdown
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        md_text = f.read()
+                    html = markdown.markdown(md_text)
+                    try:
+                        from bs4 import BeautifulSoup
+                        return BeautifulSoup(html, 'html.parser').get_text()
+                    except ImportError:
+                        return md_text  # Return raw markdown as fallback
+                except ImportError:
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        return f.read()  # Return raw markdown
+            
+            elif ext in ['.xlsx', '.xls']:
+                try:
+                    import pandas as pd
+                    df = pd.read_excel(filepath)
+                    return df.to_string()
+                except ImportError:
+                    return "Error: pandas and openpyxl required for Excel files"
+            
+            elif ext == '.csv':
+                try:
+                    import pandas as pd
+                    df = pd.read_csv(filepath)
+                    return df.to_string()
+                except ImportError:
+                    # Basic fallback
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        return f.read()
             
             else:
                 return f"Unsupported file type: {ext}"

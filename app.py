@@ -4,7 +4,7 @@ from pydub import AudioSegment
 from io import BytesIO  # Import BytesIO for handling byte streams
 import requests
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
+from urllib3.util.retry import Retry
 import json
 import os
 import logging
@@ -37,6 +37,11 @@ try:
     import PyPDF2
 except ImportError:
     PyPDF2 = None
+try:
+    from pptx import Presentation
+    pptx_available = True
+except ImportError:
+    pptx_available = False
 
 # Import agent routes
 from agents import agents_bp
@@ -139,7 +144,7 @@ def get_shuttle_gps():
         "operation": "current",
         "format": "json",
         "username": "api",
-        "password": "Christian123!",
+        "password": os.getenv('ZONAR_PASSWORD', 'default_password'),
         "customer": "STA10021",
         "logvers": "3.0"  # Add the required logvers parameter
     }
@@ -316,7 +321,7 @@ def health():
 
 
 def extract_text_from_file(filepath):
-    """Extract text from various file formats: txt, docx, pdf, doc, rtf, odt, html, md"""
+    """Extract text from various file formats: txt, docx, pdf, doc, rtf, odt, html, md, pptx"""
     try:
         ext = os.path.splitext(filepath)[1].lower()
         
@@ -328,7 +333,28 @@ def extract_text_from_file(filepath):
             if not docx:
                 return "Error: python-docx not installed"
             doc = docx.Document(filepath)
-            return '\n'.join([p.text for p in doc.paragraphs])
+            text_parts = []
+            for paragraph in doc.paragraphs:
+                text_parts.append(paragraph.text)
+            # Also extract text from tables
+            for table in doc.tables:
+                for row in table.rows:
+                    for cell in row.cells:
+                        text_parts.append(cell.text)
+            return '\n'.join(text_parts)
+            
+        elif ext == '.pptx':
+            try:
+                from pptx import Presentation
+                prs = Presentation(filepath)
+                text_parts = []
+                for slide in prs.slides:
+                    for shape in slide.shapes:
+                        if hasattr(shape, "text"):
+                            text_parts.append(shape.text)
+                return '\n'.join(text_parts)
+            except ImportError:
+                return "Error: python-pptx not installed"
             
         elif ext == '.pdf':
             try:
@@ -472,9 +498,10 @@ def extract_text_from_file(filepath):
                         }
                         
                         # Skip non-document files
-                        if ext not in ['.txt', '.pdf', '.docx']:
+                        supported_types = ['.txt', '.pdf', '.docx', '.doc', '.pptx', '.rtf', '.odt', '.html', '.htm', '.md', '.markdown']
+                        if ext not in supported_types:
                             extraction_log["files_skipped"] += 1
-                            file_log["reason"] = f"Unsupported file type: {ext}"
+                            file_log["reason"] = f"Unsupported file type: {ext}. Supported: {', '.join(supported_types)}"
                             extraction_log["file_details"].append(file_log)
                             continue
                         
@@ -973,7 +1000,7 @@ def ftp_upload():
 
         ftp_host = "107.180.25.236"
         ftp_user = "mrworker@alambda.systems"
-        ftp_pass = "Christian123!"
+        ftp_pass = os.getenv('FTP_PASSWORD', 'default_password')
 
         ftp = FTP()
         ftp.connect(ftp_host, 21, timeout=10)
@@ -1016,7 +1043,7 @@ def ftp_browse():
         
         ftp_host = "107.180.25.236"
         ftp_user = "mrworker@alambda.systems"
-        ftp_pass = "Christian123!"
+        ftp_pass = os.getenv('FTP_PASSWORD', 'default_password')
 
         ftp = FTP()
         ftp.connect(ftp_host, 21, timeout=10)
@@ -1087,7 +1114,7 @@ def ftp_operations():
 
         ftp_host = "107.180.25.236"
         ftp_user = "mrworker@alambda.systems"
-        ftp_pass = "Christian123!"
+        ftp_pass = os.getenv('FTP_PASSWORD', 'default_password')
 
         ftp = FTP()
         ftp.connect(ftp_host, 21, timeout=10)
@@ -1180,7 +1207,7 @@ def ftp_metadata():
 
         ftp_host = "107.180.25.236"
         ftp_user = "mrworker@alambda.systems"
-        ftp_pass = "Christian123!"
+        ftp_pass = os.getenv('FTP_PASSWORD', 'default_password')
 
         ftp = FTP()
         ftp.connect(ftp_host, 21, timeout=10)
@@ -1211,7 +1238,7 @@ def ftp_search():
 
         ftp_host = "107.180.25.236"
         ftp_user = "mrworker@alambda.systems"
-        ftp_pass = "Christian123!"
+        ftp_pass = os.getenv('FTP_PASSWORD', 'default_password')
 
         ftp = FTP()
         ftp.connect(ftp_host, 21, timeout=10)
@@ -1581,7 +1608,7 @@ def generate_lecture():
         # Prepare FTP connection
         ftp_host = "107.180.25.236"
         ftp_user = "mrworker@alambda.systems"
-        ftp_pass = "Christian123!"
+        ftp_pass = os.getenv('FTP_PASSWORD', 'default_password')
 
         ftp = FTP()
         ftp.connect(ftp_host, 21, timeout=10)
@@ -1633,19 +1660,7 @@ def save_modules(modules_data):
     with open(MODULES_FILE, "w") as f:
         json.dump(modules_data, f, indent=2)
 
-LECTURES_FILE = "lectures.json"
 
-def load_lectures():
-    """Load lectures data from file."""
-    if os.path.exists(LECTURES_FILE):
-        with open(LECTURES_FILE, "r") as f:
-            return json.load(f)
-    return {}
-
-def save_lectures(lectures_data):
-    """Save lectures data to file."""
-    with open(LECTURES_FILE, "w") as f:
-        json.dump(lectures_data, f, indent=2)
 QUIZZES_FILE = "quizzes.json"
 
 def load_quizzes():
@@ -1928,17 +1943,7 @@ def save_quizzes(quizzes):
     except Exception as e:
         logging.error(f"Error saving quizzes: {e}")
 
-@app.route('/api/lectures/<track>', methods=['GET'])
-@token_required
-def get_lectures(track):
-    """Get all lectures for a track."""
-    try:
-        lectures = load_lectures()
-        track_lectures = lectures.get(track, [])
-        return jsonify(track_lectures)
-    except Exception as e:
-        logging.error(f"Error getting lectures: {e}")
-        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/api/lectures', methods=['POST'])
 @token_required
@@ -1999,7 +2004,8 @@ def create_lecture():
             "track": track,
             "week": week,
             "title": f"Week {week} Lecture - {track} Track",
-            "content": lecture_content
+            "content": lecture_content,
+            "created_at": datetime.now(timezone.utc).isoformat()
         }
         lectures[track].append(lecture)
         save_lectures(lectures)
@@ -2081,6 +2087,145 @@ def create_quiz():
         
     except Exception as e:
         logging.error(f"Error creating quiz: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/quizzes/generate-from-lecture', methods=['POST'])
+@token_required
+def generate_quiz_from_lecture():
+    """Generate a quiz based on lecture content."""
+    try:
+        data = request.get_json()
+        lecture_content = data.get('lecture_content', '')
+        topic = data.get('topic', 'Lecture Topic')
+        week = data.get('week', 1)
+        lecturer = data.get('lecturer', 'AI Lecturer')
+        
+        if not lecture_content:
+            return jsonify({"error": "Lecture content is required"}), 400
+        
+        # Truncate content if too long for the prompt
+        max_content_length = 2000
+        if len(lecture_content) > max_content_length:
+            lecture_content = lecture_content[:max_content_length] + "..."
+        
+        # Create comprehensive quiz prompt
+        prompt = f"""Based on this lecture content, create a comprehensive quiz with 5-8 multiple choice questions.
+
+LECTURE: "{topic}" by {lecturer}
+WEEK: {week}
+CONTENT: {lecture_content}
+
+Create questions that test:
+1. Key concepts and definitions
+2. Practical applications
+3. Problem-solving scenarios
+4. Critical thinking
+
+Return ONLY a JSON object in this exact format:
+{{
+  "quiz_title": "Quiz: {topic}",
+  "week": {week},
+  "lecturer": "{lecturer}",
+  "questions": [
+    {{
+      "question": "What is the main focus of this week's topic?",
+      "options": ["A) Basic concepts", "B) Advanced techniques", "C) Historical background", "D) Future predictions"],
+      "correct_answer": "B",
+      "explanation": "The lecture focuses on practical implementation and application of concepts."
+    }}
+  ]
+}}
+
+Generate exactly 5-8 well-crafted questions based on the lecture content."""
+
+        # Call Ollama to generate the quiz
+        payload = {
+            "model": DEFAULT_MODEL,
+            "messages": [
+                {"role": "system", "content": "You are an expert quiz generator. Create comprehensive quizzes based on lecture content. Always return valid JSON format."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.7,
+            "max_tokens": 1500,
+            "stream": False
+        }
+        
+        response = session.post(OLLAMA_URL, json=payload, timeout=90)
+        if response.status_code != 200:
+            # Fallback quiz if Ollama fails
+            fallback_quiz = {
+                "quiz_title": f"Quiz: {topic}",
+                "week": week,
+                "lecturer": lecturer,
+                "questions": [
+                    {
+                        "question": f"What is the main focus of this week's topic on {topic}?",
+                        "options": ["A) Basic introductory concepts", "B) Advanced implementation techniques", "C) Historical background only", "D) Future predictions"],
+                        "correct_answer": "B",
+                        "explanation": "The lecture focuses on practical implementation and application of concepts."
+                    },
+                    {
+                        "question": f"Which approach is most emphasized in {lecturer}'s teaching style?",
+                        "options": ["A) Theoretical analysis only", "B) Memorization of facts", "C) Practical examples and real-world applications", "D) Abstract mathematical proofs"],
+                        "correct_answer": "C",
+                        "explanation": f"{lecturer} emphasizes hands-on learning and practical applications."
+                    },
+                    {
+                        "question": f"For Week {week} level students, what is the recommended next step after this lecture?",
+                        "options": ["A) Move to advanced topics immediately", "B) Practice the concepts with exercises", "C) Review previous weeks only", "D) Skip to final projects"],
+                        "correct_answer": "B",
+                        "explanation": "Practicing concepts reinforces learning and builds proficiency."
+                    }
+                ]
+            }
+            return jsonify(fallback_quiz)
+        
+        # Parse the response
+        content = response.json()
+        if isinstance(content, list):
+            quiz_content = "".join(
+                chunk.get("message", {}).get("content", "")
+                for chunk in content
+                if isinstance(chunk, dict)
+            ).strip()
+        else:
+            quiz_content = content.get("message", {}).get("content", "").strip()
+        
+        try:
+            # Clean up the response to extract JSON
+            if quiz_content.startswith("```json"):
+                quiz_content = quiz_content.replace("```json", "").replace("```", "").strip()
+            elif quiz_content.startswith("```"):
+                quiz_content = quiz_content.replace("```", "").strip()
+            
+            quiz_data = json.loads(quiz_content)
+            
+            # Validate the structure
+            if "questions" not in quiz_data or not isinstance(quiz_data["questions"], list):
+                raise ValueError("Invalid quiz structure")
+            
+            return jsonify(quiz_data)
+            
+        except Exception as parse_error:
+            logging.error(f"Quiz parse error: {parse_error}, raw content: {quiz_content}")
+            # Return fallback quiz
+            fallback_quiz = {
+                "quiz_title": f"Quiz: {topic}",
+                "week": week,
+                "lecturer": lecturer,
+                "questions": [
+                    {
+                        "question": f"Based on the lecture about {topic}, which statement is most accurate?",
+                        "options": ["A) It covers basic introductory concepts", "B) It focuses on advanced practical applications", "C) It only discusses historical context", "D) It predicts future developments"],
+                        "correct_answer": "B",
+                        "explanation": "The lecture emphasizes practical applications and real-world implementation."
+                    }
+                ]
+            }
+            return jsonify(fallback_quiz)
+        
+    except Exception as e:
+        logging.error(f"Error generating quiz from lecture: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/extract-text', methods=['POST'])
@@ -2403,6 +2548,7 @@ def agent_predict():
             
         prompt = data.get('prompt')
         agent_id = data.get('agent_id')
+        persona = data.get('persona', 'default')
         
         if not prompt:
             return jsonify({"error": "Prompt is required"}), 400
@@ -2417,6 +2563,16 @@ def agent_predict():
                     if agent:
                         agent_context = f"You are acting as {agent['name']}.\nBio: {agent['bio']}\n\n"
         
+        # Enhanced persona handling
+        persona_contexts = {
+            'coordinator': "You are a project coordinator AI. Focus on organizing, planning, and workflow management. Be professional and structured in your responses.",
+            'document-analysis': "You are a document analysis specialist AI. Focus on analyzing, understanding, and extracting insights from documents. Be thorough and analytical.",
+            'content-generation': "You are a content generation specialist AI. Focus on creating, writing, and generating high-quality content. Be creative and articulate.",
+            'default': "You are a helpful AI assistant. Provide clear, accurate, and useful responses."
+        }
+        
+        system_content = persona_contexts.get(persona, persona_contexts['default'])
+        
         # Prepare the full prompt with agent context
         full_prompt = f"{agent_context}{prompt}"
         
@@ -2424,11 +2580,11 @@ def agent_predict():
         payload = {
             "model": DEFAULT_MODEL,
             "messages": [
-                {"role": "system", "content": "You are a helpful AI assistant."},
+                {"role": "system", "content": system_content},
                 {"role": "user", "content": full_prompt}
             ],
             "temperature": 0.7,
-            "max_tokens": 500,
+            "max_tokens": 1000,
             "stream": False
         }
         
@@ -2438,13 +2594,170 @@ def agent_predict():
             
         content = response.json().get("message", {}).get("content", "").strip()
         
-        return jsonify({"answer": content})
+        return jsonify({
+            "answer": content,
+            "persona": persona,
+            "timestamp": datetime.now().isoformat()
+        })
         
     except Exception as e:
         logging.exception("Error in agent_predict:")
         return jsonify({"error": str(e)}), 500
 
+# Enhanced Agent Workflow Endpoints
+@app.route('/api/agents/workflow', methods=['POST'])
+@token_required
+def create_agent_workflow():
+    """Create a multi-agent workflow for complex tasks"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "Missing JSON data"}), 400
+        
+        task_type = data.get('task_type', 'general')
+        content = data.get('content', '')
+        contact_id = data.get('contact_id')
+        
+        # Create workflow ID
+        workflow_id = str(uuid.uuid4())
+        
+        # Initialize workflow log
+        workflow_log = {
+            "workflow_id": workflow_id,
+            "started_at": datetime.now().isoformat(),
+            "task_type": task_type,
+            "status": "initializing",
+            "agent_conversations": [],
+            "completed_at": None,
+            "contact_id": contact_id
+        }
+        
+        # Step 1: Coordinator Agent analyzes the task
+        coordinator_prompt = f"""
+        Analyze this {task_type} task and provide a structured plan:
+        
+        Content: {content}
+        
+        Provide a brief analysis and next steps for completing this task effectively.
+        """
+        
+        coordinator_response = make_agent_call(coordinator_prompt, 'coordinator')
+        workflow_log["agent_conversations"].append({
+            "agent_name": "Coordinator Agent",
+            "agent_type": "coordinator",
+            "timestamp": datetime.now().isoformat(),
+            "prompt": coordinator_prompt,
+            "response": coordinator_response
+        })
+        
+        # Step 2: Document Analysis (if applicable)
+        if task_type in ['rfp', 'document', 'analysis']:
+            analysis_prompt = f"""
+            Perform detailed analysis of this content:
+            
+            {content}
+            
+            Extract key requirements, identify important sections, and provide analysis insights.
+            """
+            
+            analysis_response = make_agent_call(analysis_prompt, 'document-analysis')
+            workflow_log["agent_conversations"].append({
+                "agent_name": "Document Analysis Agent",
+                "agent_type": "document-analysis",
+                "timestamp": datetime.now().isoformat(),
+                "prompt": analysis_prompt,
+                "response": analysis_response
+            })
+        
+        # Step 3: Content Generation
+        generation_prompt = f"""
+        Based on the previous analysis, generate high-quality content for this {task_type}:
+        
+        Original content: {content}
+        
+        Create a comprehensive, professional response that addresses all requirements.
+        """
+        
+        generation_response = make_agent_call(generation_prompt, 'content-generation')
+        workflow_log["agent_conversations"].append({
+            "agent_name": "Content Generation Agent",
+            "agent_type": "content-generation",
+            "timestamp": datetime.now().isoformat(),
+            "prompt": generation_prompt,
+            "response": generation_response
+        })
+        
+        # Complete workflow
+        workflow_log["status"] = "completed"
+        workflow_log["completed_at"] = datetime.now().isoformat()
+        
+        return jsonify({
+            "success": True,
+            "workflow_id": workflow_id,
+            "workflow_log": workflow_log,
+            "final_content": generation_response,
+            "message": "Workflow completed successfully"
+        })
+        
+    except Exception as e:
+        logging.exception("Error in create_agent_workflow:")
+        return jsonify({"error": str(e)}), 500
+
+def make_agent_call(prompt, persona):
+    """Helper function to make agent API calls"""
+    try:
+        payload = {
+            "model": DEFAULT_MODEL,
+            "messages": [
+                {"role": "system", "content": get_persona_context(persona)},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.7,
+            "max_tokens": 1000,
+            "stream": False
+        }
+        
+        response = session.post(OLLAMA_URL, json=payload, timeout=60)
+        if response.status_code == 200:
+            return response.json().get("message", {}).get("content", "").strip()
+        else:
+            return f"Error: Could not process request (Status: {response.status_code})"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+def get_persona_context(persona):
+    """Get system context for different personas"""
+    contexts = {
+        'coordinator': "You are a project coordinator AI. Focus on organizing, planning, and workflow management. Be professional and structured in your responses.",
+        'document-analysis': "You are a document analysis specialist AI. Focus on analyzing, understanding, and extracting insights from documents. Be thorough and analytical.",
+        'content-generation': "You are a content generation specialist AI. Focus on creating, writing, and generating high-quality content. Be creative and articulate.",
+        'default': "You are a helpful AI assistant. Provide clear, accurate, and useful responses."
+    }
+    return contexts.get(persona, contexts['default'])
+
+# Add health check endpoint
+@app.route('/health', methods=['GET'])
+def health_check():
+    """Basic health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'timestamp': datetime.now().isoformat(),
+        'services': {
+            'flask': 'running',
+            'agents': 'available',
+            'ollama': 'connected'  # You can add actual Ollama health check here
+        }
+    })
+
 # Add these routes to handle preflight OPTIONS requests
+
+@app.route('/predict', methods=['OPTIONS'])
+def predict_preflight():
+    response = jsonify({'status': 'ok'})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    return response
 
 @app.route('/login', methods=['OPTIONS'])
 def login_preflight():
@@ -2479,11 +2792,688 @@ def draft_preflight(contact_id, draft_id):
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     return response
 
+# ─── RFP Response Viewer ──────────────────────────────────────────────────────
+@app.route('/api/rfp-response/<int:draft_id>', methods=['GET'])
+@token_required
+def view_rfp_response(draft_id):
+    """View full RFP response content"""
+    try:
+        drafts = load_all_drafts()
+        draft = next((d for d in drafts if d["id"] == draft_id), None)
+        
+        if not draft:
+            return jsonify({"error": "RFP response not found"}), 404
+        
+        # Enhanced response with metadata
+        response_data = {
+            "id": draft["id"],
+            "contact_id": draft.get("contact_id"),
+            "subject": draft.get("subject", "RFP Response"),
+            "body": draft.get("body", ""),
+            "type": draft.get("type", "rfp"),
+            "created_at": draft.get("created_at"),
+            "updated_at": draft.get("updated_at"),
+            "workflow_log": draft.get("workflow_log", {}),
+            "word_count": len(draft.get("body", "").split()),
+            "character_count": len(draft.get("body", ""))
+        }
+        
+        return jsonify({
+            "success": True,
+            "data": response_data
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/rfp-response/<int:draft_id>/download', methods=['GET'])
+@token_required
+def download_rfp_response(draft_id):
+    """Download RFP response as various formats"""
+    from io import BytesIO
+    try:
+        format_type = request.args.get('format', 'txt').lower()
+        drafts = load_all_drafts()
+        draft = next((d for d in drafts if d["id"] == draft_id), None)
+        
+        if not draft:
+            return jsonify({"error": "RFP response not found"}), 404
+        
+        content = draft.get("body", "")
+        subject = draft.get("subject", f"RFP_Response_{draft_id}")
+        filename = f"{subject.replace(' ', '_')}"
+        
+        if format_type == 'pdf':
+            # Generate PDF
+            try:
+                from reportlab.lib.pagesizes import letter
+                from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+                from reportlab.lib.styles import getSampleStyleSheet
+                
+                buffer = BytesIO()
+                doc = SimpleDocTemplate(buffer, pagesize=letter)
+                styles = getSampleStyleSheet()
+                story = []
+                
+                # Add title
+                title = Paragraph(subject, styles['Title'])
+                story.append(title)
+                story.append(Spacer(1, 12))
+                
+                # Add content (split into paragraphs)
+                for paragraph in content.split('\n\n'):
+                    if paragraph.strip():
+                        p = Paragraph(paragraph.replace('\n', '<br/>'), styles['Normal'])
+                        story.append(p)
+                        story.append(Spacer(1, 6))
+                
+                doc.build(story)
+                buffer.seek(0)
+                
+                return send_file(
+                    buffer,
+                    mimetype='application/pdf',
+                    as_attachment=True,
+                    download_name=f"{filename}.pdf"
+                )
+            except ImportError:
+                return jsonify({"error": "PDF generation not available. Install reportlab."}), 500
+        
+        elif format_type == 'docx':
+            # Generate Word document
+            try:
+                from docx import Document
+                
+                doc = Document()
+                doc.add_heading(subject, 0)
+                
+                # Add content
+                for paragraph in content.split('\n\n'):
+                    if paragraph.strip():
+                        doc.add_paragraph(paragraph)
+                
+                buffer = BytesIO()
+                doc.save(buffer)
+                buffer.seek(0)
+                
+                return send_file(
+                    buffer,
+                    mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    as_attachment=True,
+                    download_name=f"{filename}.docx"
+                )
+            except ImportError:
+                return jsonify({"error": "Word document generation not available. Install python-docx."}), 500
+        
+        else:  # Default to text
+            buffer = BytesIO()
+            buffer.write(f"{subject}\n\n{content}".encode('utf-8'))
+            buffer.seek(0)
+            
+            return send_file(
+                buffer,
+                mimetype='text/plain',
+                as_attachment=True,
+                download_name=f"{filename}.txt"
+            )
+            
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/rfp-response/<int:draft_id>', methods=['PUT'])
+@token_required
+def update_rfp_response(draft_id):
+    """Update an existing RFP response"""
+    try:
+        data = request.get_json()
+        if not data or 'body' not in data:
+            return jsonify({"error": "Request body is required"}), 400
+        
+        drafts = load_all_drafts()
+        draft = next((d for d in drafts if d["id"] == draft_id), None)
+        
+        if not draft:
+            return jsonify({"error": "RFP response not found"}), 404
+        
+        # Update the draft
+        draft["body"] = data["body"]
+        draft["updated_at"] = datetime.now().isoformat()
+        
+        # Update subject if provided
+        if "subject" in data:
+            draft["subject"] = data["subject"]
+        
+        # Save the updated drafts
+        save_all_drafts(drafts)
+        
+        return jsonify({
+            "success": True,
+            "message": "RFP response updated successfully",
+            "data": {
+                "id": draft["id"],
+                "subject": draft.get("subject"),
+                "body": draft["body"],
+                "updated_at": draft["updated_at"],
+                "word_count": len(draft["body"].split()),
+                "character_count": len(draft["body"])
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/agents/workflows/rfp-chat', methods=['POST'])
+@token_required
+def rfp_chat_workflow():
+    """Chat with AI agent about RFP response improvements"""
+    try:
+        data = request.get_json()
+        if not data or 'message' not in data:
+            return jsonify({"error": "Message is required"}), 400
+        
+        user_message = data['message']
+        current_content = data.get('current_content', '')
+        rfp_id = data.get('rfp_id')
+        chat_history = data.get('chat_history', [])
+        
+        # Build context for the AI agent
+        context = f"""
+You are an AI assistant helping to improve RFP (Request for Proposal) responses. 
+The user is working on the following RFP response:
+
+CURRENT RFP RESPONSE:
+{current_content}
+
+CHAT HISTORY:
+{chr(10).join([f"{msg['sender']}: {msg['message']}" for msg in chat_history[-5:]])}
+
+USER MESSAGE: {user_message}
+
+Please provide helpful suggestions to improve the RFP response. You can:
+1. Suggest better wording or structure
+2. Recommend additional content to include
+3. Point out areas that need clarification
+4. Provide specific improvements
+
+If you have a concrete suggestion for improving the content, provide it in your response.
+Be conversational and helpful.
+"""
+        
+        # Make request to the AI model (using the same predict endpoint)
+        try:
+            # Use the same format as other endpoints in the app
+            ollama_response = requests.post(
+                "http://localhost:11434/api/generate",
+                json={
+                    "model": "llama3.2:latest",
+                    "prompt": context,
+                    "stream": False
+                },
+                timeout=30
+            )
+            
+            if ollama_response.status_code == 200:
+                result = ollama_response.json()
+                ai_response = result.get('response', 'I apologize, but I could not generate a response at this time.')
+                
+                # Check if the AI suggested specific improvements
+                suggested_content = None
+                if "IMPROVED VERSION:" in ai_response or "SUGGESTED CONTENT:" in ai_response:
+                    # Extract suggested content if present
+                    lines = ai_response.split('\n')
+                    capturing = False
+                    suggested_lines = []
+                    
+                    for line in lines:
+                        if "IMPROVED VERSION:" in line or "SUGGESTED CONTENT:" in line:
+                            capturing = True
+                            continue
+                        elif capturing and line.strip():
+                            if line.startswith("---") or "END OF SUGGESTION" in line:
+                                break
+                            suggested_lines.append(line)
+                    
+                    if suggested_lines:
+                        suggested_content = '\n'.join(suggested_lines).strip()
+                
+                return jsonify({
+                    "success": True,
+                    "response": ai_response,
+                    "suggested_content": suggested_content,
+                    "timestamp": datetime.now().isoformat()
+                })
+            else:
+                return jsonify({
+                    "success": False,
+                    "response": "I'm having trouble connecting to the AI service. Please try again.",
+                    "timestamp": datetime.now().isoformat()
+                })
+                
+        except requests.RequestException as e:
+            return jsonify({
+                "success": False,
+                "response": "I'm currently unavailable. Please try again later.",
+                "timestamp": datetime.now().isoformat()
+            })
+            
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/service2/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'])
+def proxy_to_service2(path):
+    """
+    Proxy requests to downstream server at 127.0.0.1:5008
+    Forwards all HTTP methods, headers, query params, and body
+    """
+    try:
+        # Build the downstream URL
+        downstream_url = f"http://127.0.0.1:5008/{path}"
+        
+        # Get query parameters
+        query_params = request.args.to_dict(flat=False)
+        
+        # Prepare headers (exclude hop-by-hop headers)
+        hop_by_hop_headers = {
+            'connection', 'keep-alive', 'proxy-authenticate', 
+            'proxy-authorization', 'te', 'trailers', 'transfer-encoding', 'upgrade'
+        }
+        
+        headers = {}
+        for key, value in request.headers:
+            if key.lower() not in hop_by_hop_headers:
+                headers[key] = value
+        
+        # Remove host header to avoid conflicts
+        headers.pop('Host', None)
+        
+        # Get request body
+        data = None
+        if request.method in ['POST', 'PUT', 'PATCH']:
+            if request.content_type and 'application/json' in request.content_type:
+                data = request.get_json()
+            else:
+                data = request.get_data()
+        
+        # Make the request to downstream server
+        response = requests.request(
+            method=request.method,
+            url=downstream_url,
+            params=query_params,
+            headers=headers,
+            json=data if isinstance(data, dict) else None,
+            data=data if not isinstance(data, dict) else None,
+            cookies=request.cookies,
+            allow_redirects=False,
+            timeout=30
+        )
+        
+        # Prepare response headers (exclude hop-by-hop headers)
+        response_headers = {}
+        for key, value in response.headers.items():
+            if key.lower() not in hop_by_hop_headers:
+                response_headers[key] = value
+        
+        # Return the response
+        return response.content, response.status_code, response_headers
+        
+    except requests.exceptions.ConnectionError:
+        return jsonify({"error": "Service unavailable - could not connect to downstream server"}), 503
+    except requests.exceptions.Timeout:
+        return jsonify({"error": "Service timeout - downstream server took too long to respond"}), 504
+    except Exception as e:
+        return jsonify({"error": f"Proxy error: {str(e)}"}), 500
+
+# Missing API Endpoints for Agent Testing
+@app.route('/api/agents/status', methods=['GET'])
+def get_agent_status():
+    """Get agent system status and available agents"""
+    try:
+        # Check if agent files exist
+        agent_files = {
+            'registry': os.path.exists('agents_registry.json'),
+            'contacts': os.path.exists('agent_contacts.json'),
+            'base_module': os.path.exists('agents/base.py'),
+            'lecture_agents': os.path.exists('agents/lecture_agents.py')
+        }
+        
+        # Load available agents
+        available_agents = []
+        if agent_files['registry']:
+            try:
+                with open('agents_registry.json', 'r') as f:
+                    agents = json.load(f)
+                    available_agents = [
+                        {
+                            'id': agent.get('id'),
+                            'name': agent.get('name'),
+                            'type': agent.get('agent_type', 'unknown'),
+                            'status': 'active'
+                        } for agent in agents
+                    ]
+            except Exception as e:
+                print(f"Error loading agent registry: {e}")
+        
+        # Default agents if none found
+        if not available_agents:
+            available_agents = [
+                {'id': 'coordinator', 'name': 'Coordinator Agent', 'type': 'coordinator', 'status': 'active'},
+                {'id': 'document-analysis', 'name': 'Document Analysis Agent', 'type': 'document-analysis', 'status': 'active'},
+                {'id': 'content-generation', 'name': 'Content Generation Agent', 'type': 'content-generation', 'status': 'active'}
+            ]
+        
+        return jsonify({
+            'success': True,
+            'agent_system_status': 'active',
+            'available_agents': available_agents,
+            'agent_files': agent_files,
+            'ollama_connected': True,  # You can add actual health check here
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'agent_system_status': 'error'
+        }), 500
+
+@app.route('/api/agents', methods=['GET'])
+def get_agents():
+    """Get all registered agents from the registry"""
+    try:
+        with open('agents_registry.json', 'r') as f:
+            agents = json.load(f)
+        return jsonify(agents)
+    except FileNotFoundError:
+        # Return default agents if registry doesn't exist
+        default_agents = [
+            {
+                'id': 'coordinator',
+                'name': 'Coordinator Agent',
+                'description': 'Manages workflows and coordinates between agents',
+                'agent_type': 'coordinator',
+                'specialization': 'Project coordination and workflow management',
+                'persona_icon': '🎯',
+                'persona_color': '#17a2b8',
+                'usage_count': 0,
+                'last_used': None
+            },
+            {
+                'id': 'document-analysis',
+                'name': 'Document Analysis Agent',
+                'description': 'Analyzes and extracts insights from documents',
+                'agent_type': 'document-analysis',
+                'specialization': 'Document analysis and information extraction',
+                'persona_icon': '📄',
+                'persona_color': '#28a745',
+                'usage_count': 0,
+                'last_used': None
+            },
+            {
+                'id': 'content-generation',
+                'name': 'Content Generation Agent',
+                'description': 'Generates high-quality written content',
+                'agent_type': 'content-generation',
+                'specialization': 'Content creation and writing',
+                'persona_icon': '✍️',
+                'persona_color': '#ffc107',
+                'usage_count': 0,
+                'last_used': None
+            }
+        ]
+        return jsonify(default_agents)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/agents/list', methods=['GET'])
+def list_agents():
+    """List agents with simplified format"""
+    try:
+        with open('agents_registry.json', 'r') as f:
+            agents = json.load(f)
+        
+        # Simplified format for listing
+        simple_agents = []
+        for agent in agents:
+            simple_agents.append({
+                'id': agent.get('id'),
+                'name': agent.get('name'),
+                'specialization': agent.get('specialization', agent.get('description', '')),
+                'agent_type': agent.get('agent_type', 'unknown'),
+                'usage_count': agent.get('usage_count', 0),
+                'last_used': agent.get('last_used')
+            })
+        
+        return jsonify(simple_agents)
+    except FileNotFoundError:
+        return jsonify([]), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/contacts', methods=['GET'])
+def get_api_contacts():
+    """Get all contacts via API endpoint"""
+    try:
+        with open('agent_contacts.json', 'r') as f:
+            contacts = json.load(f)
+        return jsonify(contacts)
+    except FileNotFoundError:
+        return jsonify([]), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/quizzes/<track>', methods=['GET'])
+def get_quizzes(track):
+    """Get quizzes for a specific track"""
+    try:
+        # Return sample quiz data for now
+        sample_quizzes = [
+            {"id": 1, "title": "Week 1 Quiz", "track": track, "week": 1, "status": "available"},
+            {"id": 2, "title": "Week 2 Quiz", "track": track, "week": 2, "status": "available"},
+            {"id": 3, "title": "Week 3 Quiz", "track": track, "week": 3, "status": "available"},
+        ]
+        
+        return jsonify(sample_quizzes)
+        
+    except Exception as e:
+        print(f"Error getting quizzes for track {track}: {e}")
+        return jsonify([])  # Return empty array on error
+
+@app.route('/api/agents/execute', methods=['POST'])
+def execute_agent():
+    """Execute an agent function"""
+    try:
+        data = request.json
+        agent_id = data.get('agent_id')
+        function_name = data.get('function')
+        context = data.get('context', {})
+        
+        # Import agents registry
+        from agents.lecture_agents import LECTURE_AGENTS
+        
+        # Find the agent
+        agent = LECTURE_AGENTS.get(agent_id)
+        if not agent:
+            return jsonify({
+                "success": False,
+                "error": f"Agent {agent_id} not found"
+            }), 404
+        
+        # Execute the function
+        if hasattr(agent, function_name):
+            result = getattr(agent, function_name)(context)
+            return jsonify({
+                "success": True,
+                "data": result
+            })
+        else:
+            return jsonify({
+                "success": False,
+                "error": f"Function {function_name} not found on agent {agent_id}"
+            }), 400
+            
+    except Exception as e:
+        print(f"Error executing agent: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+# Lecture Management Endpoints
+@app.route('/api/lectures/<track>', methods=['GET'])
+def get_user_lectures(track):
+    """Get lectures for a specific track"""
+    try:
+        # Load lectures from unified JSON file
+        lectures_data = load_lectures()
+        
+        # If lectures_data is a dict with track keys, get the track-specific lectures
+        if isinstance(lectures_data, dict):
+            track_lectures = lectures_data.get(track, [])
+        else:
+            # If lectures_data is a list, filter by track
+            track_lectures = [l for l in lectures_data if l.get('track') == track] if isinstance(lectures_data, list) else []
+            
+        return jsonify(track_lectures)
+        
+    except Exception as e:
+        logging.error(f"Error getting lectures for track {track}: {e}")
+        return jsonify([])
+
+@app.route('/api/lectures', methods=['POST'])
+@token_required
+def save_lecture():
+    """Save a new lecture"""
+    try:
+        data = request.json
+        track = data.get('track', 'cadet-1')
+        week = data.get('week')
+        professor = data.get('professor')
+        topic = data.get('topic')
+        content = data.get('content')
+        lecture_data = data.get('lecture_data', {})
+        
+        # Create lecture record
+        lecture = {
+            'id': f"{track}-week-{week}-{professor.lower().replace(' ', '-')}",
+            'track': track,
+            'week': week,
+            'professor': professor,
+            'topic': topic,
+            'content': content,
+            'lecture_data': lecture_data,
+            'created_at': data.get('timestamp', new_timestamp()),
+            'user_id': data.get('user_id', 'current_user')
+        }
+        
+        # Load existing lectures using unified approach
+        all_lectures = load_lectures()
+        
+        # Ensure we have a dictionary structure with track keys
+        if not isinstance(all_lectures, dict):
+            all_lectures = {}
+        
+        # Get lectures for this track
+        if track not in all_lectures:
+            all_lectures[track] = []
+        
+        track_lectures = all_lectures[track]
+        
+        # Add new lecture (avoid duplicates)
+        track_lectures = [l for l in track_lectures if l.get('id') != lecture['id']]
+        track_lectures.insert(0, lecture)  # Add to beginning
+        
+        # Keep only last 50 lectures per track
+        all_lectures[track] = track_lectures[:50]
+        
+        # Save back to unified file
+        save_lectures(all_lectures)
+            
+        print(f"✅ Lecture saved: {lecture['id']}")
+        return jsonify({
+            'success': True,
+            'lecture_id': lecture['id'],
+            'message': 'Lecture saved successfully'
+        })
+        
+    except Exception as e:
+        print(f"Error saving lecture: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/lectures/<lecture_id>/download', methods=['GET'])
+def download_lecture(lecture_id):
+    """Download lecture as PDF"""
+    try:
+        # Find the lecture across all track files
+        lecture = None
+        for track_file in os.listdir('.'):
+            if track_file.startswith('lectures_') and track_file.endswith('.json'):
+                try:
+                    with open(track_file, 'r', encoding='utf-8') as f:
+                        lectures = json.load(f)
+                        for lec in lectures:
+                            if lec.get('id') == lecture_id:
+                                lecture = lec
+                                break
+                        if lecture:
+                            break
+                except:
+                    continue
+        
+        if not lecture:
+            return jsonify({'error': 'Lecture not found'}), 404
+        
+        # Create simple HTML for PDF conversion
+        content_html = lecture['content'].replace('\\n', '<br>').replace('\n', '<br>')
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>{lecture['topic']}</title>
+            <style>
+                body {{ font-family: Arial, sans-serif; margin: 40px; }}
+                h1 {{ color: #0a84ff; }}
+                .metadata {{ background: #f5f5f5; padding: 20px; margin: 20px 0; }}
+                .content {{ line-height: 1.6; }}
+            </style>
+        </head>
+        <body>
+            <h1>{lecture['topic']}</h1>
+            <div class="metadata">
+                <p><strong>Professor:</strong> {lecture['professor']}</p>
+                <p><strong>Week:</strong> {lecture['week']}</p>
+                <p><strong>Track:</strong> {lecture['track']}</p>
+                <p><strong>Generated:</strong> {lecture['created_at']}</p>
+            </div>
+            <div class="content">
+                {content_html}
+            </div>
+        </body>
+        </html>
+        """
+        
+        # Save as temporary HTML file
+        temp_filename = f"lecture_{lecture_id}.html"
+        with open(temp_filename, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        return send_file(temp_filename, 
+                        as_attachment=True, 
+                        download_name=f"{lecture['professor']}_Week_{lecture['week']}.html",
+                        mimetype='text/html')
+        
+    except Exception as e:
+        print(f"Error downloading lecture: {e}")
+        return jsonify({'error': str(e)}), 500
+
+def new_timestamp():
+    """Generate a new timestamp"""
+    from datetime import datetime
+    return datetime.now().isoformat()
+
 if __name__ == '__main__':
-    with app.app_context():
-        os.makedirs(SAMPLE_DIR, exist_ok=True)
-        os.makedirs("static", exist_ok=True)
-        os.makedirs("static/uploads", exist_ok=True)
-        generate_pre_generated_music()
+    print("🚀 Starting Anthesis Flask Application...")
     app.run(host='0.0.0.0', port=5000, debug=True)
-    # app.run(host='127.0.0.1', port=5000, debug=True)

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "John Smith",
+    "company": "Tech Solutions Inc",
+    "email": "john.smith@techsolutions.com",
+    "phone": "+1-555-0123",
+    "position": "CTO",
+    "industry": "Technology",
+    "location": "San Francisco, CA"
+  },
+  {
+    "id": 2,
+    "name": "Sarah Johnson",
+    "company": "Global Marketing Corp",
+    "email": "sarah.johnson@globalmarketing.com",
+    "phone": "+1-555-0456",
+    "position": "Marketing Director",
+    "industry": "Marketing & Advertising", 
+    "location": "New York, NY"
+  },
+  {
+    "id": 3,
+    "name": "Michael Chen",
+    "company": "Innovation Labs",
+    "email": "michael.chen@innovationlabs.com",
+    "phone": "+1-555-0789",
+    "position": "VP Engineering",
+    "industry": "Software Development",
+    "location": "Austin, TX"
+  },
+  {
+    "id": 4,
+    "name": "Emily Rodriguez",
+    "company": "Healthcare Partners",
+    "email": "emily.rodriguez@healthcarepartners.com",
+    "phone": "+1-555-0321",
+    "position": "Operations Manager",
+    "industry": "Healthcare",
+    "location": "Chicago, IL"
+  },
+  {
+    "id": 5,
+    "name": "David Wilson",
+    "company": "Financial Advisors Group",
+    "email": "david.wilson@financialadvisors.com",
+    "phone": "+1-555-0654",
+    "position": "Senior Partner",
+    "industry": "Financial Services",
+    "location": "Boston, MA"
+  }
+]

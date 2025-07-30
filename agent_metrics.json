@@ -1,0 +1,39 @@
+{
+  "created_at": "2025-07-19T21:33:52.147561",
+  "agents": {
+    "dr-smith": {
+      "total_interactions": 0,
+      "successful_responses": 0,
+      "average_response_time": 0,
+      "last_interaction": null,
+      "specialization_score": 85
+    },
+    "prof-chen": {
+      "total_interactions": 0,
+      "successful_responses": 0,
+      "average_response_time": 0,
+      "last_interaction": null,
+      "specialization_score": 92
+    },
+    "dr-wilson": {
+      "total_interactions": 0,
+      "successful_responses": 0,
+      "average_response_time": 0,
+      "last_interaction": null,
+      "specialization_score": 88
+    },
+    "prof-taylor": {
+      "total_interactions": 0,
+      "successful_responses": 0,
+      "average_response_time": 0,
+      "last_interaction": null,
+      "specialization_score": 91
+    }
+  },
+  "system_metrics": {
+    "uptime_start": "2025-07-19T21:33:52.148562",
+    "total_system_interactions": 0,
+    "error_count": 0,
+    "last_error": null
+  }
+}

@@ -1,0 +1,5175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Anthesis CRM</title>
+  <!-- Fonts & CSS -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #2c3e50;
+      min-height: 100vh;
+    }
+    
+    body.modal-open {
+      overflow: hidden !important;
+    }
+    
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      z-index: 1000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    
+    header h1 {
+      color: #667eea;
+      font-weight: 700;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 2rem;
+      margin: 0;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+    
+    nav a {
+      color: #667eea;
+      margin: 0 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::before, nav a.active::before {
+      width: 100%;
+    }
+    
+    nav a:hover, nav a.active {
+      color: #764ba2;
+      text-decoration: none;
+    }
+    /* Tickers */
+    .ticker {
+      background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+      color: #667eea;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      margin: 1rem 0;
+      animation: slideIn 0.5s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    /* Layout */
+    #content-wrapper {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      animation: fadeIn 0.6s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Modern Cards */
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    
+    .card-header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 1.5rem;
+      border-bottom: none;
+      font-weight: 600;
+    }
+    
+    .card-body {
+      padding: 2rem;
+    }
+    
+    #content-wrapper {
+      display: flex;
+      height: calc(100vh - 2.5rem - 2.5rem);
+      position: relative;
+      z-index: 1;
+    }
+    
+    #main-panel {
+      flex: 1;
+      overflow: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      margin: 1rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      animation: slideInLeft 0.5s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+      from { transform: translateX(-30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    #profile-panel {
+      width: 300px;
+      min-width: 300px;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      margin: 1rem 1rem 1rem 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      animation: slideInRight 0.5s ease-out;
+    }
+    
+    @keyframes slideInRight {
+      from { transform: translateX(30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Contact List Styling */
+    #contact-list {
+      max-height: 70vh;
+      overflow-y: auto;
+      padding: 1rem 0;
+    }
+    
+    .contact-item {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .contact-item:hover::before {
+      left: 100%;
+    }
+    
+    .contact-item:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+      border-color: #667eea;
+    }
+    
+    .contact-item.selected {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .contact-item h4 {
+      margin: 0 0 0.5rem 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .contact-item p {
+      margin: 0.25rem 0;
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+    
+    .contact-item .contact-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .contact-item:hover .contact-actions {
+      opacity: 1;
+    }
+    
+    .contact-actions .btn {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.8rem;
+      border-radius: 20px;
+    }
+    
+    #content-wrapper.closed #profile-panel {
+      width: 0;
+      overflow: hidden;
+    }
+    #toggle-panel {
+      position: absolute;
+      top: 10px;
+      left: -15px;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 50%;
+      color: #0a84ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      box-shadow: 0 2px 8px #e3f2fd;
+    }
+    /* Table & forms */
+    .form-control,
+    .table {
+      background: #f7fafc;
+      color: #222 !important;
+    }
+    .table th,
+    .table td {
+      border-color: #e0e0e0;
+    }
+    .section-title {
+      color: #0a84ff;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    /* Chat bubbles */
+    .bubble {
+      max-width: 60%;
+      padding: .75rem 1rem;
+      margin: .5rem 0;
+      border-radius: 1rem;
+      white-space: pre-wrap;
+      font-size: 1rem;
+    }
+    .bubble.user {
+      background: #0a84ff;
+      color: #fff;
+      margin-left: auto;
+    }
+    .bubble.bot {
+      background: #f4fffd;
+      color: #0a84ff;
+      margin-right: auto;
+      border: 1px solid #e0e0e0;
+    }
+    /* Contact Fields */
+    .contact-info {
+      margin-top: 1rem;
+    }
+    .contact-field {
+      margin-bottom: 1rem;
+      color: #222;
+    }
+    .contact-field strong {
+      color: #ff4d4d;
+      margin-right: 0.5rem;
+    }
+    .contact-field span {
+      color: #0a84ff;
+    }
+    /* Iframe overlay */
+    #panel-container {
+      display: none;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      right: 0;
+      bottom: 2.5rem;
+      background: #fff;
+      z-index: 20;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px #e3f2fd;
+    }
+    #panel-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #ff4d4d;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 21;
+    }
+    #panel-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 0 0 16px 16px;
+    }
+    /* Footer */
+    footer {
+      height: 2.5rem;
+      background: #fff;
+      color: #0a84ff;
+      text-align: center;
+      line-height: 2.5rem;
+      border-top: 1px solid #e0e0e0;
+      font-weight: 500;
+    }
+    /* Auth */
+    #login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10,132,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+    .auth-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 2px 8px #e3f2fd;
+    }
+    .auth-toggle {
+      background: none;
+      border: none;
+      color: #0a84ff;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: .5rem;
+      font-weight: 600;
+    }
+    /* Buttons in profile */
+    .action-btn {
+      width: 100%;
+      margin-bottom: .5rem;
+    }
+    /* Modal overrides */
+    .modal-content.bg-dark,
+    .modal-content.text-light {
+      background: rgba(255,255,255,0.95) !important;
+      color: #2c3e50 !important;
+      border-radius: 20px;
+      border: none;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    .modal-content.bg-secondary {
+      background: rgba(255,255,255,0.95) !important;
+      color: #2c3e50 !important;
+      border-radius: 20px;
+      border: none;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    .modal-header {
+      border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white !important;
+      border-radius: 20px 20px 0 0;
+      padding: 1.5rem 2rem;
+    }
+    
+    .modal-body {
+      background: rgba(255,255,255,0.95);
+      color: #2c3e50 !important;
+      padding: 2rem;
+    }
+    
+    .modal-footer {
+      border-top: 1px solid rgba(102, 126, 234, 0.2);
+      background: rgba(255,255,255,0.95);
+      border-radius: 0 0 20px 20px;
+      padding: 1.5rem 2rem;
+    }
+    
+    /* Tab Styles for better clarity */
+    .nav-tabs {
+      border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+      margin-bottom: 1rem;
+    }
+    
+    .nav-tabs .nav-item {
+      margin-bottom: -2px;
+    }
+    
+    .nav-tabs .nav-link {
+      border: none;
+      border-radius: 20px 20px 0 0;
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      color: #667eea;
+      background: rgba(255,255,255,0.7);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-tabs .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-tabs .nav-link:hover::before {
+      width: 100%;
+    }
+    
+    .nav-tabs .nav-link.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white !important;
+      border-bottom: 3px solid transparent;
+    }
+    
+    .nav-tabs .nav-link.active::before {
+      width: 100%;
+    }
+    
+    .nav-tabs .nav-link:hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+    
+    .nav-tabs .nav-link.active:hover {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white !important;
+    }
+    
+    .tab-content {
+      background: rgba(255,255,255,0.9);
+      border-radius: 0 0 20px 20px;
+      padding: 2rem;
+      min-height: 300px;
+    }
+    
+    .tab-pane {
+      animation: fadeInUp 0.5s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .modal-header {
+      border-bottom: 1px solid #e0e0e0 !important;
+    }
+    .btn-close-white {
+      filter: invert(0);
+    }
+    .list-group-item.bg-dark.text-light {
+      background: #f7fafc !important;
+      color: #222 !important;
+    }
+    /* Modern Button Styles */
+    .btn {
+      border-radius: 25px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: none;
+      outline: none;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      color: white;
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #56ccf2, #2f80ed);
+      color: white;
+      box-shadow: 0 4px 15px rgba(86, 204, 242, 0.3);
+      border: none;
+    }
+    
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(86, 204, 242, 0.4);
+      color: white;
+    }
+    
+    .btn-info {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      border: none;
+    }
+    
+    .btn-info:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      color: white;
+    }
+    
+    .btn-warning {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: white;
+      box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+      border: none;
+    }
+    
+    .btn-warning:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(135deg, #a8a8a8, #6d6d6d);
+      color: white;
+      box-shadow: 0 4px 15px rgba(168, 168, 168, 0.3);
+      border: none;
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(168, 168, 168, 0.4);
+      color: white;
+    }
+    
+    .btn-outline-primary {
+      border: 2px solid #667eea;
+      color: #667eea;
+      background: transparent;
+    }
+    
+    .btn-outline-primary:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .btn-outline-info {
+      border: 2px solid #667eea;
+      color: #667eea;
+      background: transparent;
+    }
+    
+    .btn-outline-info:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+    
+    .btn-lg {
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+    }
+    .btn-outline-success { color: #00bfae; border-color: #00bfae; }
+    .btn-outline-success:hover { background: #00bfae; color: #fff; }
+
+    /* Logout button styling */
+    #logout-btn {
+      display: none; /* Hidden by default, shown via JavaScript */
+      background-color: #dc3545;
+      border-color: #dc3545;
+      color: white;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    #logout-btn:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+      color: white;
+    }
+    
+    /* Agent Modal Responsive Styles */
+    .modal-fullscreen-responsive {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      max-width: none;
+      max-height: none;
+    }
+    
+    .modal-fullscreen-responsive .modal-content {
+      height: 100vh;
+      border: none;
+      border-radius: 0;
+    }
+    
+    .modal-fullscreen-responsive .modal-body {
+      padding: 1rem;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+    }
+    
+    .modal-fullscreen-responsive .modal-header {
+      flex-shrink: 0;
+      padding: 1rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    /* Fix modal display and z-index issues */
+    #agentModal {
+      z-index: 1050 !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background-color: rgba(0,0,0,0.5) !important;
+    }
+    
+    #agentModal .modal-dialog {
+      z-index: 1051 !important;
+      position: relative !important;
+      margin: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      max-height: none !important;
+    }
+    
+    #agentModal.show {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    
+    #agentModal .modal-content {
+      background-color: #343a40 !important;
+      color: #fff !important;
+      width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+      border-radius: 0 !important;
+      position: relative !important;
+    }
+    
+    /* Force visibility for debugging */
+    #agentModal .modal-header {
+      background-color: #495057 !important;
+      color: #fff !important;
+      border-bottom: 1px solid #6c757d !important;
+    }
+    
+    #agentModal .modal-body {
+      background-color: #343a40 !important;
+      color: #fff !important;
+    }
+    
+    /* Mobile specific adjustments */
+    @media (max-width: 768px) {
+      .modal-fullscreen-responsive .modal-body {
+        padding: 0.75rem;
+        max-height: calc(100vh - 100px);
+      }
+      
+      .modal-fullscreen-responsive .modal-header {
+        padding: 0.75rem;
+      }
+      
+      .modal-fullscreen-responsive .modal-header h5 {
+        font-size: 1.1rem;
+      }
+      
+      .tab-content {
+        padding: 0.5rem 0;
+      }
+      
+      .nav-tabs .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+      }
+      
+      .form-control {
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+      
+      .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .list-group-item {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+      }
+      
+      .list-group-item p {
+        font-size: 0.8rem;
+      }
+      
+      .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+      }
+    }
+    
+    /* Tablet adjustments */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .modal-fullscreen-responsive .modal-body {
+        padding: 1rem;
+        max-height: calc(100vh - 110px);
+      }
+      
+      .tab-content {
+        padding: 1rem 0;
+      }
+    }
+
+    .modal.show {
+      z-index: 1099 !important;
+    }
+
+    /* Hide all modal backdrops */
+    .modal-backdrop { 
+      display: none !important; 
+    }
+    
+    /* Email modal specific z-index tweaks */
+    #emailDeliveryModal.modal.show {
+      z-index: 1099 !important;
+    }
+    
+    /* Workflow Log Styles */
+    .workflow-conversation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .workflow-message {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      background: #343a40;
+      border-left: 4px solid;
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    .workflow-message.coordinator {
+      border-left-color: #0a84ff;
+    }
+    
+    .workflow-message.document-analysis {
+      border-left-color: #ff4d4d;
+    }
+    
+    .workflow-message.content-generation {
+      border-left-color: #00bfae;
+    }
+    
+    .agent-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+      flex-shrink: 0;
+    }
+    
+    .workflow-message-content {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .agent-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .workflow-message-text {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #e9ecef;
+    }
+    
+    .workflow-timestamp {
+      font-size: 0.75rem;
+      color: #adb5bd;
+      margin-top: 0.25rem;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .workflow-message {
+      animation: fadeInUp 0.4s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .workflow-header {
+      animation: fadeInUp 0.3s ease-out;
+    }
+    
+    .workflow-completion {
+      animation: fadeInUp 0.5s ease-out;
+    }
+    
+    .workflow-step-indicator {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-left: 0.5rem;
+    }
+    
+    .step-initialization {
+      background: #0a84ff;
+      color: white;
+    }
+    
+    .step-document-analysis {
+      background: #ff4d4d;
+      color: white;
+    }
+    
+    .step-content-generation {
+      background: #00bfae;
+      color: white;
+    }
+    
+    .step-handoff {
+      background: #ffe066;
+      color: #333;
+    }
+    
+    .step-completion {
+      background: #28a745;
+      color: white;
+    }
+    
+    .step-error {
+      background: #dc3545;
+      color: white;
+    }
+    
+    /* Draft info styles */
+    .workflow-draft-info {
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #2c3e50;
+      border-left: 4px solid #3498db;
+    }
+    
+    .workflow-draft-info h6 {
+      color: #ecf0f1;
+      margin-bottom: 0.5rem;
+    }
+    
+    .workflow-draft-info p {
+      color: #bdc3c7;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+    
+    .workflow-draft-info strong {
+      color: #ecf0f1;
+    }
+    
+    /* Draft actions styling */
+    .draft-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    
+    .draft-actions .btn {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+    }
+
+    /* New Email Delivery Section */
+    #emailDeliverySection {
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+    
+    #emailDeliverySection h3 {
+      color: #0a84ff;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    #emailDeliverySection .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    #emailDeliverySection label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    #emailDeliverySection input,
+    #emailDeliverySection textarea {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      width: 100%;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    #emailDeliverySection button {
+      background: #0a84ff;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    #emailDeliverySection button:hover {
+      background: #007acc;
+    }
+
+    /* Email Delivery Modal Specific Styles */
+    #emailDeliveryModal {
+      z-index: 1060 !important;
+    }
+    
+    #emailDeliveryModal .modal-dialog {
+      max-width: 600px;
+    }
+    
+    #emailDeliveryModal .modal-content {
+      background: #fff !important;
+      color: #222 !important;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+    }
+    
+    #emailDeliveryModal .modal-header {
+      background: #f8f9fa;
+      border-bottom: 1px solid #e0e0e0;
+      border-radius: 12px 12px 0 0;
+    }
+    
+    #emailDeliveryModal .modal-title {
+      color: #0a84ff;
+      font-weight: 700;
+    }
+    
+    #emailDeliveryModal .modal-body {
+      padding: 2rem;
+    }
+    
+    #emailDeliveryModal .form-group label {
+      color: #222;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    #emailDeliveryModal .form-control {
+      background: #fff;
+      color: #222;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+    }
+    
+    #emailDeliveryModal .form-control:focus {
+      border-color: #0a84ff;
+      box-shadow: 0 0 0 0.2rem rgba(10, 132, 255, 0.25);
+    }
+    
+    #emailDeliveryModal .btn-primary {
+      background: #0a84ff;
+      border-color: #0a84ff;
+    }
+    
+    #emailDeliveryModal .btn-primary:hover {
+      background: #007acc;
+      border-color: #007acc;
+    }
+    
+    /* Spinner overlay */
+    .overlay-spinner {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    /* Pulsating chat portraition */
+    .btn-outline-info.active {
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0,123,255,0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(0,123,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,123,255,0); }
+    }
+    /* Contact row styling */
+    .contact-row {
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    
+    .contact-row:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .contact-row.selected {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .contact-name {
+      font-weight: 600;
+      color: #667eea;
+    }
+    
+    .contact-row.selected .contact-name {
+      color: white;
+    }
+    
+    .contact-email {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .contact-row.selected .contact-email {
+      color: rgba(255,255,255,0.9);
+    }
+    
+    .contact-actions {
+      display: flex;
+      gap: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .contact-row:hover .contact-actions {
+      opacity: 1;
+    }
+    
+    .contact-row.selected .contact-actions {
+      opacity: 1;
+    }
+    
+    .contact-actions .btn {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+      margin: 1px;
+    }
+    
+    /* Custom purple outline button */
+    .btn-outline-purple {
+      color: #6f42c1;
+      border-color: #6f42c1;
+      background-color: transparent;
+    }
+    
+    .btn-outline-purple:hover,
+    .btn-outline-purple:focus {
+      color: #fff;
+      background-color: #6f42c1;
+      border-color: #6f42c1;
+    }
+    
+    /* Action buttons hover effects */
+    .contact-actions .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* Responsive button sizing */
+    @media (max-width: 768px) {
+      .contact-actions .btn {
+        font-size: 10px;
+        padding: 1px 4px;
+      }
+      
+      .contact-actions {
+        gap: 0.25rem;
+      }
+    }
+    
+    /* Contact detail card */
+    .contact-detail-card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      animation: slideInFromRight 0.5s ease-out;
+    }
+    
+    @keyframes slideInFromRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .contact-avatar {
+      font-size: 4rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-detail-card h3 {
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+    
+    .contact-detail-card .contact-email {
+      color: #667eea;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    .contact-detail-card .contact-agency {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-info {
+      text-align: left;
+      margin: 1.5rem 0;
+    }
+    
+    .info-item {
+      margin-bottom: 1rem;
+    }
+    
+    .info-item label {
+      font-weight: 600;
+      color: #2c3e50;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    
+    .info-item span {
+      color: #666;
+    }
+    
+    .contact-quick-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    
+    .contact-quick-actions .btn {
+      width: 100%;
+      text-align: left;
+    }
+    
+    .contact-analytics {
+      text-align: left;
+      margin-top: 2rem;
+    }
+    
+    .contact-analytics h4 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+    
+    .activity-timeline {
+      border-left: 2px solid #667eea;
+      padding-left: 1rem;
+    }
+    
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      color: #666;
+    }
+    
+    .activity-item i {
+      color: #667eea;
+    }
+    
+    #profile-panel.show-details {
+      animation: expandPanel 0.5s ease-out;
+    }
+    
+    @keyframes expandPanel {
+      from {
+        width: 0;
+        opacity: 0;
+      }
+      to {
+        width: 300px;
+        opacity: 1;
+      }
+    }
+    
+    /* Table styling */
+    .table {
+      background: rgba(255,255,255,0.9);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    .table thead th {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .table tbody tr {
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .table tbody tr:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: scale(1.02);
+    }
+    
+    .table tbody td {
+      padding: 1rem;
+      border-top: 1px solid rgba(102, 126, 234, 0.1);
+      vertical-align: middle;
+    }
+    
+    /* Scrolling animations */
+    .scroll-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+    
+    .scroll-fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Loading animations */
+    .loading-pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    
+    /* Interactive elements */
+    .interactive-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .interactive-card:hover {
+      transform: translateY(-10px) rotateY(5deg);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+    
+    #agentChatMessages p, #agentChatMessages .agent-message {
+      color: #efefef;
+    }
+    
+    /* Document section editing styles */
+    .document-section {
+      border: 1px solid transparent;
+      border-radius: 4px;
+      padding: 8px;
+      margin: 4px 0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .document-section:hover {
+      border-color: #007bff;
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+    
+    .document-section.editing {
+      border-color: #28a745;
+      background-color: rgba(40, 167, 69, 0.1);
+    }
+    
+    .document-section.selected {
+      border-color: #ffc107;
+      background-color: rgba(255, 193, 7, 0.1);
+    }
+    
+    .section-actions {
+      position: absolute;
+      top: -8px;
+      right: 8px;
+      display: none;
+      gap: 4px;
+    }
+    
+    .document-section:hover .section-actions {
+      display: flex;
+    }
+    
+    .section-btn {
+      padding: 2px 6px;
+      font-size: 10px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+    
+    .section-btn:hover {
+      opacity: 1;
+    }
+    
+    .section-btn.regenerate {
+      background-color: #17a2b8;
+      color: white;
+    }
+    
+    .section-btn.edit {
+      background-color: #28a745;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header/Nav -->
+  <header>
+    <div class="header-container">
+      <h1>Anthesis CRM</h1>
+      <nav>
+        <a href="/index.html" onclick="window.location=this.href;return false;">Home</a>
+        <a href="/school.html" onclick="window.location=this.href;return false;">Training</a>
+        <a href="/Crm.html" onclick="window.location=this.href;return false;">CRM</a>
+        <a href="/privacy.html" onclick="window.location=this.href;return false;">Privacy Policy</a>
+        <button id="logout-btn" class="btn btn-outline-danger btn-sm" style="margin-left:1rem;">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- LOGIN / REGISTER -->
+  <div id="login-container">
+    <div class="auth-box" id="login-box">
+      <h2>Login</h2>
+      <input id="login-username" class="form-control mb-3" placeholder="Username"/>
+      <input id="login-password" type="password" class="form-control mb-3" placeholder="Password"/>
+      <button id="login-btn" class="btn btn-primary w-100 mb-2">Login</button>
+      <p id="login-error" class="text-danger"></p>
+      <button class="auth-toggle" onclick="showRegister()">Don’t have an account? Register</button>
+    </div>
+    <div class="auth-box" id="register-box" style="display:none;">
+      <h2>Register</h2>
+      <input id="reg-username" class="form-control mb-3" placeholder="Username"/>
+      <!-- NEW: Email field -->
+      <input id="reg-email"    type="email" class="form-control mb-3" placeholder="Email"/>
+      <input id="reg-password" type="password" class="form-control mb-3" placeholder="Password"/>
+      <input id="reg-confirm"  type="password" class="form-control mb-3" placeholder="Confirm Password"/>
+      <button id="register-btn" class="btn btn-success w-100 mb-2">Register</button>
+      <p id="register-error" class="text-danger"></p>
+      <button class="auth-toggle" onclick="showLogin()">Already have an account? Login</button>
+    </div>
+  </div>
+
+
+  <!-- MAIN CONTENT -->
+  <div id="main-content" style="display:none;">
+
+    <div id="content-wrapper">
+      <!-- Main Panel -->
+      <div id="main-panel">
+        <h3 class="section-title">CRM Contacts</h3>
+        <table id="contactsTable" class="table table-bordered mb-4">
+          <thead>
+            <tr>
+              <th>Name</th><th>Email</th><th>Agency</th><th>Focus</th><th>Why Hot</th>
+              <th>Score</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div>
+          <h5 class="section-title">Discuss Data</h5>
+          <div class="input-group mb-2">
+            <input id="crmUserInput" class="form-control" placeholder="Ask about these contacts…"/>
+            <div class="input-group-append">
+              <button id="crmSendBtn" class="btn btn-primary">
+                <span id="crmSendText">Send</span>
+                <span id="crmSpinner" class="spinner-border spinner-border-sm text-light" style="display:none;"></span>
+              </button>
+            </div>
+          </div>
+          <div id="crmMessages" style="max-height:200px; overflow:auto;"></div>
+        </div>
+        <div class="mb-4">
+          <h5>Upload Contacts (.csv)</h5>
+          <input type="file" id="fileUpload" class="form-control"/>
+          <small class="text-muted">Format: Name,Email,Agency,Focus,Why Hot</small>
+        </div>
+      </div>
+
+      <!-- Profile Panel -->
+      <div id="profile-panel">
+        <button id="toggle-panel">
+          <i id="toggle-icon" class="fa fa-chevron-left"></i>
+        </button>
+        <button id="profile-close" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #ff4d4d; font-size: 1.5rem; cursor: pointer; z-index: 10;">&times;</button>
+        <div class="section-title">Profile</div>
+        <div class="contact-info">
+          <div class="contact-field">
+            <strong>Name:</strong>
+            <span id="p-name">Loading...</span>
+          </div>
+          <div class="contact-field">
+            <strong>Email:</strong>
+            <span id="p-email">Loading...</span>
+          </div>
+          <div class="contact-field">
+            <strong>Agency:</strong>
+            <span id="p-agency">Loading...</span>
+          </div>
+          <div class="contact-field">
+            <strong>Focus:</strong>
+            <span id="p-focus">Loading...</span>
+          </div>
+          <div class="contact-field">
+            <strong>Why Hot:</strong>
+            <span id="p-why">Loading...</span>
+          </div>
+          <div class="contact-field">
+            <strong>Bio:</strong>
+            <span id="p-bio">Loading...</span>
+          </div>
+        </div>
+        <div><strong>Analytics:</strong><ul id="p-analytics-list"></ul></div>
+        <button id="btn-enrich"    class="btn btn-sm btn-info action-btn">Enrich Contact</button>
+        <button id="btn-meeting"   class="btn btn-sm btn-primary action-btn">Schedule Meeting</button>
+        <button id="btn-analytics" class="btn btn-sm btn-warning action-btn">Generate Analytics</button>
+        <!--New Anthesis-->
+        <button id="btn-agent" class="btn btn-sm btn-outline-info action-btn">Anthesis Agent</button>
+        <!-- Debug button -->
+        <button id="btn-debug-modal" class="btn btn-sm btn-outline-danger action-btn">Debug Modal</button>
+      </div>
+     
+    </div>
+
+    <!-- Iframe Overlay -->
+    <div id="panel-container">
+      <button id="panel-close">&times;</button>
+      <iframe id="panel-iframe" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups allow-forms allow-pointer-lock allow-top-navigation-by-user-activation" aria-hidden="false"></iframe>
+    </div>
+
+
+    <!-- Email Templates Modal -->
+<div class="modal fade" id="templatesModal" tabindex="-1" aria-labelledby="templatesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title" id="templatesModalLabel">Email Templates</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between mb-3">
+          <button id="btn-new-template" class="btn btn-primary btn-sm">New Template</button>
+          <button id="btn-use-template" class="btn btn-success btn-sm">Use Template</button>
+        </div>
+        <ul id="templates-list" class="list-group mb-3"></ul>
+        <div id="template-form" style="display: none;">
+          <input id="template-name" class="form-control mb-2" placeholder="Template Name" />
+          <input id="template-subject" class="form-control mb-2" placeholder="Subject" />
+          <textarea id="template-body" class="form-control mb-3" rows="5" placeholder="Template Body..."></textarea>
+          <button id="template-save" class="btn btn-primary w-100">Save Template</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Analytics Modal -->
+<div class="modal fade" id="analyticsModal" tabindex="-1" aria-labelledby="analyticsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title" id="analyticsModalLabel">Contact Analytics</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="analytics-content" class="p-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Draft Email Modal -->
+<div class="modal fade" id="draftModal" tabindex="-1" role="dialog" aria-labelledby="draftModalLabel" aria-modal="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title" id="draftModalLabel">Email Drafts</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul id="drafts-list" class="mb-3 ps-3"></ul>
+        <div class="d-flex justify-content-between mb-3">
+          <input id="draft-subject" class="form-control" placeholder="Subject" />
+          <button id="btn-use-template" class="btn btn-primary btn-sm">Use Template</button>
+        </div>
+        <textarea id="draft-body" class="form-control mb-3" rows="5" placeholder="Email body..."></textarea>
+        <button id="draft-save" class="btn btn-success w-100">Save Draft</button>
+      </div>
+    </div>
+  </div>
+
+    <!-- NEW: Agent Modal -->
+<div class="modal fade" id="agentModal" tabindex="-1" role="dialog" aria-labelledby="agentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" style="max-width: 95vw; height: 90vh;">
+    <div class="modal-content bg-dark text-light" style="height: 100%;">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title" id="agentModalLabel">Anthesis Agent</h5>
+        <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark text-light" style="height: calc(100% - 120px); overflow-y: auto;">
+        <!-- Tabs for Email Drafts, RFP Responses, and Workflow Logs -->
+        <ul class="nav nav-tabs mb-3" id="agentTabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active text-light" id="email-tab" data-toggle="tab" href="#email-drafts" role="tab" aria-controls="email-drafts" aria-selected="true">Email Drafts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" id="rfp-tab" data-toggle="tab" href="#rfp-responses" role="tab" aria-controls="rfp-responses" aria-selected="false">RFP Responses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" id="workflow-tab" data-toggle="tab" href="#workflow-logs" role="tab" aria-controls="workflow-logs" aria-selected="false">Workflow Logs</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <!-- Email Drafts Tab -->
+          <div class="tab-pane fade show active" id="email-drafts" role="tabpanel" aria-labelledby="email-tab">
+            <div class="row">
+              <div class="col-lg-6 col-12 mb-3">
+                <h6 class="text-light">Generate Email Draft</h6>
+                <div class="mb-3">
+                  <input id="email-draft-subject" class="form-control bg-secondary text-light border-secondary mb-2" placeholder="Subject" />
+                  <textarea id="email-draft-body" class="form-control bg-secondary text-light border-secondary mb-2" rows="3" placeholder="Custom message (optional)"></textarea>
+                  <button id="generate-email-draft" class="btn btn-primary w-100">Generate Email Draft</button>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <h6 class="text-light">Saved Email Drafts</h6>
+                <div style="max-height: 60vh; overflow-y: auto;">
+                  <ul id="email-drafts-list" class="list-group"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- RFP Responses Tab -->
+          <div class="tab-pane fade" id="rfp-responses" role="tabpanel" aria-labelledby="rfp-tab">
+            <div class="row">
+              <div class="col-lg-6 col-12 mb-3">
+                <h6 class="text-light">Upload RFP & Generate Response</h6>
+                <div class="mb-3">
+                  <input type="file" id="agent-rfp-file-input" accept=".pdf,.docx,.doc,.pptx,.txt,.rtf,.odt,.html,.htm,.md,.markdown" class="form-control-file bg-secondary text-light border-secondary mb-2" />
+                  <div id="agent-rfp-upload-status" class="mb-2 text-light"></div>
+                  <button id="agent-rfp-upload-btn" class="btn btn-primary w-100">Upload & Generate RFP Response</button>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <h6 class="text-light">Saved RFP Responses</h6>
+                <div style="max-height: 60vh; overflow-y: auto;">
+                  <ul id="rfp-responses-list" class="list-group"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Workflow Logs Tab -->
+          <div class="tab-pane fade" id="workflow-logs" role="tabpanel" aria-labelledby="workflow-tab">
+            <div class="row">
+              <div class="col-12">
+                <h6 class="text-light">Agent Workflow Conversations</h6>
+                <div id="workflow-log-container" style="max-height: 70vh; overflow-y: auto; background: #212529; border-radius: 8px; padding: 1rem;">
+                  <div id="workflow-conversations" class="workflow-conversation-list">
+                    <p class="text-muted">No workflow logs available. Generate content to see agent interactions.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Delivery Modal -->
+  <div class="modal fade" id="emailDeliveryModal" tabindex="-1" aria-labelledby="emailDeliveryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title" id="emailDeliveryModalLabel">Send Email</h5>
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="emailDeliveryForm">
+            <div class="form-group mb-3">
+              <label for="emailTo" class="form-label">Recipient Email</label>
+              <input type="email" id="emailTo" name="emailTo" class="form-control bg-secondary text-light border-secondary" required readonly />
+            </div>
+            <div class="form-group mb-3">
+              <label for="emailSubject" class="form-label">Subject</label>
+              <input type="text" id="emailSubject" name="emailSubject" class="form-control bg-secondary text-light border-secondary" required />
+            </div>
+            <div class="form-group mb-3">
+              <label for="emailContent" class="form-label">Content</label>
+              <textarea id="emailContent" name="emailContent" class="form-control bg-secondary text-light border-secondary" rows="8" required></textarea>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">
+                <span id="emailSendText">Send Email</span>
+                <span id="emailSpinner" class="spinner-border spinner-border-sm" style="display:none;"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RFP Response Viewer Modal -->
+  <!-- Enhanced RFP Response Modal with Document Editing and Live Chat -->
+  <div class="modal fade" id="rfpResponseModal" tabindex="-1" aria-labelledby="rfpResponseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="max-width: 98vw; height: 95vh;">
+      <div class="modal-content bg-secondary text-light" style="height: 100%; display: flex; flex-direction: column;">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title" id="rfpResponseModalLabel">RFP Response Details</h5>
+          <div class="d-flex align-items-center">
+            <button type="button" class="btn btn-sm btn-outline-success mr-2" onclick="downloadCurrentRfpResponse('pdf')">
+              <i class="fas fa-file-pdf"></i> PDF
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-info mr-2" onclick="downloadCurrentRfpResponse('docx')">
+              <i class="fas fa-file-word"></i> Word
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary mr-3" onclick="downloadCurrentRfpResponse('txt')">
+              <i class="fas fa-file-alt"></i> Text
+            </button>
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-body d-flex" style="flex: 1; overflow: hidden;">
+          <!-- Left Pane: RFP Content with Sections -->
+          <div class="flex-fill p-3" id="rfpContentPane" style="border-right: 1px solid #555; position: relative; overflow-y: auto;">
+            <div class="overlay-spinner" id="rfpSpinner" aria-hidden="true" style="display:none;">
+              <div class="spinner-border text-light" role="status"></div>
+            </div>
+            <div id="rfpResponseContent" style="line-height: 1.6;">
+              <!-- RFP content with editable sections loaded here -->
+            </div>
+          </div>
+          
+          <!-- Right Pane: Document Info and Live Chat -->
+          <div class="d-flex flex-column" style="width: 350px; min-width: 350px;">
+            <!-- Document Information Panel -->
+            <div class="card bg-dark mb-3" style="border: 1px solid #555;">
+              <div class="card-header py-2">
+                <h6 class="mb-0 text-info">Document Information</h6>
+              </div>
+              <div class="card-body py-2">
+                <div class="row">
+                  <div class="col-12">
+                    <small><strong>Subject:</strong> <span id="rfpResponseSubject" class="text-muted">-</span></small>
+                  </div>
+                  <div class="col-6">
+                    <small><strong>Created:</strong> <span id="rfpResponseCreated" class="text-muted">-</span></small>
+                  </div>
+                  <div class="col-6">
+                    <small><strong>Updated:</strong> <span id="rfpResponseUpdated" class="text-muted">-</span></small>
+                  </div>
+                  <div class="col-6">
+                    <small><strong>Words:</strong> <span id="rfpResponseWordCount" class="text-muted">-</span></small>
+                  </div>
+                  <div class="col-6">
+                    <small><strong>Chars:</strong> <span id="rfpResponseCharCount" class="text-muted">-</span></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Live Chat Panel -->
+            <div class="card bg-dark flex-fill d-flex flex-column" style="border: 1px solid #555;">
+              <div class="card-header py-2">
+                <h6 class="mb-0 text-info">Agent Chat</h6>
+              </div>
+              <div class="card-body d-flex flex-column p-2" style="overflow: hidden;">
+                <!-- Persona Selector -->
+                <div class="btn-group mb-2" role="tablist" aria-label="Select agent persona">
+                  <button class="btn btn-sm btn-outline-info active" id="persona-default" data-persona="default" aria-selected="true" role="tab">Coordinator</button>
+                  <button class="btn btn-sm btn-outline-info" id="persona-doc" data-persona="document-analysis" aria-selected="false" role="tab">Doc Analyst</button>
+                  <button class="btn btn-sm btn-outline-info" id="persona-content" data-persona="content-generation" aria-selected="false" role="tab">Content Gen</button>
+                </div>
+                
+                <!-- Chat History -->
+                <div id="agentChatMessages" class="flex-fill p-2 mb-2" style="background: #2c3e50; overflow-y: auto; border-radius: 8px; min-height: 200px;" aria-live="polite">
+                  <p class="text-muted text-center small">Select an agent and start chatting to refine the RFP.</p>
+                </div>
+                
+                <!-- Chat Input -->
+                <div class="input-group input-group-sm">
+                  <input type="text" id="agentChatInput" class="form-control bg-dark text-light" placeholder="Type your message..." aria-label="Chat message input"/>
+                  <div class="input-group-append">
+                    <button id="agentChatSendBtn" class="btn btn-info" type="button" aria-label="Send message">
+                      <i class="fas fa-paper-plane"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary py-2">
+          <small class="text-muted mr-auto">Click on document sections to edit them with agents</small>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Draft Editing Modal -->
+  <div class="modal fade" id="emailDraftModal" tabindex="-1" aria-labelledby="emailDraftModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="max-width: 95vw; height: 90vh;">
+      <div class="modal-content bg-secondary text-light" style="height: 100%; display: flex; flex-direction: column;">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title" id="emailDraftModalLabel">Edit Email Draft</h5>
+          <div class="d-flex align-items-center">
+            <button type="button" class="btn btn-sm btn-outline-success mr-2" onclick="saveEmailDraft()">
+              <i class="fas fa-save"></i> Save Draft
+            </button>
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-body" style="flex: 1; overflow: hidden;">
+          <!-- Email Draft Content with Sections -->
+          <div class="p-3" id="emailDraftContentPane" style="height: 100%; overflow-y: auto;">
+            <div id="emailDraftContent" style="line-height: 1.6;">
+              <!-- Email draft content with editable sections loaded here -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary py-2">
+          <small class="text-muted mr-auto">Click on email sections to edit them with AI assistance</small>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Email Delivery Section (replaced by modal) -->
+  <div id="emailDeliverySection" style="display: none;">
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.4.1/papaparse.min.js"></script>
+
+<script>
+// Base URL for all API calls
+const API_BASE_URL = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1') || window.location.origin.includes('file:') 
+  ? 'http://localhost:5000' 
+  : 'https://api.alambda.com';
+
+  // Document ready handler
+  $(document).ready(function() {
+    console.log('Document ready, initializing modal...');
+    
+    // Ensure modal exists and is accessible
+    if ($('#agentModal').length === 0) {
+      console.error('Agent modal not found in DOM');
+    } else {
+      console.log('Agent modal found, setting up event handlers...');
+      
+      // Test modal functionality
+      $('#agentModal').on('show.bs.modal', function (e) {
+        console.log('Modal is about to show');
+      });
+      
+      $('#agentModal').on('shown.bs.modal', function (e) {
+        console.log('Modal has been shown');
+      });
+      
+      $('#agentModal').on('hide.bs.modal', function (e) {
+        console.log('Modal is about to hide');
+      });
+      
+      $('#agentModal').on('hidden.bs.modal', function (e) {
+        console.log('Modal has been hidden');
+      });
+    }
+    
+    // Initialize tab switching
+    $('#agentTabs a').on('click', function (e) {
+      e.preventDefault();
+      console.log('Tab clicked:', $(this).attr('href'));
+      
+      // Remove active class from all tabs and content
+      $('#agentTabs .nav-link').removeClass('active');
+      $('.tab-pane').removeClass('show active');
+      
+      // Add active class to clicked tab
+      $(this).addClass('active');
+      
+      // Show corresponding content
+      const targetPane = $(this).attr('href');
+      $(targetPane).addClass('show active');
+    });
+  });
+
+  // Globals
+  let contacts = [];
+  let currentIdx = null;
+
+  // Server health check
+  fetch(`${API_BASE_URL}/health`)
+    .then(res => res.json())
+    .then(data => console.log('Server Health:', data.status));
+
+  // Footer year
+  $('#year').text(new Date().getFullYear());
+
+  // Auth toggles
+  function showRegister() { $('#login-box').hide(); $('#register-box').show(); }
+  function showLogin()    { $('#register-box').hide(); $('#login-box').show(); }
+
+  // Initialize templates
+  async function loadTemplates() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/email-templates`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      const templates = await response.json();
+      $('#templates-list').empty();
+      templates.forEach(template => {
+        $(`<li class="list-group-item bg-dark text-light">
+          <div class="d-flex justify-content-between align-items-center">
+            <span>${template.name}</span>
+            <small class="text-muted">${new Date(template.created_at).toLocaleDateString()}</small>
+          </div>
+        </li>`).appendTo('#templates-list');
+      });
+    } catch (error) {
+      console.error('Error loading templates:', error);
+    }
+  }
+
+  // Register
+  $('#register-btn').click(async () => {
+    const u = $('#reg-username').val().trim();
+    const e = $('#reg-email').val().trim();
+    const p = $('#reg-password').val();
+    const c = $('#reg-confirm').val();
+    const err = $('#register-error').text('');
+
+    if (!u || !e || !p) return err.text('Username, email, and password are required.');
+    if (p !== c) return err.text('Passwords must match.');
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        body: JSON.stringify({ username: u, email: e, password: p })
+      });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Registration failed');
+        const token = data.token;
+        if (token) {
+          localStorage.setItem('token', token);
+          // Validate token immediately
+          const validateRes = await fetch(`${API_BASE_URL}/health`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (validateRes.ok) {
+            $('#login-container').hide();
+            $('#main-content').show();
+            $('#logout-btn').show();
+            initCRM();
+          } else {
+            throw new Error('Token validation failed');
+          }
+        } else {
+          throw new Error('No token received');
+        }
+    } catch (error) {
+      console.error('Registration error:', error);
+      err.text(error.message);
+    }
+  });
+
+  // Login
+  $('#login-btn').click(async () => {
+    const u = $('#login-username').val().trim();
+    const p = $('#login-password').val();
+    const err = $('#login-error').text('');
+
+    if (!u || !p) return err.text('Required.');
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: u, password: p })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Login failed');
+      localStorage.setItem('token', data.token);
+      $('#login-container').hide();
+      $('#main-content').show();
+      $('#logout-btn').show();
+      initCRM();
+    } catch (error) {
+      console.error('Login error:', error);
+      err.text(error.message);
+    }
+  });
+
+  // Auto-login with token validation
+  $(async function () {
+    // Initially hide logout button
+    $('#logout-btn').hide();
+    
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Validate the token before proceeding
+      const isValid = await validateToken();
+      if (isValid) {
+        $('#login-container').hide();
+        $('#main-content').show();
+        $('#logout-btn').show();
+        initCRM();
+      } else {
+        // Token is invalid, show login
+        performLogout();
+      }
+    } else {
+      // No token, ensure logout button is hidden
+      $('#logout-btn').hide();
+    }
+  });
+
+  // Chat LLM call
+  async function fetchPredict(prompt) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/predict`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Prediction failed');
+      console.log('Predict response:', data); // Debug log
+      return data.answer || data.response || data.result || data.message || data.text || '';
+    } catch (error) {
+      console.error('Prediction error:', error);
+      throw error;
+    }
+  }
+
+  // Ticker updates
+  function updateCrypto() { $('#crypto-ticker').text('BTC $62k • ETH $3.1k'); }
+  function updateStock()  { $('#stock-ticker').text('AAPL $170 • MSFT $400'); }
+  setInterval(updateCrypto, 15000); updateCrypto();
+  setInterval(updateStock, 30000); updateStock();
+
+  // Panel overlay toggle
+  function openPanel(url) {
+    const iframe = $('#panel-iframe');
+    iframe.attr('src', ''); // Clear previous content
+    iframe.attr('src', url); // Set new URL
+    $('#panel-container').fadeIn(200);
+
+    // Handle iframe load errors
+    iframe.on('error', () => {
+      console.error('Error loading iframe content');
+      $('#panel-container').fadeOut(200);
+    });
+  }
+  $('#panel-close').click(() => {
+    $('#panel-container').fadeOut(200, () => $('#panel-iframe').attr('src', ''));
+  });
+
+    // Token validation function
+  async function validateToken() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/health`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      if (response.status === 401) {
+        console.warn('Token is invalid or expired');
+        localStorage.removeItem('token');
+        return false;
+      }
+      
+      return response.ok;
+    } catch (error) {
+      console.error('Token validation failed:', error);
+      return false;
+    }
+  }
+
+  // Enhanced logout function with better cleanup
+  function performLogout() {
+    localStorage.removeItem('token');
+    $('#logout-btn').hide();
+    $('#login-container').show();
+    $('#main-content').hide();
+    
+    // Clear any cached data
+    $('#login-username').val('');
+    $('#login-password').val('');
+    $('#login-error').text('');
+    $('#register-error').text('');
+    
+    // Clear profile panel
+    $('#profile-panel').hide();
+    currentIdx = null;
+    
+    console.log('Logged out successfully');
+  }
+
+  // Authentication wrapper for API calls
+  async function authenticatedFetch(url, options = {}) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No authentication token available');
+    }
+
+    const defaultOptions = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        ...options.headers
+      }
+    };
+
+    const response = await fetch(url, { ...options, headers: defaultOptions.headers });
+    
+    if (response.status === 401) {
+      console.warn('Authentication failed, logging out...');
+      performLogout();
+      throw new Error('Authentication failed. Please log in again.');
+    }
+    
+    return response;
+  }
+
+  // Main CRM init
+    function initCRM() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        $('#login-container').show();
+        $('#main-content').hide();
+        $('#logout-btn').hide();
+        return;
+      }
+      
+      // Show logout button when logged in
+      $('#logout-btn').show();
+
+      // Initialize agent system
+      initializeAgents().then(result => {
+        if (result && result.success) {
+          console.log('Agents initialized successfully');
+        } else {
+          console.warn('Agent initialization failed, but continuing...');
+        }
+      });
+
+      // Fetch user profile
+      fetch(`${API_BASE_URL}/profile`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(profile => {
+        if (profile.error) {
+          console.error('Profile error:', profile.error);
+          return;
+        }
+        
+        $('#p-bio').text(profile.bio || 'No bio available');
+        $('#p-name').text(profile.name || 'Anonymous');
+        $('#p-email').text(profile.email || 'No email available');
+      })
+      .catch(error => {
+        console.error('Error fetching profile:', error);
+        $('#p-bio').text('Error loading profile');
+        $('#p-name').text('Error loading profile');
+        $('#p-email').text('Error loading profile');
+      });
+
+      contacts = [
+        ["Kenyata Wesley", "kenyata.wesley@acf.hhs.gov", "HHS (ACF)", "Health modernization", "Senior-level buyer"],
+        ["Kimberly Nash", "kimberly.nash@hq.doe.gov", "DOE", "Smart Grid AI", "DOE AI leader"],
+        ["Isaac V. Roper Charles", "isaac.ropercharles@sba.gov", "SBA", "Veteran services", "VA contracts gateway"],
+        ["Pamela Barker", "pamela.barker@nih.gov", "NIH", "Biomedical R&D", "Medtech influencer"],
+        ["Richard Allen", "richard.allen@cisa.dhs.gov", "CISA", "Cyber Defense", "Major cyber buyer"],
+        ["Amber Pierce", "amber.pierce@dhs.gov", "DHS", "Biometrics AI", "Security tech focus"]
+      ];
+      loadContacts(contacts);
+
+    // Logout handler
+    $('#logout-btn').click(async () => {
+      try {
+        const token = localStorage.getItem('token');
+        
+        // Always clear token and show login, regardless of server response
+        localStorage.removeItem('token');
+        $('#logout-btn').hide();
+        $('#login-container').show();
+        $('#main-content').hide();
+        
+        // Clear any cached data
+        $('#login-username').val('');
+        $('#login-password').val('');
+        $('#login-error').val('');
+        $('#register-error').val('');
+        
+        // Optional: Call server logout endpoint
+        if (token) {
+          try {
+            await fetch(`${API_BASE_URL}/logout`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              }
+            });
+          } catch (error) {
+            console.log('Server logout failed, but local logout completed');
+          }
+        }
+        
+        // Force page reload to ensure clean state
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
+        
+      } catch (error) {
+        console.error('Logout error:', error);
+        // Force logout even if there's an error
+        localStorage.removeItem('token');
+        $('#logout-btn').hide();
+        $('#login-container').show();
+        $('#main-content').hide();
+        window.location.reload();
+      }
+    });
+
+    $('#contactsTable').on('click', 'tbody tr', function () {
+      currentIdx = $(this).data('idx');
+      const c = contacts[currentIdx];
+      $('#p-name').text(c[0]);
+      $('#p-email').text(c[1]);
+      $('#p-agency').text(c[2]);
+      $('#p-focus').text(c[3]);
+      $('#p-why').text(c[4]);
+      $('#p-bio').text('Loading...');
+      $('#p-analytics-list').empty();
+      $('#profile-panel').show();
+
+      fetchPredict(`Write a 2-sentence bio for ${c[0]}.`).then(
+        bio => {
+          // Since fetchPredict now returns the extracted response directly
+          const bioText = bio || 'No bio available';
+          $('#p-bio').text(bioText);
+        }
+      ).catch(error => {
+        console.error('Error fetching bio:', error);
+        $('#p-bio').text('Error loading bio');
+      });
+      fetchDrafts(currentIdx); // Load drafts
+
+      // Save Draft
+      $('#draft-save').off('click').on('click', () => {
+        const subject = $('#draft-subject').val().trim();
+        const body = $('#draft-body').val().trim();
+        if (!subject || !body) return alert('Subject and body required.');
+        const id = $('#draft-save').data('edit-id');
+        if (id) updateDraft(currentIdx, id, subject, body);
+        else createDraft(currentIdx, subject, body);
+      });
+    });
+
+    $('#profile-close').click(() => $('#profile-panel').hide());
+
+    $('#toggle-panel').click(() => {
+      $('#content-wrapper').toggleClass('closed');
+      $('#toggle-icon').toggleClass('fa-chevron-left fa-chevron-right');
+    });
+
+    $('#btn-enrich').click(() => openPanel(`action-enrich.html?idx=${currentIdx}`));
+    $('#btn-meeting').click(() => openPanel(`action-meeting.html?contact=${encodeURIComponent($('#p-email').text())}`));
+    $('#btn-analytics').click(() => openPanel(`action-analytics.html?contact=${encodeURIComponent($('#p-email').text())}`));
+
+    $('#fileUpload').change(e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      Papa.parse(f, {
+        complete(res) {
+          const v = res.data.filter(r => r.length >= 5 && r[0]);
+          if (v.length) { contacts = v; loadContacts(v); }
+          else alert('Invalid CSV.');
+        }
+      });
+    });
+
+    $('#crmSendBtn').click(async () => {
+      const msg = $('#crmUserInput').val().trim(), cb = $('#crmMessages');
+      if (!msg) return;
+      cb.append(`<div class="bubble user">${msg}</div>`);
+      $('#crmUserInput').val('');
+      $('#crmSendBtn').prop('disabled', true);
+      $('#crmSendText').hide(); $('#crmSpinner').show();
+      
+      try {
+        const header = contacts.map(c => `- ${c[0]}: ${c[1]}`).join('\n');
+        const resp = await fetchPredict(`Contacts:\n${header}\nQ: ${msg}`);
+        cb.append(`<div class="bubble bot">${resp}</div>`);
+      } catch (error) {
+        console.error('CRM chat error:', error);
+        cb.append(`<div class="bubble bot">Sorry, there was an error: ${error.message}</div>`);
+      } finally {
+        $('#crmSendBtn').prop('disabled', false);
+        $('#crmSpinner').hide(); $('#crmSendText').show();
+        cb.scrollTop(cb[0].scrollHeight);
+      }
+    });
+
+    // Close function for agent modal
+    function closeAgentModal() {
+      $('#agentModal').modal('hide');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove(); // Remove any remaining backdrops
+    }
+
+    // Agent system functions
+    async function initializeAgents() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/agents/initialize`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        });
+        const result = await response.json();
+        console.log('Agents initialized:', result);
+        return result;
+      } catch (error) {
+        console.error('Error initializing agents:', error);
+        return null;
+      }
+    }
+
+    async function listAvailableAgents() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/agents/`, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        });
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.error('Error listing agents:', error);
+        return null;
+      }
+    }
+
+    async function processRfpWithAgent(fileData, filename, contactInfo) {
+      try {
+        const formData = new FormData();
+        formData.append('file', fileData);
+        formData.append('company_name', contactInfo.company || 'Alambda Systems');
+        formData.append('company_focus', contactInfo.focus || 'AI and software development');
+        formData.append('why_hot', contactInfo.why_hot || 'Experienced team');
+        formData.append('response_style', 'detailed');
+
+        const response = await fetch(`${API_BASE_URL}/api/agents/workflows/rfp`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+          body: formData
+        });
+        
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.error('Error processing RFP with agent:', error);
+        return { success: false, error: error.message };
+      }
+    }
+
+    async function generateEmailWithAgent(recipient, subject, context, tone = 'professional') {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/agents/workflows/email`, {
+          method: 'POST',
+          headers: { 
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            recipient: recipient,
+            subject: subject,
+            context: context,
+            tone: tone
+          })
+        });
+        
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.error('Error generating email with agent:', error);
+        return { success: false, error: error.message };
+      }
+    }
+
+    // Ensure the Anthesis Agent modal opens on button click
+    $('#btn-agent').click(async () => {
+      console.log('Agent button clicked'); // Debug log
+      
+      // Check authentication first
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Please log in first to access the Anthesis Agent.');
+        return;
+      }
+      
+      // Validate token
+      const isValid = await validateToken();
+      if (!isValid) {
+        alert('Your session has expired. Please log in again.');
+        performLogout();
+        return;
+      }
+      
+      if (typeof currentIdx !== 'number' || !contacts[currentIdx]) {
+        alert('Please select a contact first.');
+        return;
+      }
+      console.log('Opening agent modal...'); // Debug log
+      
+      // Clear workflow logs when opening modal
+      clearWorkflowLogs();
+
+      try {
+        const modalEl = document.getElementById('agentModal');
+        document.body.appendChild(modalEl); // Move modal to end of <body>
+        modalEl.style.zIndex = '1099'; // Ensure modal is on top
+
+        // Bootstrap 5 approach
+        const modalInstance = new bootstrap.Modal(modalEl, { backdrop: false });
+        modalInstance.show();
+      } catch (e) {
+        console.error('Bootstrap modal failed, fallback showing manually:', e);
+        // Fallback modal display activated
+        const el = document.getElementById('agentModal');
+        el.style.display = 'block';
+        el.classList.add('show');
+        el.removeAttribute('aria-hidden');
+        el.setAttribute('aria-modal', 'true');
+        $('body').addClass('modal-open').css('overflow', 'hidden');
+      }
+
+      // Load drafts after modal is shown
+      $('#agentModal').on('shown.bs.modal', function () {
+        console.log('Modal shown, loading drafts...'); // Debug log
+        clearWorkflowLogs(); // Clear any previous workflow logs
+        loadEmailDrafts();
+        loadRfpResponses();
+      });
+    });
+
+    // Email draft generation in Anthesis Agent modal using agent system
+    $('#generate-email-draft').click(async () => {
+      if (typeof currentIdx !== 'number' || !contacts[currentIdx]) {
+        alert('Please select a contact first.');
+        return;
+      }
+
+      const c = contacts[currentIdx];
+      const customMessage = $('#email-draft-body').val().trim();
+      const subject = $('#email-draft-subject').val().trim() || 'Partnership Opportunity with ' + c[0];
+      
+      // Clear previous workflow logs
+      clearWorkflowLogs();
+      
+      // Switch to workflow tab to show progress
+      switchToTab('workflow-logs');
+      
+      // Build context for the agent
+      const context = `Outreach to ${c[0]} from ${c[2]} about partnership opportunities in ${c[3]}. 
+      We're SAM-registered (UEI: YEHBP8VM3NJ3, CAGE Code: 8G5R3) and can help with ${c[4].toLowerCase()}.
+      Request a meeting or call to discuss collaboration.`;
+      
+      const finalContext = customMessage ? `${context}\n\nAdditional context: ${customMessage}` : context;
+      
+      // Prepare recipient info
+      const recipient = {
+        name: c[0],
+        company: c[2],
+        focus: c[3],
+        why_hot: c[4]
+      };
+
+      const subjectInput = $('#email-draft-subject');
+      const bodyInput = $('#email-draft-body');
+      
+      subjectInput.val(subject);
+      bodyInput.val('Generating email with AI agent...');
+
+      try {
+        // Use the agent system to generate email
+        const result = await generateEmailWithAgent(recipient, subject, finalContext, 'professional');
+        
+        if (result.success && result.data) {
+          const generatedContent = result.data.content;
+          bodyInput.val(generatedContent);
+          
+          // Debug logging
+          console.log('Email Result:', result);
+          console.log('Workflow Log:', result.data.workflow_log);
+          console.log('Generated Content:', generatedContent);
+          
+          // Display workflow log if available
+          if (result.data.workflow_log) {
+            displayWorkflowLog(result.data.workflow_log);
+          }
+
+          // Auto-save to backend with workflow log
+          const draftData = {
+            subject: subject,
+            body: generatedContent,
+            type: 'email',
+            workflow_log: result.data.workflow_log || null
+          };
+          
+          console.log('Saving email draft data:', draftData);
+          
+          await fetch(`${API_BASE_URL}/contacts/${currentIdx}/drafts`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(draftData)
+          });
+
+          loadEmailDrafts(); // refresh UI
+        } else {
+          throw new Error(result.error || 'Failed to generate email');
+        }
+      } catch (err) {
+        console.error("Agent email generation failed", err);
+        bodyInput.val('[Error generating email with agent]');
+      }
+    });
+
+    // RFP upload and generation in Anthesis Agent modal using agent system
+    $('#agent-rfp-upload-btn').click(async () => {
+      if (typeof currentIdx !== 'number' || !contacts[currentIdx]) {
+        alert('Please select a contact first.');
+        return;
+      }
+
+      const fileInput = $('#agent-rfp-file-input')[0];
+      const status = $('#agent-rfp-upload-status');
+      
+      if (!fileInput.files.length) {
+        status.text('Please select a .pdf, .docx, or .txt file.').addClass('text-danger');
+        return;
+      }
+      
+      // Clear previous workflow logs
+      clearWorkflowLogs();
+      
+      // Switch to workflow tab to show progress
+      switchToTab('workflow-logs');
+      
+      status.text('Processing RFP with AI agent...').removeClass('text-danger').addClass('text-info');
+
+      const file = fileInput.files[0];
+      const c = contacts[currentIdx];
+      
+      // Prepare contact info for agent
+      const contactInfo = {
+        name: c[0],
+        company: c[2],
+        focus: c[3],
+        why_hot: c[4]
+      };
+
+      try {
+        // Use agent system to process RFP
+        const result = await processRfpWithAgent(file, file.name, contactInfo);
+        
+        if (result.success && result.data) {
+          const rfpResponseContent = result.data.rfp_response.response_content;
+          
+          // Debug logging
+          console.log('RFP Result:', result);
+          console.log('Workflow Log:', result.data.workflow_log);
+          console.log('Response Content:', rfpResponseContent);
+          
+          // Display workflow log if available
+          if (result.data.workflow_log) {
+            displayWorkflowLog(result.data.workflow_log);
+          }
+          
+          // Save the AI-generated draft with workflow log
+          const draftData = {
+            subject: 'Agent-Generated RFP Response',
+            body: rfpResponseContent,
+            type: 'rfp',
+            workflow_log: result.data.workflow_log || null
+          };
+          
+          console.log('Saving draft data:', draftData);
+          
+          await fetch(`${API_BASE_URL}/contacts/${currentIdx}/drafts`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(draftData)
+          });
+
+          status.text('RFP response generated by agent and saved!').removeClass('text-danger').addClass('text-success');
+          loadRfpResponses(); // Refresh RFP responses UI
+          fileInput.value = ''; // Clear file input
+        } else {
+          throw new Error(result.error || 'Agent failed to process RFP');
+        }
+      } catch (err) {
+        console.error('Agent RFP processing failed', err);
+        status.text('Failed: ' + (err.message || 'Unknown error')).removeClass('text-info').addClass('text-danger');
+      }
+    });
+
+    // Email button click handler for contacts table
+    $(document).on('click', '.email-btn', function(e) {
+      e.stopPropagation(); // Prevent row click event
+      
+      const row = $(this).closest('tr');
+      const contactIdx = row.data('idx');
+      const contact = contacts[contactIdx];
+      
+      if (!contact) {
+        alert('Contact information not found.');
+        return;
+      }
+      
+      console.log('Email button clicked for contact:', contact[0]);
+      
+      // Populate modal with contact information
+      $('#emailTo').val(contact[1]); // Email is at index 1
+      $('#emailSubject').val(`Partnership Opportunity with ${contact[0]}`);
+      $('#emailContent').val(`Dear ${contact[0]},
+
+I hope this email finds you well. I'm reaching out from Alambda Systems regarding potential partnership opportunities in ${contact[3]}.
+
+We are a SAM-registered vendor (UEI: YEHBP8VM3NJ3, CAGE Code: 8G5R3) specializing in AI and software development solutions.
+
+I would love to schedule a brief call to discuss how we can support ${contact[2]}'s initiatives in ${contact[3]}.
+
+Best regards,
+Alambda Systems Team`);
+      
+      // Make sure it's a direct child of body
+      const emailEl = document.getElementById('emailDeliveryModal');
+      document.body.appendChild(emailEl);
+
+      // Show via the Bootstrap API
+      const emailModal = new bootstrap.Modal(emailEl, {
+        backdrop: false,
+        keyboard: true,
+        focus: true
+      });
+      emailModal.show();
+      
+      console.log('Email delivery modal opened for:', contact[0]);
+    });
+
+    // Email form submission handler
+    $('#emailDeliveryForm').on('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = $('#emailDeliveryForm button[type="submit"]');
+      const sendText = $('#emailSendText');
+      const spinner = $('#emailSpinner');
+      
+      // Disable form and show loading
+      submitBtn.prop('disabled', true);
+      sendText.hide();
+      spinner.show();
+      
+      const emailData = {
+        context: {
+          content: $('#emailContent').val(),
+        },
+        destination: {
+          email: $('#emailTo').val(),
+          subject: $('#emailSubject').val(),
+        },
+      };
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/agents/workflows/email`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailData),
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          alert('Email sent successfully!');
+          $('#emailDeliveryModal').modal('hide');
+          
+          // Clear form
+          $('#emailTo').val('');
+          $('#emailSubject').val('');
+          $('#emailContent').val('');
+        } else {
+          alert(`Error sending email: ${result.error || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error('Email sending error:', error);
+        alert(`Error sending email: ${error.message}`);
+      } finally {
+        // Re-enable form and hide loading
+        submitBtn.prop('disabled', false);
+        spinner.hide();
+        sendText.show();
+      }
+    });
+  }
+
+  function loadContacts(list) {
+    const tb = $('#contactsTable tbody').empty();
+    list.forEach((r, i) => {
+      const tr = $('<tr>').data('idx', i).addClass('contact-row');
+      
+      // Add each column with enhanced styling
+      r.forEach((c, index) => {
+        const td = $('<td>').text(c);
+        if (index === 0) td.addClass('contact-name'); // First column is name
+        if (index === 1) td.addClass('contact-email'); // Second column is email
+        tr.append(td);
+      });
+      
+      // Add action buttons with modern styling
+      const actionTd = $('<td>').html(`
+        <div class="contact-actions">
+          <button class="btn btn-sm btn-outline-info enrich-btn" data-contact-id="${i}" title="Enrich Contact Data">
+            <i class="fas fa-search"></i> Enrich
+          </button>
+          <button class="btn btn-sm btn-outline-success email-btn" data-contact-id="${i}" title="Send Email">
+            <i class="fas fa-envelope"></i> Email
+          </button>
+          <button class="btn btn-sm btn-outline-primary rfp-btn" data-contact-id="${i}" title="Generate RFP Response">
+            <i class="fas fa-file-alt"></i> RFP
+          </button>
+          <button class="btn btn-sm btn-outline-warning call-btn" data-contact-id="${i}" title="Schedule Call">
+            <i class="fas fa-phone"></i> Call
+          </button>
+          <button class="btn btn-sm btn-outline-info content-agent-btn" data-contact-id="${i}" title="Content Generation Agent">
+            <i class="fas fa-edit"></i> Content
+          </button>
+          <button class="btn btn-sm btn-outline-purple doc-agent-btn" data-contact-id="${i}" title="Document Analysis Agent">
+            <i class="fas fa-file-medical-alt"></i> Analysis
+          </button>
+          <button class="btn btn-sm btn-outline-secondary lecture-agent-btn" data-contact-id="${i}" title="Lecture Agent">
+            <i class="fas fa-chalkboard-teacher"></i> Lecture
+          </button>
+          <button class="btn btn-sm btn-outline-dark user-agent-btn" data-contact-id="${i}" title="User Agent Assistant">
+            <i class="fas fa-user-cog"></i> Assistant
+          </button>
+          <button class="btn btn-sm btn-outline-danger ai-chat-btn" data-contact-id="${i}" title="AI Chat Agent">
+            <i class="fas fa-robot"></i> AI Chat
+          </button>
+        </div>
+      `);
+      
+      tr.append($('<td>').text('—')); // Status column
+      tr.append(actionTd);
+      
+      // Add click handler for row selection
+      tr.click(function(e) {
+        if ($(e.target).closest('button').length) return; // Don't select if button clicked
+        
+        // Remove previous selections
+        $('.contact-row').removeClass('selected');
+        $(this).addClass('selected');
+        
+        // Show contact details with animation
+        showContactDetails(i, r);
+      });
+      
+      tb.append(tr);
+    });
+    
+    // Add event handlers for action buttons
+    addContactActionHandlers();
+    
+    // Add scrolling animation for contact list
+    animateContactList();
+  }
+  
+  // Function to add event handlers for contact action buttons
+  function addContactActionHandlers() {
+    // Email button handler
+    $('.email-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      openEmailModal(contactId);
+    });
+    
+    // RFP button handler
+    $('.rfp-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      
+      // Set currentIdx for compatibility with existing functions
+      currentIdx = contactId;
+      
+      openRFPModal(contactId);
+    });
+    
+    // Enrich button handler
+    $('.enrich-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      enrichContact(contactId);
+    });
+    
+    // Call button handler
+    $('.call-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      scheduleCall(contactId);
+    });
+    
+    // Content Generation Agent button handler
+    $('.content-agent-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      openContentAgentModal(contactId);
+    });
+    
+    // Document Analysis Agent button handler
+    $('.doc-agent-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      openDocumentAnalysisModal(contactId);
+    });
+    
+    // Lecture Agent button handler
+    $('.lecture-agent-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      openLectureAgentModal(contactId);
+    });
+    
+    // User Agent button handler
+    $('.user-agent-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      openUserAgentModal(contactId);
+    });
+    
+    // AI Chat Agent button handler
+    $('.ai-chat-btn').off('click').on('click', function(e) {
+      e.stopPropagation();
+      const contactId = $(this).data('contact-id');
+      openAIChatModal(contactId);
+    });
+  }
+  
+  // Function to enrich contact data
+  function enrichContact(contactIndex) {
+    showNotification('Enriching contact data...', 'info');
+    
+    const contact = contacts[contactIndex];
+    const [name, email, agency] = contact;
+    
+    // Show enrichment modal or inline update
+    $('#profile-panel').append(`
+      <div class="enrichment-panel mt-3 p-3 bg-info rounded">
+        <h6><i class="fas fa-search"></i> Enriching Contact: ${name}</h6>
+        <div class="progress mb-2">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+        </div>
+        <small>Searching for additional information...</small>
+      </div>
+    `);
+    
+    // Simulate enrichment process
+    setTimeout(() => {
+      $('.enrichment-panel').html(`
+        <h6><i class="fas fa-check-circle text-success"></i> Enrichment Complete</h6>
+        <ul class="list-unstyled mb-0">
+          <li><strong>LinkedIn:</strong> Found professional profile</li>
+          <li><strong>Company Size:</strong> 500-1000 employees</li>
+          <li><strong>Industry:</strong> Technology Services</li>
+          <li><strong>Recent News:</strong> 2 recent mentions</li>
+        </ul>
+      `);
+      showNotification('Contact enrichment completed!', 'success');
+    }, 2000);
+  }
+  
+  // Function to schedule a call
+  function scheduleCall(contactIndex) {
+    const contact = contacts[contactIndex];
+    const [name, email, agency] = contact;
+    
+    showNotification(`Scheduling call with ${name}...`, 'info');
+    
+    // Open a simple call scheduling interface
+    const callModal = $(`
+      <div class="modal fade" id="callModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-phone"></i> Schedule Call with ${name}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Call Date & Time</label>
+                <input type="datetime-local" class="form-control" id="callDateTime">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Call Purpose</label>
+                <select class="form-select" id="callPurpose">
+                  <option value="discovery">Discovery Call</option>
+                  <option value="demo">Product Demo</option>
+                  <option value="proposal">Proposal Discussion</option>
+                  <option value="followup">Follow-up Call</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Notes</label>
+                <textarea class="form-control" id="callNotes" rows="3" placeholder="Call agenda and notes..."></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="confirmCall()">Schedule Call</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+    
+    $('body').append(callModal);
+    $('#callModal').modal('show');
+    
+    // Remove modal after use
+    $('#callModal').on('hidden.bs.modal', function() {
+      $(this).remove();
+    });
+  }
+  
+  // Function to confirm call scheduling
+  function confirmCall() {
+    const dateTime = $('#callDateTime').val();
+    const purpose = $('#callPurpose').val();
+    const notes = $('#callNotes').val();
+    
+    if (!dateTime) {
+      showNotification('Please select a date and time', 'error');
+      return;
+    }
+    
+    showNotification('Call scheduled successfully!', 'success');
+    $('#callModal').modal('hide');
+  }
+  
+  // Function to open Content Generation Agent modal
+  function openContentAgentModal(contactIndex) {
+    const contact = contacts[contactIndex];
+    const [name, email, agency] = contact;
+    
+    currentIdx = contactIndex; // Set for agent context
+    
+    const contentModal = $(`
+      <div class="modal fade" id="contentAgentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-edit"></i> Content Generation Agent - ${name}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Content Type</label>
+                <select class="form-select" id="contentType">
+                  <option value="email">Email Campaign</option>
+                  <option value="proposal">Business Proposal</option>
+                  <option value="presentation">Presentation</option>
+                  <option value="blog">Blog Post</option>
+                  <option value="social">Social Media Content</option>
+                  <option value="whitepaper">White Paper</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Content Brief</label>
+                <textarea class="form-control" id="contentBrief" rows="4" placeholder="Describe what content you want to generate for this contact..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Tone & Style</label>
+                <select class="form-select" id="contentTone">
+                  <option value="professional">Professional</option>
+                  <option value="friendly">Friendly</option>
+                  <option value="persuasive">Persuasive</option>
+                  <option value="technical">Technical</option>
+                  <option value="casual">Casual</option>
+                </select>
+              </div>
+              <div id="contentResult" class="mt-3" style="display: none;">
+                <h6>Generated Content:</h6>
+                <div class="border p-3 bg-light" id="generatedContent"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="generateContent()">Generate Content</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+    
+    $('body').append(contentModal);
+    $('#contentAgentModal').modal('show');
+    
+    $('#contentAgentModal').on('hidden.bs.modal', function() {
+      $(this).remove();
+    });
+  }
+  
+  // Function to generate content using Content Generation Agent
+  async function generateContent() {
+    const contentType = $('#contentType').val();
+    const brief = $('#contentBrief').val();
+    const tone = $('#contentTone').val();
+    const contact = contacts[currentIdx];
+    
+    if (!brief.trim()) {
+      showNotification('Please provide a content brief', 'error');
+      return;
+    }
+    
+    const prompt = `Generate ${contentType} content for ${contact[0]} at ${contact[2]}. Brief: ${brief}. Tone: ${tone}`;
+    
+    try {
+      showNotification('Generating content...', 'info');
+      const response = await fetchPredict(prompt, 'content-generation');
+      
+      $('#generatedContent').html(response.replace(/\n/g, '<br>'));
+      $('#contentResult').show();
+      showNotification('Content generated successfully!', 'success');
+    } catch (error) {
+      console.error('Content generation error:', error);
+      showNotification('Failed to generate content', 'error');
+    }
+  }
+  
+  // Function to open Document Analysis Agent modal
+  function openDocumentAnalysisModal(contactIndex) {
+    const contact = contacts[contactIndex];
+    const [name, email, agency] = contact;
+    
+    currentIdx = contactIndex;
+    
+    const docModal = $(`
+      <div class="modal fade" id="documentAnalysisModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-file-medical-alt"></i> Document Analysis - ${name}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Upload Document for Analysis</label>
+                <input type="file" class="form-control" id="documentFile" accept=".pdf,.doc,.docx,.txt">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Or Paste Document Text</label>
+                <textarea class="form-control" id="documentText" rows="6" placeholder="Paste document content here for analysis..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Analysis Type</label>
+                <select class="form-select" id="analysisType">
+                  <option value="summary">Document Summary</option>
+                  <option value="key_points">Key Points Extraction</option>
+                  <option value="sentiment">Sentiment Analysis</option>
+                  <option value="action_items">Action Items</option>
+                  <option value="risk_assessment">Risk Assessment</option>
+                </select>
+              </div>
+              <div id="analysisResult" class="mt-3" style="display: none;">
+                <h6>Analysis Results:</h6>
+                <div class="border p-3 bg-light" id="analysisContent"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="analyzeDocument()">Analyze Document</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+    
+    $('body').append(docModal);
+    $('#documentAnalysisModal').modal('show');
+    
+    $('#documentAnalysisModal').on('hidden.bs.modal', function() {
+      $(this).remove();
+    });
+  }
+  
+  // Function to analyze document using Document Analysis Agent
+  async function analyzeDocument() {
+    const docText = $('#documentText').val();
+    const analysisType = $('#analysisType').val();
+    const contact = contacts[currentIdx];
+    
+    if (!docText.trim()) {
+      showNotification('Please provide document text for analysis', 'error');
+      return;
+    }
+    
+    const prompt = `Perform ${analysisType} on this document for contact ${contact[0]}: ${docText}`;
+    
+    try {
+      showNotification('Analyzing document...', 'info');
+      const response = await fetchPredict(prompt, 'document-analysis');
+      
+      $('#analysisContent').html(response.replace(/\n/g, '<br>'));
+      $('#analysisResult').show();
+      showNotification('Document analysis completed!', 'success');
+    } catch (error) {
+      console.error('Document analysis error:', error);
+      showNotification('Failed to analyze document', 'error');
+    }
+  }
+  
+  // Function to open Lecture Agent modal
+  function openLectureAgentModal(contactIndex) {
+    const contact = contacts[contactIndex];
+    const [name, email, agency] = contact;
+    
+    currentIdx = contactIndex;
+    
+    const lectureModal = $(`
+      <div class="modal fade" id="lectureAgentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-chalkboard-teacher"></i> Lecture Agent - ${name}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Lecture Topic</label>
+                <input type="text" class="form-control" id="lectureTopic" placeholder="Enter the topic for the lecture or presentation">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Target Audience</label>
+                <select class="form-select" id="lectureAudience">
+                  <option value="executives">Executives</option>
+                  <option value="technical">Technical Team</option>
+                  <option value="sales">Sales Team</option>
+                  <option value="general">General Audience</option>
+                  <option value="students">Students</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Lecture Duration</label>
+                <select class="form-select" id="lectureDuration">
+                  <option value="15">15 minutes</option>
+                  <option value="30">30 minutes</option>
+                  <option value="45">45 minutes</option>
+                  <option value="60">1 hour</option>
+                  <option value="90">90 minutes</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Additional Requirements</label>
+                <textarea class="form-control" id="lectureRequirements" rows="3" placeholder="Any specific requirements or focus areas..."></textarea>
+              </div>
+              <div id="lectureResult" class="mt-3" style="display: none;">
+                <h6>Generated Lecture Content:</h6>
+                <div class="border p-3 bg-light" id="lectureContent"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="generateLecture()">Generate Lecture</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+    
+    $('body').append(lectureModal);
+    $('#lectureAgentModal').modal('show');
+    
+    $('#lectureAgentModal').on('hidden.bs.modal', function() {
+      $(this).remove();
+    });
+  }
+  
+  // Function to generate lecture using Lecture Agent
+  async function generateLecture() {
+    const topic = $('#lectureTopic').val();
+    const audience = $('#lectureAudience').val();
+    const duration = $('#lectureDuration').val();
+    const requirements = $('#lectureRequirements').val();
+    const contact = contacts[currentIdx];
+    
+    if (!topic.trim()) {
+      showNotification('Please provide a lecture topic', 'error');
+      return;
+    }
+    
+    const prompt = `Create a ${duration}-minute lecture on "${topic}" for ${audience} audience. Additional requirements: ${requirements}. Context: This is for ${contact[0]} at ${contact[2]}.`;
+    
+    try {
+      showNotification('Generating lecture content...', 'info');
+      const response = await fetchPredict(prompt, 'coordinator'); // Using coordinator for lecture generation
+      
+      $('#lectureContent').html(response.replace(/\n/g, '<br>'));
+      $('#lectureResult').show();
+      showNotification('Lecture content generated successfully!', 'success');
+    } catch (error) {
+      console.error('Lecture generation error:', error);
+      showNotification('Failed to generate lecture content', 'error');
+    }
+  }
+  
+  // Function to open User Agent modal
+  function openUserAgentModal(contactIndex) {
+    const contact = contacts[contactIndex];
+    const [name, email, agency] = contact;
+    
+    currentIdx = contactIndex;
+    
+    const userModal = $(`
+      <div class="modal fade" id="userAgentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-user-cog"></i> User Agent Assistant - ${name}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Task Type</label>
+                <select class="form-select" id="userTaskType">
+                  <option value="research">Contact Research</option>
+                  <option value="follow_up">Follow-up Planning</option>
+                  <option value="meeting_prep">Meeting Preparation</option>
+                  <option value="strategy">Engagement Strategy</option>
+                  <option value="notes">Contact Notes Summary</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Task Description</label>
+                <textarea class="form-control" id="userTaskDescription" rows="4" placeholder="Describe what you need help with regarding this contact..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Priority Level</label>
+                <select class="form-select" id="taskPriority">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+              <div id="userAgentResult" class="mt-3" style="display: none;">
+                <h6>Assistant Response:</h6>
+                <div class="border p-3 bg-light" id="userAgentContent"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="processUserTask()">Process Task</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+    
+    $('body').append(userModal);
+    $('#userAgentModal').modal('show');
+    
+    $('#userAgentModal').on('hidden.bs.modal', function() {
+      $(this).remove();
+    });
+  }
+  
+  // Function to process user task using User Agent
+  async function processUserTask() {
+    const taskType = $('#userTaskType').val();
+    const description = $('#userTaskDescription').val();
+    const priority = $('#taskPriority').val();
+    const contact = contacts[currentIdx];
+    
+    if (!description.trim()) {
+      showNotification('Please provide a task description', 'error');
+      return;
+    }
+    
+    const prompt = `As a user agent assistant, help with this ${taskType} task (${priority} priority) for contact ${contact[0]} at ${contact[2]}: ${description}`;
+    
+    try {
+      showNotification('Processing task...', 'info');
+      const response = await fetchPredict(prompt, 'coordinator'); // Using coordinator as user agent
+      
+      $('#userAgentContent').html(response.replace(/\n/g, '<br>'));
+      $('#userAgentResult').show();
+      showNotification('Task completed successfully!', 'success');
+    } catch (error) {
+      console.error('User task processing error:', error);
+      showNotification('Failed to process task', 'error');
+    }
+  }
+  
+  // Function to open AI Chat modal
+  function openAIChatModal(contactIndex) {
+    const contact = contacts[contactIndex];
+    const [name, email, agency] = contact;
+    
+    currentIdx = contactIndex;
+    
+    // Open the existing agent modal but with contact context
+    $('#agentModal').modal('show');
+    
+    // Pre-fill the chat with contact context
+    const contextMessage = `I'm working with ${name} from ${agency} (${email}). How can I best engage with this contact?`;
+    $('#agentChatInput').val(contextMessage);
+    
+    // Update modal title to show contact
+    $('#agentModal .modal-title').html(`<i class="fas fa-robot"></i> AI Chat Agent - ${name}`);
+    
+    showNotification(`AI Chat opened for ${name}`, 'info');
+  }
+  
+  function animateContactList() {
+    $('.contact-row').each(function(index) {
+      $(this).css({
+        'opacity': '0',
+        'transform': 'translateY(20px)'
+      });
+      
+      setTimeout(() => {
+        $(this).animate({
+          'opacity': '1',
+          'transform': 'translateY(0)'
+        }, 300);
+      }, index * 100);
+    });
+  }
+  
+  function showContactDetails(index, contactData) {
+    const [name, email, agency, focus, whyHot] = contactData;
+    
+    // Update profile panel with contact details
+    $('#profile-panel').html(`
+      <div class="contact-detail-card">
+        <div class="contact-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <h3>${name}</h3>
+        <p class="contact-email">${email}</p>
+        <p class="contact-agency">${agency}</p>
+        
+        <div class="contact-info">
+          <div class="info-item">
+            <label>Focus Area:</label>
+            <span>${focus}</span>
+          </div>
+          <div class="info-item">
+            <label>Why Hot:</label>
+            <span>${whyHot}</span>
+          </div>
+        </div>
+        
+        <div class="contact-quick-actions">
+          <button class="btn btn-primary" onclick="openEmailModal(${index})">
+            <i class="fas fa-envelope"></i> Send Email
+          </button>
+          <button class="btn btn-info" onclick="openRFPModal(${index})">
+            <i class="fas fa-file-alt"></i> Generate RFP
+          </button>
+          <button class="btn btn-success" onclick="scheduleCall(${index})">
+            <i class="fas fa-phone"></i> Schedule Call
+          </button>
+        </div>
+        
+        <div class="contact-analytics">
+          <h4>Recent Activity</h4>
+          <div class="activity-timeline">
+            <div class="activity-item">
+              <i class="fas fa-envelope"></i>
+              <span>Last email sent 3 days ago</span>
+            </div>
+            <div class="activity-item">
+              <i class="fas fa-phone"></i>
+              <span>Call scheduled for tomorrow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+    
+    // Animate the profile panel
+    $('#profile-panel').addClass('show-details');
+    
+    // Load drafts for this contact
+    fetchDrafts(index);
+  }
+
+  // Draft Logic
+  function fetchDrafts(contactId) {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    $('#drafts-list').empty();
+    // Fetch email drafts
+    fetch(`${API_BASE_URL}/contacts/${contactId}/drafts?type=email`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(r => r.json())
+    .then(drafts => {
+      if (drafts.length) {
+        $('#drafts-list').append('<li><strong>Email Drafts</strong></li>');
+        drafts.forEach(d => {
+          const subject = d.subject || 'Untitled';
+          const body = d.body || 'No content';
+          const sectionedBody = breakIntoSections(body);
+          
+          $('#drafts-list').append(`
+            <li class="draft-item">
+              <div class="draft-header">
+                <strong>${subject}</strong>
+                <div class="draft-actions">
+                  <button class="btn btn-sm btn-outline-primary" onclick="editDraft(${contactId}, ${d.id}, '${subject}', '${body}')">Edit</button>
+                  <button class="btn btn-sm btn-outline-info" onclick="viewDraftSections(${contactId}, ${d.id})">View Sections</button>
+                  <button class="btn btn-sm btn-outline-danger" onclick="deleteDraft(${contactId}, ${d.id})">Delete</button>
+                </div>
+              </div>
+              <div class="draft-body" id="draft-body-${d.id}">
+                ${sectionedBody}
+              </div>
+            </li>
+          `);
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching drafts:', error);
+      $('#drafts-list').append('<li class="error">Failed to load drafts</li>');
+    });
+  }
+
+  function createDraft(contactId, subject, body) {
+    fetch(`${API_BASE_URL}/contacts/${contactId}/drafts`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ subject, body })
+    }).then(() => {
+      $('#draft-subject').val('');
+      $('#draft-body').val('');
+      $('#draft-save').removeData('edit-id');
+      fetchDrafts(contactId);
+    });
+  }
+
+  function updateDraft(contactId, draftId, subject, body) {
+    fetch(`${API_BASE_URL}/contacts/${contactId}/drafts/${draftId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ subject, body })
+    }).then(() => {
+      $('#draft-subject').val('');
+      $('#draft-body').val('');
+      $('#draft-save').removeData('edit-id');
+      fetchDrafts(contactId);
+    });
+  }
+
+  function deleteDraft(contactId, draftId) {
+    if (!confirm('Delete this draft?')) return;
+    fetch(`${API_BASE_URL}/contacts/${contactId}/drafts/${draftId}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    }).then(() => fetchDrafts(contactId));
+  }
+
+  function editDraft(contactId, draftId, subject, body) {
+    $('#draft-subject').val(subject);
+    $('#draft-body').val(body);
+    $('#draft-save').data('edit-id', draftId);
+  }
+
+  function loadEmailDrafts() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('Authorization token is missing.');
+      $('#email-drafts-list').append('<li class="list-group-item text-warning">Please log in to view email drafts.</li>');
+      return;
+    }
+
+    // Validate currentIdx
+    if (typeof currentIdx !== 'number' || currentIdx < 0) {
+      console.error('No contact selected.');
+      $('#email-drafts-list').append('<li class="list-group-item text-warning">Please select a contact first.</li>');
+      return;
+    }
+
+    $('#email-drafts-list').empty();
+    $('#email-drafts-list').append('<li class="list-group-item">Loading email drafts...</li>');
+    
+    fetch(`${API_BASE_URL}/contacts/${currentIdx}/drafts?type=email`, {
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        if (res.status === 401) {
+          // Token is invalid or expired
+          console.error('Authentication failed - token may be expired');
+          localStorage.removeItem('token');
+          $('#login-container').show();
+          $('#main-content').hide();
+          $('#logout-btn').hide();
+          throw new Error('Authentication failed. Please log in again.');
+        }
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(drafts => {
+        $('#email-drafts-list').empty();
+        
+        // Filter to ensure only email drafts are shown
+        const emailDrafts = drafts.filter(draft => 
+          !draft.type || draft.type === 'email' || 
+          (draft.subject && !draft.subject.includes('RFP Response'))
+        );
+        
+        if (emailDrafts.length === 0) {
+          $('#email-drafts-list').append('<li class="list-group-item">No email drafts found.</li>');
+          return;
+        }
+        
+        emailDrafts.forEach(draft => {
+          // Escape quotes and newlines in subject and body for onclick handlers
+          const escapedSubject = (draft.subject || '').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
+          const escapedBody = (draft.body || '').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
+          
+          // Check if draft has workflow log
+          const hasWorkflowLog = draft.workflow_log && draft.workflow_log.agent_conversations;
+          const workflowButton = hasWorkflowLog ? 
+            `<button class="btn btn-sm btn-outline-warning" onclick="loadDraftWorkflowLog(${draft.id})">View Workflow</button>` : 
+            '';
+          
+          $('#email-drafts-list').append(`
+            <li class="list-group-item">
+              <strong>${draft.subject || 'Untitled'}</strong>
+              <p style="max-height: 60px; overflow: hidden; font-size: 0.9em; color: #666;">${(draft.body || '').substring(0, 150)}...</p>
+              <div class="draft-actions">
+                <button class="btn btn-sm btn-outline-primary" onclick="editDraft(${currentIdx}, ${draft.id}, '${escapedSubject}', '${escapedBody}')">Edit</button>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteDraft(${currentIdx}, ${draft.id})">Delete</button>
+                ${workflowButton}
+              </div>
+            </li>
+          `);
+        });
+      })
+      .catch(err => {
+        console.error('Error loading email drafts:', err);
+        $('#email-drafts-list').empty();
+        $('#email-drafts-list').append(`<li class="list-group-item text-danger">Error loading email drafts: ${err.message}</li>`);
+      });
+  }
+
+function loadRfpResponses() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('Authorization token is missing.');
+    $('#rfp-responses-list').append('<li class="list-group-item text-warning">Please log in to view RFP responses.</li>');
+    return;
+  }
+
+  // Validate currentIdx
+  if (typeof currentIdx !== 'number' || currentIdx < 0) {
+    console.error('No contact selected.');
+    $('#rfp-responses-list').append('<li class="list-group-item text-warning">Please select a contact first.</li>');
+    return;
+  }
+
+  $('#rfp-responses-list').empty();
+  $('#rfp-responses-list').append('<li class="list-group-item">Loading RFP responses...</li>');
+  
+  fetch(`${API_BASE_URL}/contacts/${currentIdx}/drafts?type=rfp`, {
+    headers: { 
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(res => {
+      if (res.status === 401) {
+        // Token is invalid or expired
+        console.error('Authentication failed - token may be expired');
+        localStorage.removeItem('token');
+        $('#login-container').show();
+        $('#main-content').hide();
+        $('#logout-btn').hide();
+        throw new Error('Authentication failed. Please log in again.');
+      }
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(responses => {
+      $('#rfp-responses-list').empty();
+      
+      // Filter to ensure only RFP responses are shown
+      const rfpResponses = responses.filter(response => 
+        response.type === 'rfp' || 
+        (response.subject && response.subject.includes('RFP Response'))
+      );
+      
+      if (rfpResponses.length === 0) {
+        $('#rfp-responses-list').append('<li class="list-group-item">No RFP responses found. Upload an RFP to generate responses.</li>');
+        return;
+      }
+      
+      rfpResponses.forEach(response => {
+        // Check if response has workflow log
+        const hasWorkflowLog = response.workflow_log && response.workflow_log.agent_conversations;
+        const workflowButton = hasWorkflowLog ? 
+          `<button class="btn btn-sm btn-outline-warning" onclick="loadDraftWorkflowLog(${response.id})">View Workflow</button>` : 
+          '';
+        
+        $('#rfp-responses-list').append(`
+          <li class="list-group-item">
+            <strong>${response.subject || 'Untitled RFP Response'}</strong>
+            <p style="max-height: 60px; overflow: hidden; font-size: 0.9em; color: #666;">${(response.body || '').substring(0, 150)}...</p>
+            <div class="mt-2">
+              <button class="btn btn-sm btn-primary" onclick="viewFullRfpResponse(${response.id})">View Full Response</button>
+              <button class="btn btn-sm btn-outline-success" onclick="downloadDraft(${response.id}, 'pdf')">Download PDF</button>
+              <button class="btn btn-sm btn-outline-info" onclick="downloadDraft(${response.id}, 'docx')">Download Word</button>
+              <button class="btn btn-sm btn-outline-secondary" onclick="downloadDraft(${response.id}, 'txt')">Download TXT</button>
+              <button class="btn btn-sm btn-outline-danger" onclick="deleteDraft(${currentIdx}, ${response.id})">Delete</button>
+              ${workflowButton}
+            </div>
+          </li>
+        `);
+      });
+    })
+    .catch(err => {
+      console.error('Error loading RFP responses:', err);
+      $('#rfp-responses-list').empty();
+      $('#rfp-responses-list').append(`<li class="list-group-item text-danger">Error loading RFP responses: ${err.message}</li>`);
+    });
+}
+
+// Add missing downloadDraft function
+function downloadDraft(draftId, format) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('Authorization token is missing.');
+    return;
+  }
+
+  // Download draft in specified format
+  window.open(`${API_BASE_URL}/contacts/${currentIdx}/drafts/${draftId}/download?format=${format}`, '_blank');
+}
+
+// Function to display workflow logs
+function displayWorkflowLog(workflowLog) {
+  const container = $('#workflow-conversations');
+  
+  if (!workflowLog || !workflowLog.agent_conversations) {
+    container.html('<p class="text-muted">No workflow conversations available.</p>');
+    return;
+  }
+  
+  container.empty();
+  
+  // Calculate workflow statistics
+  const totalMessages = workflowLog.agent_conversations.length;
+  const uniqueAgents = [...new Set(workflowLog.agent_conversations.map(c => c.agent_name))];
+  const startTime = new Date(workflowLog.started_at);
+  const endTime = workflowLog.completed_at ? new Date(workflowLog.completed_at) : new Date();
+  const duration = Math.round((endTime - startTime) / 1000); // in seconds
+  
+  // Add workflow header with statistics
+  const header = $(`
+    <div class="workflow-header mb-3 p-3" style="background: #34495e; border-radius: 8px; border-left: 4px solid #3498db;">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h6 class="text-light mb-2">
+            <i class="fas fa-cogs"></i> Workflow: ${workflowLog.workflow_type.replace('_', ' ').toUpperCase()}
+          </h6>
+          <small class="text-muted">ID: ${workflowLog.workflow_id}</small>
+        </div>
+        <div class="text-right">
+          <small class="text-muted d-block">Started: ${startTime.toLocaleString()}</small>
+          ${workflowLog.completed_at ? `<small class="text-muted d-block">Completed: ${new Date(workflowLog.completed_at).toLocaleString()}</small>` : ''}
+        </div>
+      </div>
+      <div class="workflow-stats mt-2 pt-2" style="border-top: 1px solid #4a5568;">
+        <div class="row">
+          <div class="col-4">
+            <small class="text-muted">Messages:</small>
+            <div class="text-light font-weight-bold">${totalMessages}</div>
+          </div>
+          <div class="col-4">
+            <small class="text-muted">Agents:</small>
+            <div class="text-light font-weight-bold">${uniqueAgents.length}</div>
+          </div>
+          <div class="col-4">
+            <small class="text-muted">Duration:</small>
+            <div class="text-light font-weight-bold">${duration}s</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `);
+  container.append(header);
+  
+  // Add each conversation message
+  workflowLog.agent_conversations.forEach((conversation, index) => {
+    const agentType = getAgentTypeFromName(conversation.agent_name);
+    const avatarColor = getAgentColor(agentType);
+    const timestamp = new Date(conversation.timestamp).toLocaleTimeString();
+    
+    const messageDiv = $(`
+      <div class="workflow-message ${agentType}" style="animation-delay: ${index * 0.1}s;">
+        <div class="agent-avatar" style="background-color: ${avatarColor};">
+          ${getAgentIcon(agentType)}
+        </div>
+        <div class="workflow-message-content">
+          <div class="agent-name">${conversation.agent_name}</div>
+          <div class="workflow-message-text">${conversation.message}</div>
+          <div class="workflow-timestamp">
+            ${timestamp}
+            <span class="workflow-step-indicator step-${conversation.step}">${conversation.step}</span>
+          </div>
+        </div>
+      </div>
+    `);
+    
+    container.append(messageDiv);
+  });
+  
+  // Add workflow completion status
+  if (workflowLog.completed_at) {
+    const completionDiv = $(`
+      <div class="workflow-completion mt-3 p-3" style="background: #27ae60; border-radius: 8px; color: white;">
+        <i class="fas fa-check-circle"></i> Workflow completed successfully at ${new Date(workflowLog.completed_at).toLocaleString()}
+      </div>
+    `);
+    container.append(completionDiv);
+  }
+  
+  // Auto-scroll to bottom
+  setTimeout(() => {
+    container.scrollTop(container[0].scrollHeight);
+  }, 100);
+}
+
+// Helper functions for agent display
+function getAgentTypeFromName(agentName) {
+  if (agentName.includes('Coordinator')) return 'coordinator';
+  if (agentName.includes('Document')) return 'document-analysis';
+  if (agentName.includes('Content')) return 'content-generation';
+  return 'default';
+}
+
+function getAgentIcon(agentType) {
+  const icons = {
+    'coordinator': '🎯',
+    'document-analysis': '📄',
+    'content-generation': '✍️',
+    'default': '🤖'
+  };
+  return icons[agentType] || icons.default;
+}
+
+function getAgentColor(agentType) {
+  const colors = {
+    'coordinator': '#0a84ff',
+    'document-analysis': '#ff4d4d',
+    'content-generation': '#00bfae',
+    'default': '#6c757d'
+  };
+  return colors[agentType] || colors.default;
+}
+
+// Function to clear workflow logs
+function clearWorkflowLogs() {
+  $('#workflow-conversations').html('<p class="text-muted">No workflow logs available. Generate content to see agent interactions.</p>');
+}
+
+// Function to switch to a specific tab
+function switchToTab(tabId) {
+  // Remove active class from all tabs and content
+  $('#agentTabs .nav-link').removeClass('active');
+  $('.tab-pane').removeClass('show active');
+  
+  // Add active class to target tab
+  $(`#${tabId}-tab`).addClass('active');
+  
+  // Show corresponding content
+  $(`#${tabId}`).addClass('show active');
+}
+
+// Function to load workflow log from a saved draft
+function loadDraftWorkflowLog(draftId) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('Authorization token is missing.');
+    return;
+  }
+
+  // Fetch the specific draft
+  fetch(`${API_BASE_URL}/contacts/${currentIdx}/drafts`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(drafts => {
+      const draft = drafts.find(d => d.id === draftId);
+      if (!draft) {
+        console.error('Draft not found');
+        return;
+      }
+
+      if (draft.workflow_log && draft.workflow_log.agent_conversations) {
+        // Switch to workflow tab
+        switchToTab('workflow-logs');
+        
+        // Display the workflow log
+        displayWorkflowLog(draft.workflow_log);
+        
+        // Add draft context info
+        const draftInfo = $(`
+          <div class="workflow-draft-info mb-3 p-3" style="background: #2c3e50; border-radius: 8px; border-left: 4px solid #3498db;">
+            <h6 class="text-light mb-2">
+              <i class="fas fa-file-alt"></i> Draft Context
+            </h6>
+            <p class="mb-1"><strong>Subject:</strong> ${draft.subject}</p>
+            <p class="mb-1"><strong>Type:</strong> ${draft.type.toUpperCase()}</p>
+            <p class="mb-0"><strong>Created:</strong> ${new Date(draft.created_at).toLocaleString()}</p>
+          </div>
+        `);
+        
+        $('#workflow-conversations').prepend(draftInfo);
+        
+        // Scroll to top of workflow container
+        $('#workflow-log-container').scrollTop(0);
+      } else {
+        alert('No workflow log available for this draft.');
+      }
+    })
+    .catch(err => {
+      console.error('Error loading draft workflow log:', err);
+      alert('Error loading workflow log.');
+    });
+}
+
+// Debug function to test email modal
+    function testEmailModal() {
+      console.log('Testing email modal...');
+      const modal = $('#emailDeliveryModal');
+      if (modal.length === 0) {
+        console.error('Email modal not found in DOM');
+        return;
+      }
+      
+      // Populate with test data
+      $('#emailTo').val('test@example.com');
+      $('#emailSubject').val('Test Email');
+      $('#emailContent').val('This is a test email.');
+      
+      // Show modal
+      modal.modal('show');
+      console.log('Email modal should now be visible');
+    }
+    
+    // Ensure email modal works independently
+    $(document).ready(function() {
+      // Verify email modal exists
+      if ($('#emailDeliveryModal').length === 0) {
+        console.error('Email modal not found in DOM!');
+      } else {
+        console.log('Email modal found and ready');
+      }
+      
+      // Add test button for debugging (temporary)
+      if (window.location.hash === '#debug') {
+        $('<button>')
+          .text('Test Email Modal')
+          .addClass('btn btn-warning')
+          .css({
+            position: 'fixed',
+            top: '10px',
+            right: '10px',
+            zIndex: 9999
+          })
+          .click(testEmailModal)
+          .appendTo('body');
+      }
+    });
+
+// Global variable to store current RFP response ID
+let currentRfpResponseId = null;
+
+// Function to view full RFP response
+async function viewFullRfpResponse(responseId) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('Authorization token is missing.');
+    alert('Please log in to view RFP responses.');
+    return;
+  }
+
+  try {
+    console.log(`Fetching RFP response details for ID: ${responseId}`);
+    
+    const response = await fetch(`${API_BASE_URL}/api/rfp-response/${responseId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    
+    if (result.success && result.data) {
+      const rfpData = result.data;
+      currentRfpResponseId = responseId;
+      
+      // Populate modal with response data
+      $('#rfpResponseModalLabel').text(`RFP Response - ${rfpData.subject}`);
+      
+      // Break content into sections and make them editable
+      const sectionedContent = breakIntoSections(rfpData.body);
+      $('#rfpResponseContent').html(sectionedContent);
+      
+      $('#rfpResponseSubject').text(rfpData.subject);
+      $('#rfpResponseCreated').text(new Date(rfpData.created_at).toLocaleString());
+      $('#rfpResponseUpdated').text(new Date(rfpData.updated_at).toLocaleString());
+      $('#rfpResponseWordCount').text(rfpData.word_count || 'N/A');
+      $('#rfpResponseCharCount').text(rfpData.character_count || 'N/A');
+      
+      // Show the modal
+      $('#rfpResponseModal').modal('show');
+    } else {
+      console.error('Failed to fetch RFP response:', result);
+      alert('Failed to load RFP response details.');
+    }
+  } catch (error) {
+    console.error('Error fetching RFP response:', error);
+    alert('Error loading RFP response. Please try again.');
+  }
+}
+
+// Function to download current RFP response from modal
+function downloadCurrentRfpResponse(format) {
+  if (!currentRfpResponseId) {
+    alert('No RFP response selected.');
+    return;
+  }
+  
+  downloadRfpResponse(currentRfpResponseId, format);
+}
+
+// Enhanced download function for RFP responses
+function downloadRfpResponse(responseId, format) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('Authorization token is missing.');
+    alert('Please log in to download RFP responses.');
+    return;
+  }
+
+  console.log(`Downloading RFP response ${responseId} as ${format}`);
+  
+  // Create a temporary link to trigger download
+  const link = document.createElement('a');
+  link.href = `${API_BASE_URL}/api/rfp-response/${responseId}/download?format=${format}`;
+  link.style.display = 'none';
+  
+  // Add authorization header by using fetch and blob
+  fetch(`${API_BASE_URL}/api/rfp-response/${responseId}/download?format=${format}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+  })
+  .then(blob => {
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    
+    // Set filename based on format
+    const filename = `rfp_response_${responseId}.${format}`;
+    link.download = filename;
+    
+    document.body.appendChild(link);
+    link.click();
+    
+    // Cleanup
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  })
+  .catch(error => {
+    console.error('Download error:', error);
+    alert(`Failed to download ${format.toUpperCase()} file. Please try again.`);
+  });
+}
+
+// Update the existing downloadDraft function to use the new download logic
+function downloadDraft(draftId, format) {
+  downloadRfpResponse(draftId, format);
+}
+
+// Function to view draft sections
+function viewDraftSections(contactId, draftId) {
+  // Show modal for sectioned email editing
+  $('#emailDraftModal').modal('show');
+  
+  // Load draft content into sections
+  fetch(`${API_BASE_URL}/contacts/${contactId}/drafts`, {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(r => r.json())
+  .then(drafts => {
+    const draft = drafts.find(d => d.id === draftId);
+    if (draft) {
+      const sectionedContent = breakIntoSections(draft.body);
+      $('#emailDraftContent').html(sectionedContent);
+      $('#emailDraftModalLabel').text(`Edit Email Draft: ${draft.subject}`);
+      
+      // Store current draft info for saving
+      $('#emailDraftModal').data('contact-id', contactId);
+      $('#emailDraftModal').data('draft-id', draftId);
+    }
+  })
+  .catch(error => {
+    console.error('Error loading draft:', error);
+  });
+}
+
+// Function to edit email draft section
+function editEmailSection(sectionIndex) {
+  const section = $(`.document-section[data-section-index="${sectionIndex}"]`);
+  const content = section.find('.section-content');
+  const currentText = content.text();
+  
+  // Clear previous selections
+  $('.document-section').removeClass('selected editing');
+  section.addClass('editing');
+  
+  // Create editable textarea
+  const textarea = $(`<textarea class="form-control bg-light" style="min-height: 100px;">${currentText}</textarea>`);
+  const saveBtn = $('<button class="btn btn-sm btn-success mt-2 mr-2">Save</button>');
+  const cancelBtn = $('<button class="btn btn-sm btn-secondary mt-2">Cancel</button>');
+  
+  content.html('').append(textarea).append('<div class="mt-2">').append(saveBtn).append(cancelBtn);
+  
+  // Save functionality
+  saveBtn.click(function() {
+    const newContent = textarea.val();
+    content.html(newContent.replace(/\n/g, '<br>'));
+    section.removeClass('editing');
+    saveEmailDraft();
+  });
+  
+  // Cancel functionality
+  cancelBtn.click(function() {
+    content.html(currentText.replace(/\n/g, '<br>'));
+    section.removeClass('editing');
+  });
+  
+  // Focus on textarea
+  textarea.focus();
+}
+
+// Function to regenerate email section using AI
+function regenerateEmailSection(sectionIndex) {
+  const section = $(`.document-section[data-section-index="${sectionIndex}"]`);
+  const content = section.find('.section-content');
+  const currentText = content.text();
+  
+  // Clear previous selections
+  $('.document-section').removeClass('selected editing');
+  section.addClass('selected');
+  
+  // Add regeneration message to chat
+  if (typeof addChatEntry === 'function') {
+    addChatEntry('System', `Regenerating email section ${sectionIndex + 1}...`);
+  }
+  
+  // Send to AI for regeneration
+  regenerateEmailSectionWithAI(currentText, section);
+}
+
+// Function to regenerate email section with AI
+async function regenerateEmailSectionWithAI(currentText, section) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/chat`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `Please improve and rewrite this email section for better clarity and engagement: "${currentText}"`,
+        persona: 'content-generation',
+        context: 'email_editing'
+      })
+    });
+    
+    const data = await response.json();
+    if (response.ok && data.reply) {
+      const sectionContent = section.find('.section-content');
+      sectionContent.html(data.reply.replace(/\n/g, '<br>'));
+      section.removeClass('selected');
+      
+      // Save the updated draft
+      saveEmailDraft();
+      
+      if (typeof addChatEntry === 'function') {
+        addChatEntry('Agent', 'Email section regenerated successfully!');
+      }
+    } else {
+      console.error('Error regenerating section:', data.error);
+      if (typeof addChatEntry === 'function') {
+        addChatEntry('Agent', 'Error regenerating section: ' + (data.error || 'Unknown error'));
+      }
+    }
+  } catch (error) {
+    console.error('Error regenerating email section:', error);
+    if (typeof addChatEntry === 'function') {
+      addChatEntry('Agent', 'Connection error while regenerating section.');
+    }
+  }
+}
+
+// Function to save email draft
+function saveEmailDraft() {
+  const contactId = $('#emailDraftModal').data('contact-id');
+  const draftId = $('#emailDraftModal').data('draft-id');
+  const content = $('#emailDraftContent').text();
+  
+  if (!contactId || !draftId) return;
+  
+  // Update the draft
+  fetch(`${API_BASE_URL}/contacts/${contactId}/drafts/${draftId}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      body: content
+    })
+  })
+  .then(r => r.json())
+  .then(result => {
+    console.log('Email draft saved successfully');
+    // Refresh the drafts list
+    fetchDrafts(contactId);
+  })
+  .catch(error => {
+    console.error('Error saving email draft:', error);
+  });
+}
+
+// Function to break content into editable sections (updated for email)
+function breakIntoSections(content) {
+  // Split content by double line breaks, paragraphs, or email sections
+  const sections = content.split(/\n\s*\n|\n(?=[A-Z][^a-z]*:|\d+\.\s|[IVX]+\.\s|Dear |Hi |Hello |Subject:|Best regards|Sincerely)/);
+  
+  let sectionedHtml = '';
+  let sectionIndex = 0;
+  
+  sections.forEach(section => {
+    const trimmedSection = section.trim();
+    if (trimmedSection) {
+      sectionedHtml += `
+        <div class="document-section email-section" data-section-index="${sectionIndex}">
+          <div class="section-actions">
+            <button class="section-btn edit" onclick="editEmailSection(${sectionIndex})">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="section-btn regenerate" onclick="regenerateEmailSection(${sectionIndex})">
+              <i class="fas fa-sync"></i>
+            </button>
+          </div>
+          <div class="section-content">${trimmedSection.replace(/\n/g, '<br>')}</div>
+        </div>
+      `;
+      sectionIndex++;
+    }
+  });
+  
+  return sectionedHtml;
+}
+
+// Function to break content into editable sections (for RFP)
+function breakIntoSections(content) {
+  // Split content by double line breaks or major headings
+  const sections = content.split(/\n\s*\n|\n(?=[A-Z][^a-z]*:|\d+\.\s|[IVX]+\.\s)/);
+  
+  let sectionedHtml = '';
+  let sectionIndex = 0;
+  
+  sections.forEach(section => {
+    const trimmedSection = section.trim();
+    if (trimmedSection) {
+      sectionedHtml += `
+        <div class="document-section" data-section-index="${sectionIndex}">
+          <div class="section-actions">
+            <button class="section-btn edit" onclick="editSection(${sectionIndex})">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="section-btn regenerate" onclick="regenerateSection(${sectionIndex})">
+              <i class="fas fa-sync"></i>
+            </button>
+          </div>
+          <div class="section-content">${trimmedSection.replace(/\n/g, '<br>')}</div>
+        </div>
+      `;
+      sectionIndex++;
+    }
+  });
+  
+  return sectionedHtml;
+}
+
+// Function to edit a section
+function editSection(sectionIndex) {
+  const section = $(`.document-section[data-section-index="${sectionIndex}"]`);
+  const content = section.find('.section-content');
+  const currentText = content.text();
+  
+  // Clear previous selections
+  $('.document-section').removeClass('selected editing');
+  section.addClass('editing');
+  
+  // Create editable textarea
+  const textarea = $(`<textarea class="form-control bg-dark text-light" style="min-height: 100px;">${currentText}</textarea>`);
+  const saveBtn = $('<button class="btn btn-sm btn-success mt-2 mr-2">Save</button>');
+  const cancelBtn = $('<button class="btn btn-sm btn-secondary mt-2">Cancel</button>');
+  
+  content.html('').append(textarea).append('<div class="mt-2">').append(saveBtn).append(cancelBtn);
+  
+  // Save functionality
+  saveBtn.click(function() {
+    const newContent = textarea.val();
+    content.html(newContent.replace(/\n/g, '<br>'));
+    section.removeClass('editing');
+    updateWordCount();
+  });
+  
+  // Cancel functionality
+  cancelBtn.click(function() {
+    content.html(currentText.replace(/\n/g, '<br>'));
+    section.removeClass('editing');
+  });
+  
+  // Focus on textarea
+  textarea.focus();
+}
+
+// Function to regenerate a section using AI
+function regenerateSection(sectionIndex) {
+  const section = $(`.document-section[data-section-index="${sectionIndex}"]`);
+  const content = section.find('.section-content');
+  const currentText = content.text();
+  
+  // Clear previous selections
+  $('.document-section').removeClass('selected editing');
+  section.addClass('selected');
+  
+  // Add regeneration message to chat
+  addChatEntry('System', `Regenerating section ${sectionIndex + 1}...`);
+  
+  // Send to current agent for regeneration
+  sendAgentMessage(`Please regenerate and improve this section of the document: "${currentText}"`);
+}
+
+// Function to update word count
+function updateWordCount() {
+  const content = $('#rfpResponseContent').text();
+  const wordCount = content.trim().split(/\s+/).length;
+  const charCount = content.length;
+  $('#rfpResponseWordCount').text(wordCount);
+  $('#rfpResponseCharCount').text(charCount);
+}
+
+// Enhanced RFP Response Modal Live Chat JavaScript
+(function() {
+  let currentPersona = 'default';
+  const chatPane = $('#agentChatMessages');
+  const spinner = $('#rfpSpinner');
+
+  // Persona selection
+  $('#agentChatPane .btn-group button, .card-body .btn-group button').click(function() {
+    $('.btn-group button').removeClass('active').attr('aria-selected','false');
+    $(this).addClass('active').attr('aria-selected','true');
+    currentPersona = $(this).data('persona');
+    chatPane.html('<p class="text-muted text-center small">Chatting with ' + $(this).text() + ' persona.</p>');
+  });
+
+  // Send chat message
+  $('#agentChatSendBtn').click(async () => sendAgentMessage());
+  $('#agentChatInput').keypress(e => { if(e.key==='Enter') { e.preventDefault(); sendAgentMessage(); }});
+
+  // Make sendAgentMessage global so it can be called from regenerateSection
+  window.sendAgentMessage = async function(messageOverride) {
+    const message = messageOverride || $('#agentChatInput').val().trim();
+    if (!message) return;
+    
+    if (!messageOverride) {
+      $('#agentChatInput').val('');
+    }
+
+    addChatEntry('You', message);
+    spinner.show();
+    
+    try {
+      // Use the correct chat endpoint from your app.py
+      const res = await fetch(`${API_BASE_URL}/api/chat`, {
+        method: 'POST', 
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({ 
+          message: message,
+          persona: currentPersona,
+          context: 'rfp_editing'
+        })
+      });
+      
+      const data = await res.json();
+      if (res.ok && data.reply) {
+        addChatEntry('Agent', data.reply);
+        
+        // If this was a regeneration request, update the selected section
+        const selectedSection = $('.document-section.selected');
+        if (selectedSection.length > 0 && messageOverride) {
+          const sectionContent = selectedSection.find('.section-content');
+          sectionContent.html(data.reply.replace(/\n/g, '<br>'));
+          selectedSection.removeClass('selected');
+          updateWordCount();
+        }
+      } else {
+        addChatEntry('Agent', 'Error: ' + (data.error || res.statusText));
+      }
+    } catch (err) {
+      console.error('Chat error:', err);
+      addChatEntry('Agent', 'Connection error. Please try again.');
+    } finally {
+      spinner.hide();
+    }
+  }
+
+  // Make addChatEntry global
+  window.addChatEntry = function(who, text) {
+    const cssClass = who === 'You' ? 'text-right text-info' : 
+                    who === 'System' ? 'text-center text-warning' : 'text-left text-light';
+    const timestamp = new Date().toLocaleTimeString();
+    chatPane.append(`<div class="${cssClass} mb-1">
+      <small class="text-muted">${timestamp}</small><br>
+      <strong>${who}:</strong> ${text}
+    </div>`);
+    chatPane.scrollTop(chatPane[0].scrollHeight);
+  }
+})();
+
+// Scroll animations
+$(document).ready(function() {
+  // Add scroll fade-in class to elements
+  $('.contact-item, .card, .btn').addClass('scroll-fade-in');
+  
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+  
+  // Observe all scroll-fade-in elements
+  document.querySelectorAll('.scroll-fade-in').forEach(el => {
+    observer.observe(el);
+  });
+  
+  // Smooth scrolling for anchor links
+  $('a[href^="#"]').on('click', function(e) {
+    e.preventDefault();
+    const target = $(this.getAttribute('href'));
+    if (target.length) {
+      $('html, body').animate({
+        scrollTop: target.offset().top - 100
+      }, 800);
+    }
+  });
+  
+  // Add ripple effect to buttons
+  $('.btn').on('click', function(e) {
+    const btn = $(this);
+    const ripple = $('<span class="ripple"></span>');
+    
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.css({
+      width: size,
+      height: size,
+      left: x,
+      top: y,
+      position: 'absolute',
+      borderRadius: '50%',
+      background: 'rgba(255,255,255,0.3)',
+      transform: 'scale(0)',
+      animation: 'ripple 0.6s linear',
+      pointerEvents: 'none'
+    });
+    
+    btn.css('position', 'relative').css('overflow', 'hidden').append(ripple);
+    
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  });
+  
+  // Add CSS for ripple animation
+  $('<style>').text(`
+    @keyframes ripple {
+      to {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+  `).appendTo('head');
+});
+
+// Notification system
+function showNotification(message, type = 'info', duration = 3000) {
+  const notification = $(`
+    <div class="notification ${type}">
+      <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+      <span>${message}</span>
+      <button class="btn btn-sm btn-link text-muted ml-auto" onclick="$(this).parent().removeClass('show')">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  `);
+  
+  $('body').append(notification);
+  
+  setTimeout(() => {
+    notification.addClass('show');
+  }, 100);
+  
+  setTimeout(() => {
+    notification.removeClass('show');
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  }, duration);
+}
+
+// Enhanced contact interaction
+function openEmailModal(contactIndex) {
+  console.log('Opening email modal for contact:', contactIndex);
+  
+  if (typeof contactIndex !== 'number' || !contacts[contactIndex]) {
+    alert('Please select a valid contact first.');
+    return;
+  }
+  
+  const contact = contacts[contactIndex];
+  const [name, email, agency, focus, whyHot] = contact;
+  
+  // Pre-fill email modal with contact information
+  $('#emailTo').val(email);
+  $('#emailSubject').val(`Partnership Opportunity - Alambda Systems`);
+  $('#emailBody').val(`Dear ${name},
+
+I hope this email finds you well. I'm reaching out from Alambda Systems regarding potential partnership opportunities in ${focus}.
+
+We are a SAM-registered vendor (UEI: YEHBP8VM3NJ3, CAGE Code: 8G5R3) specializing in AI and software development solutions.
+
+I would love to schedule a brief call to discuss how we can support ${agency}'s initiatives in ${focus}.
+
+Best regards,
+Alambda Systems Team`);
+  
+  // Show email delivery modal
+  $('#emailDeliveryModal').modal('show');
+  
+  showNotification('Email composer opened', 'info');
+}
+
+// Function to apply suggested content changes
+function applySuggestedContent(suggestedContent) {
+  if (confirm('Apply the suggested changes to your RFP response?')) {
+    $('#rfpResponseContent').html(breakIntoSections(suggestedContent));
+    updateWordCount();
+    showNotification('Suggested changes applied successfully!', 'success');
+    
+    // Save the updated content as a new draft version
+    if (window.currentRFPContactIndex !== undefined) {
+      const contact = contacts[window.currentRFPContactIndex];
+      const [name, email, agency] = contact;
+      saveDraft(window.currentRFPContactIndex, `RFP Response for ${agency} (Revised)`, suggestedContent, 'rfp');
+    }
+  }
+}
+
+function openRFPModal(contactIndex) {
+  console.log('Opening RFP modal for contact:', contactIndex);
+  
+  if (typeof contactIndex !== 'number' || !contacts[contactIndex]) {
+    alert('Please select a valid contact first.');
+    return;
+  }
+  
+  const contact = contacts[contactIndex];
+  const [name, email, agency, focus, whyHot] = contact;
+  
+  // Open RFP Response Modal with contact information
+  $('#rfpResponseModal').modal('show');
+  
+  // Initialize RFP form with contact data
+  const modalBody = $('#rfpResponseModal .modal-body');
+  modalBody.html(`
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Left Panel: RFP Input -->
+        <div class="col-md-6">
+          <div class="card bg-secondary">
+            <div class="card-header">
+              <h5><i class="fas fa-upload"></i> RFP Document Upload</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Contact Information</label>
+                <div class="contact-info-display bg-dark p-3 rounded">
+                  <strong>${name}</strong><br>
+                  <span class="text-info">${email}</span><br>
+                  <span class="text-muted">${agency}</span><br>
+                  <small>Focus: ${focus}</small>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="rfpFileUpload">Upload RFP Document</label>
+                <input type="file" class="form-control-file" id="rfpFileUpload" accept=".pdf,.doc,.docx,.txt">
+                <small class="form-text text-muted">Supported formats: PDF, DOC, DOCX, TXT</small>
+              </div>
+              
+              <div class="form-group">
+                <label for="rfpTextInput">Or Paste RFP Content</label>
+                <textarea class="form-control bg-dark text-light" id="rfpTextInput" rows="10" 
+                  placeholder="Paste your RFP content here or upload a file above..."></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label for="rfpDeadline">Response Deadline</label>
+                <input type="date" class="form-control bg-dark text-light" id="rfpDeadline">
+              </div>
+              
+              <button class="btn btn-primary btn-block" onclick="generateRFPResponse(${contactIndex})">
+                <i class="fas fa-robot"></i> Generate AI Response
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Panel: Generated Response -->
+        <div class="col-md-6">
+          <div class="card bg-secondary">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5><i class="fas fa-file-alt"></i> Generated RFP Response</h5>
+              <div class="btn-group btn-group-sm">
+                <button class="btn btn-outline-info" onclick="downloadCurrentRfpResponse('pdf')">
+                  <i class="fas fa-file-pdf"></i> PDF
+                </button>
+                <button class="btn btn-outline-info" onclick="downloadCurrentRfpResponse('docx')">
+                  <i class="fas fa-file-word"></i> DOCX
+                </button>
+                <button class="btn btn-outline-success" onclick="emailRFPResponse(${contactIndex})">
+                  <i class="fas fa-envelope"></i> Email
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="rfpResponseContent" class="bg-dark p-3 rounded" style="min-height: 400px; max-height: 500px; overflow-y: auto;">
+                <p class="text-muted text-center">
+                  <i class="fas fa-robot fa-2x mb-3"></i><br>
+                  Upload or paste your RFP content and click "Generate AI Response" to start the process.
+                </p>
+              </div>
+              
+              <div class="mt-3">
+                <small class="text-muted">
+                  Word Count: <span id="rfpResponseWordCount">0</span> | 
+                  Characters: <span id="rfpResponseCharCount">0</span>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Agent Chat Panel -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="card bg-secondary">
+            <div class="card-header">
+              <h6><i class="fas fa-comments"></i> AI Agent Chat - RFP Assistant</h6>
+            </div>
+            <div class="card-body">
+              <div id="rfpChatMessages" style="height: 200px; overflow-y: auto; background: #343a40; border: 1px solid #495057; border-radius: 0.25rem; padding: 0.75rem; margin-bottom: 1rem;">
+                <p class="text-muted text-center">Chat with AI agents to refine your RFP response...</p>
+              </div>
+              <div class="input-group">
+                <input type="text" class="form-control bg-dark text-light" id="rfpChatInput" 
+                  placeholder="Ask AI agents to improve the response...">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" onclick="sendRFPChatMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="mt-2">
+                <div class="btn-group btn-group-sm">
+                  <button class="btn btn-outline-info active" data-persona="coordinator">Coordinator</button>
+                  <button class="btn btn-outline-success" data-persona="document-analysis">Document Analysis</button>
+                  <button class="btn btn-outline-warning" data-persona="content-generation">Content Generation</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `);
+  
+  // Store current contact index for later use
+  window.currentRFPContactIndex = contactIndex;
+  
+  // Initialize chat persona handlers
+  initializeRFPChatHandlers();
+}
+
+// Function to generate RFP response using AI agents
+async function generateRFPResponse(contactIndex) {
+  const contact = contacts[contactIndex];
+  const [name, email, agency, focus, whyHot] = contact;
+  
+  // Get RFP content from file or text input
+  let rfpContent = $('#rfpTextInput').val().trim();
+  const fileInput = document.getElementById('rfpFileUpload');
+  
+  if (fileInput.files.length > 0 && !rfpContent) {
+    // Handle file upload
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    try {
+      const token = localStorage.getItem('token');
+      const uploadResponse = await fetch(`${API_BASE_URL}/extract-text`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+      
+      if (uploadResponse.ok) {
+        const result = await uploadResponse.json();
+        rfpContent = result.text || result.content || '';
+        $('#rfpTextInput').val(rfpContent);
+      } else {
+        throw new Error('Failed to extract text from file');
+      }
+    } catch (error) {
+      console.error('Error extracting text:', error);
+      alert('Error extracting text from file. Please try pasting the content manually.');
+      return;
+    }
+  }
+  
+  if (!rfpContent) {
+    alert('Please provide RFP content either by uploading a file or pasting text.');
+    return;
+  }
+  
+  // Show loading state
+  $('#rfpResponseContent').html(`
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Generating response...</span>
+      </div>
+      <p class="mt-3">AI agents are analyzing the RFP and generating a response...</p>
+      <small class="text-muted">This may take a few moments</small>
+    </div>
+  `);
+  
+  try {
+    const token = localStorage.getItem('token');
+    
+    // Call the agent workflow API
+    const workflowResponse = await fetch(`${API_BASE_URL}/api/agents/workflow`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        task_type: 'rfp',
+        content: rfpContent,
+        contact_id: contactIndex,
+        contact_info: {
+          name: name,
+          email: email,
+          agency: agency,
+          focus: focus,
+          whyHot: whyHot
+        }
+      })
+    });
+    
+    if (!workflowResponse.ok) {
+      throw new Error(`Workflow failed: ${workflowResponse.status}`);
+    }
+    
+    const workflowResult = await workflowResponse.json();
+    
+    // Display the generated response
+    const generatedContent = workflowResult.final_content || 'No response generated';
+    $('#rfpResponseContent').html(breakIntoSections(generatedContent));
+    
+    // Update word count
+    updateWordCount();
+    
+    // Save the draft
+    await saveDraft(contactIndex, `RFP Response for ${agency}`, generatedContent, 'rfp', workflowResult.workflow_log);
+    
+    // Display agent conversations in chat
+    displayAgentConversations(workflowResult.workflow_log);
+    
+    // Store the current RFP response ID for downloads
+    currentRfpResponseId = workflowResult.workflow_id;
+    
+    showNotification('RFP response generated successfully!', 'success');
+    
+  } catch (error) {
+    console.error('Error generating RFP response:', error);
+    $('#rfpResponseContent').html(`
+      <div class="alert alert-danger">
+        <h6>Error generating response</h6>
+        <p>${error.message}</p>
+        <button class="btn btn-sm btn-outline-danger" onclick="generateRFPResponse(${contactIndex})">
+          Try Again
+        </button>
+      </div>
+    `);
+  }
+}
+
+// Function to save draft with workflow log
+async function saveDraft(contactId, subject, body, type = 'rfp', workflowLog = null) {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/contacts/${contactId}/drafts`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        subject: subject,
+        body: body,
+        type: type,
+        workflow_log: workflowLog
+      })
+    });
+    
+    if (response.ok) {
+      console.log('Draft saved successfully');
+      return await response.json();
+    } else {
+      throw new Error('Failed to save draft');
+    }
+  } catch (error) {
+    console.error('Error saving draft:', error);
+  }
+}
+
+// Function to display agent conversations
+function displayAgentConversations(workflowLog) {
+  if (!workflowLog || !workflowLog.agent_conversations) return;
+  
+  const chatContainer = $('#rfpChatMessages');
+  chatContainer.empty();
+  
+  workflowLog.agent_conversations.forEach(conversation => {
+    const messageDiv = $(`
+      <div class="agent-message mb-2 p-2 border-left border-${getAgentColor(conversation.agent_type)} bg-dark">
+        <div class="d-flex align-items-center mb-1">
+          <span class="agent-icon mr-2">${getAgentIcon(conversation.agent_type)}</span>
+          <strong class="text-${getAgentColor(conversation.agent_type)}">${conversation.agent_name}</strong>
+          <small class="text-muted ml-auto">${new Date(conversation.timestamp).toLocaleTimeString()}</small>
+        </div>
+        <div class="agent-response text-light">${conversation.response}</div>
+      </div>
+    `);
+    chatContainer.append(messageDiv);
+  });
+  
+  chatContainer.scrollTop(chatContainer[0].scrollHeight);
+}
+
+// Function to initialize RFP chat handlers
+function initializeRFPChatHandlers() {
+  // Persona selection
+  $('[data-persona]').click(function() {
+    $('[data-persona]').removeClass('active');
+    $(this).addClass('active');
+    window.currentRFPPersona = $(this).data('persona');
+  });
+  
+  // Chat input handler
+  $('#rfpChatInput').keypress(function(e) {
+    if (e.which === 13) {
+      sendRFPChatMessage();
+    }
+  });
+  
+  // Initialize with coordinator persona
+  window.currentRFPPersona = 'coordinator';
+}
+
+// Function to send chat message to RFP agents
+async function sendRFPChatMessage() {
+  const message = $('#rfpChatInput').val().trim();
+  if (!message) return;
+  
+  const persona = window.currentRFPPersona || 'coordinator';
+  const currentContent = $('#rfpResponseContent').text();
+  
+  // Add user message to chat
+  addRFPChatMessage('You', message, 'user');
+  
+  // Clear input
+  $('#rfpChatInput').val('');
+  
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/api/agents/workflows/rfp-chat`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: message,
+        current_content: currentContent,
+        rfp_id: currentRfpResponseId,
+        persona: persona
+      })
+    });
+    
+    if (response.ok) {
+      const result = await response.json();
+      addRFPChatMessage(getPersonaName(persona), result.response, persona);
+      
+      // If there's suggested content, offer to apply it
+      if (result.suggested_content) {
+        addRFPChatMessage('System', `
+          <div class="suggested-content mt-2">
+            <button class="btn btn-sm btn-outline-success" onclick="applySuggestedContent('${result.suggested_content.replace(/'/g, "\\'")}')">
+              Apply Suggested Changes
+            </button>
+          </div>
+        `, 'system');
+      }
+    } else {
+      addRFPChatMessage('System', 'Error: Could not process your request', 'error');
+    }
+  } catch (error) {
+    console.error('Error sending chat message:', error);
+    addRFPChatMessage('System', 'Error: Could not connect to AI agents', 'error');
+  }
+}
+
+// Function to add chat message
+function addRFPChatMessage(sender, message, type) {
+  const chatContainer = $('#rfpChatMessages');
+  const messageDiv = $(`
+    <div class="chat-message mb-2 p-2 border-left border-${getTypeColor(type)}">
+      <div class="d-flex align-items-center mb-1">
+        <strong class="text-${getTypeColor(type)}">${sender}</strong>
+        <small class="text-muted ml-auto">${new Date().toLocaleTimeString()}</small>
+      </div>
+      <div class="message-content text-light">${message}</div>
+    </div>
+  `);
+  
+  chatContainer.append(messageDiv);
+  chatContainer.scrollTop(chatContainer[0].scrollHeight);
+}
+
+// Helper functions
+function getPersonaName(persona) {
+  const names = {
+    'coordinator': 'Coordinator Agent',
+    'document-analysis': 'Document Analysis Agent',
+    'content-generation': 'Content Generation Agent'
+  };
+  return names[persona] || 'AI Agent';
+}
+
+function getTypeColor(type) {
+  const colors = {
+    'user': 'primary',
+    'coordinator': 'info',
+    'document-analysis': 'success',
+    'content-generation': 'warning',
+    'system': 'secondary',
+    'error': 'danger'
+  };
+  return colors[type] || 'secondary';
+}
+
+function getAgentColor(agentType) {
+  return getTypeColor(agentType);
+}
+
+function getAgentIcon(agentType) {
+  const icons = {
+    'coordinator': '🎯',
+    'document-analysis': '📄',
+    'content-generation': '✍️'
+  };
+  return icons[agentType] || '🤖';
+}
+
+// Function to email RFP response
+async function emailRFPResponse(contactIndex) {
+  const content = $('#rfpResponseContent').text();
+  if (!content || content.includes('Upload or paste')) {
+    alert('Please generate an RFP response first.');
+    return;
+  }
+  
+  const contact = contacts[contactIndex];
+  const [name, email, agency] = contact;
+  
+  // Open email modal with pre-filled RFP response
+  $('#emailDeliveryModal').modal('show');
+  $('#emailTo').val(email);
+  $('#emailSubject').val(`RFP Response for ${agency}`);
+  $('#emailBody').val(content);
+}
+
+function scheduleCall(contactIndex) {
+  showNotification('Call scheduled successfully!', 'success');
+  // Add your call scheduling logic here
+}
+
+// Enhanced table interactions
+$(document).ready(function() {
+  // Add hover effects to table rows
+  $('#contactsTable tbody').on('mouseenter', 'tr', function() {
+    $(this).find('td').animate({
+      padding: '1.2rem 1rem'
+    }, 200);
+  }).on('mouseleave', 'tr', function() {
+    $(this).find('td').animate({
+      padding: '1rem'
+    }, 200);
+  });
+  
+  // Add loading states to buttons
+  $('.btn').on('click', function() {
+    const btn = $(this);
+    const originalText = btn.html();
+    
+    if (!btn.hasClass('loading')) {
+      btn.addClass('loading').html('<i class="fas fa-spinner fa-spin"></i> Loading...');
+      
+      // Simulate loading (remove this and handle in your actual functions)
+      setTimeout(() => {
+        btn.removeClass('loading').html(originalText);
+      }, 2000);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
